@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.model
+package ru.otus.otuskotlin.vd.rentalproperty.model.person
 
 data class User(
   var id: UserId = UserId.NONE,

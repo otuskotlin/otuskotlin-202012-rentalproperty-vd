@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.dsl
 
 import ru.otus.otuskotlin.vd.rentalproperty.enums.PrivilegeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.enums.RoleEnum
-import ru.otus.otuskotlin.vd.rentalproperty.model.Role
+import ru.otus.otuskotlin.vd.rentalproperty.model.person.Role
 
 @UserDSL
 class RoleConfig {

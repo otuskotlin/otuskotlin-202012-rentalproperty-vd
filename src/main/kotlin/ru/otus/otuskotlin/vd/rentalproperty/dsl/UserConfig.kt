@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.vd.rentalproperty.dsl
 
-import ru.otus.otuskotlin.vd.rentalproperty.model.*
+import ru.otus.otuskotlin.vd.rentalproperty.model.person.*
 
 @UserDSL
 class UserConfig {

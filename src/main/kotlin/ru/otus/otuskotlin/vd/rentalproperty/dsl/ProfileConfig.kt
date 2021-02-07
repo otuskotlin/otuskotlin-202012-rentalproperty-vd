@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.dsl
 
-import ru.otus.otuskotlin.vd.rentalproperty.model.Phone
-import ru.otus.otuskotlin.vd.rentalproperty.model.Profile
+import ru.otus.otuskotlin.vd.rentalproperty.model.person.Phone
+import ru.otus.otuskotlin.vd.rentalproperty.model.person.Profile
 import java.time.LocalDate
 
 @UserDSL

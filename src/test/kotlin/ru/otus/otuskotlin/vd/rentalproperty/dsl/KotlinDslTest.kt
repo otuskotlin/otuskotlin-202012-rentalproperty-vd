@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.dsl
 
 import ru.otus.otuskotlin.vd.rentalproperty.enums.PrivilegeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.enums.RoleEnum
-import ru.otus.otuskotlin.vd.rentalproperty.model.User
+import ru.otus.otuskotlin.vd.rentalproperty.model.person.User
 import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals

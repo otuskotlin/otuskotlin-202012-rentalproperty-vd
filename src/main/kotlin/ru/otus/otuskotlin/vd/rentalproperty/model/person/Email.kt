@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.model
+package ru.otus.otuskotlin.vd.rentalproperty.model.person
 
 inline class Email(val value: String) {
   companion object {

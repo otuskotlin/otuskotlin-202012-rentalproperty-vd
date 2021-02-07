@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.model
+package ru.otus.otuskotlin.vd.rentalproperty.model.person
 
 import ru.otus.otuskotlin.vd.rentalproperty.enums.PrivilegeEnum
 
