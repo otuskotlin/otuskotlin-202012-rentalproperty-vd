@@ -26,6 +26,11 @@ class UserConfig {
     this.email = Email(email)
   }
 
+  fun profile(block: ProfileConfig.() -> Unit) {
+    val profileConf = ProfileConfig().apply(block)
+    this.profile = profileConf.build()
+  }
+
   fun roles(block: RoleConfig.() -> Unit) {
     val roleConf = RoleConfig().apply(block)
     roles = roleConf.roles.toMutableSet()

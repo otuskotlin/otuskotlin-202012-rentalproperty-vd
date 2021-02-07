@@ -32,7 +32,7 @@ internal class KotlinDslTest {
       roles {
         add(role {
           name {
-            RoleEnum.USER
+            RoleEnum.USER.name
           }
           privileges {
             add(PrivilegeEnum.ROLE_READ)
@@ -44,6 +44,7 @@ internal class KotlinDslTest {
     }
 
     assertEquals("test@test.com", user.email.value)
+    assertEquals("Иван", user.profile.fname)
     assertEquals("2000-01-01", user.profile.dob.toString())
     assertEquals(RoleEnum.USER.name, user.roles.first().name)
     assertTrue("permission must contain All permissions") {

@@ -25,7 +25,7 @@ class RoleConfig {
 
   fun name(block: RoleNameConf.() -> Unit) {
     val roleNameConf = RoleNameConf().apply(block)
-    name = roleNameConf.toString()
+    name = roleNameConf.name
   }
 
   fun privileges(block: PrivilegeConf.() -> Unit) {
