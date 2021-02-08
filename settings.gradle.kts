@@ -6,3 +6,6 @@ pluginManagement {
     kotlin("jvm") version kotlinVersion
   }
 }
+
+include("rentalproperty-spring")
+include("rentalproperty-ktor")

@@ -6,7 +6,7 @@ build/
 
 # Private Files
 .env
-/rentalproperty-ktor/src/main/resources/private/
+/src/main/resources/private/
 /privates/
 *private.properties
 *-private.yml
