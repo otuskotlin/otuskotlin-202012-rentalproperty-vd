@@ -1,8 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl
 
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.Role
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.User
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.RoleDsl
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.UserDsl
 
-infix fun User.has(role: Role) {
-  roles.add(role)
+infix fun UserDsl.has(roleDsl: RoleDsl) {
+  roleDsls.add(roleDsl)
 }

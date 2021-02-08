@@ -4,6 +4,11 @@
 # Project exclude paths
 build/
 
+# Generated files
+bin/
+gen/
+out/
+
 # Private Files
 .env
 /src/main/resources/private/

@@ -1,19 +1,19 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl
 
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.*
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.*
 
 @UserDSL
 class UserConfig {
   private var id: UserId = UserId.NONE
   private var email: Email = Email.NONE
-  private var profile: Profile = Profile()
-  private var roles: MutableSet<Role> = mutableSetOf()
+  private var profileDsl: ProfileDsl = ProfileDsl()
+  private var roleDsls: MutableSet<RoleDsl> = mutableSetOf()
 
-  fun build() = User(
+  fun build() = UserDsl(
     id = id,
     email = email,
-    profile = profile,
-    roles = roles
+    profileDsl = profileDsl,
+    roleDsls = roleDsls
   )
 
   private fun id(id: UserId) {
@@ -28,12 +28,12 @@ class UserConfig {
 
   fun profile(block: ProfileConfig.() -> Unit) {
     val profileConf = ProfileConfig().apply(block)
-    this.profile = profileConf.build()
+    this.profileDsl = profileConf.build()
   }
 
   fun roles(block: RoleConfig.() -> Unit) {
     val roleConf = RoleConfig().apply(block)
-    roles = roleConf.roles.toMutableSet()
+    roleDsls = roleConf.roleDsls.toMutableSet()
   }
 
 }

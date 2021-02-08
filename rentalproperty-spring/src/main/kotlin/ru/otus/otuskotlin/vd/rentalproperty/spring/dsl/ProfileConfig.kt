@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl
 
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.Phone
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.Profile
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.Phone
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.ProfileDsl
 import java.time.LocalDate
 
 @UserDSL
@@ -12,7 +12,7 @@ class ProfileConfig {
   private var dob: LocalDate = LocalDate.MIN
   private var phone: Phone = Phone.NONE
 
-  fun build() = Profile(
+  fun build() = ProfileDsl(
     fname = fname,
     mname = mname,
     lname = lname,

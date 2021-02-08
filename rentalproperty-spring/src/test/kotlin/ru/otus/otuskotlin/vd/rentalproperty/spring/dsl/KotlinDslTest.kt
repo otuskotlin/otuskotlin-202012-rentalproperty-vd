@@ -1,8 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl
 
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.UserDsl
 import ru.otus.otuskotlin.vd.rentalproperty.spring.enums.PrivilegeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.spring.enums.RoleEnum
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.User
 import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -12,7 +12,7 @@ internal class KotlinDslTest {
 
   @Test
   fun createUserModel() {
-    val user: User = user {
+    val userDsl: UserDsl = user {
       email("test@test.com")
 
       profile {
@@ -43,12 +43,12 @@ internal class KotlinDslTest {
       }
     }
 
-    assertEquals("test@test.com", user.email.value)
-    assertEquals("Иван", user.profile.fname)
-    assertEquals("2000-01-01", user.profile.dob.toString())
-    assertEquals(RoleEnum.USER.name, user.roles.first().name)
+    assertEquals("test@test.com", userDsl.email.value)
+    assertEquals("Иван", userDsl.profileDsl.fname)
+    assertEquals("2000-01-01", userDsl.profileDsl.dob.toString())
+    assertEquals(RoleEnum.USER.name, userDsl.roleDsls.first().name)
     assertTrue("permission must contain All permissions") {
-      user.roles.first().privileges.containsAll(
+      userDsl.roleDsls.first().privileges.containsAll(
         listOf(
           PrivilegeEnum.ROLE_READ,
           PrivilegeEnum.CONTENT_READ,
@@ -81,8 +81,8 @@ internal class KotlinDslTest {
 
     user has roleUser
 
-    assertTrue(user.roles.contains(roleUser))
-    assertEquals(RoleEnum.USER.name, user.roles.elementAt(0).name)
+    assertTrue(user.roleDsls.contains(roleUser))
+    assertEquals(RoleEnum.USER.name, user.roleDsls.elementAt(0).name)
   }
 
 }

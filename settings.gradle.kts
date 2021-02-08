@@ -5,6 +5,9 @@ pluginManagement {
   plugins {
     kotlin("jvm") version kotlinVersion
   }
+  repositories {
+    gradlePluginPortal()
+  }
 }
 
 include("rentalproperty-spring")

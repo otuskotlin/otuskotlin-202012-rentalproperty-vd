@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.spring.model
+package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model
 
 inline class Id(val id: String) {
   companion object {

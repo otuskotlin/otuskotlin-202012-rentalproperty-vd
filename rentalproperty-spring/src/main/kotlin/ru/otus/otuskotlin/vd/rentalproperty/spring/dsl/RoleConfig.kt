@@ -1,20 +1,20 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl
 
+import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.RoleDsl
 import ru.otus.otuskotlin.vd.rentalproperty.spring.enums.PrivilegeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.spring.enums.RoleEnum
-import ru.otus.otuskotlin.vd.rentalproperty.spring.model.person.Role
 
 @UserDSL
 class RoleConfig {
   private var name: String = RoleEnum.USER.name
   private var privileges: MutableSet<PrivilegeEnum> = mutableSetOf()
-  private val _roles: MutableSet<Role> = mutableSetOf()
-  val roles: Set<Role>
-    get() = _roles.toSet()
+  private val _roleDsls: MutableSet<RoleDsl> = mutableSetOf()
+  val roleDsls: Set<RoleDsl>
+    get() = _roleDsls.toSet()
 
-  fun add(role: Role) = _roles.add(role)
+  fun add(roleDsl: RoleDsl) = _roleDsls.add(roleDsl)
 
-  fun build() = Role(
+  fun build() = RoleDsl(
     name = name,
     privileges = privileges.toMutableSet()
   )

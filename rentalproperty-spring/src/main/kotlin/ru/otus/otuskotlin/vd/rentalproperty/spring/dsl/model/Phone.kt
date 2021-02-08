@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.spring.model.person
+package ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model
 
 inline class Phone(val phone: String) {
   companion object {

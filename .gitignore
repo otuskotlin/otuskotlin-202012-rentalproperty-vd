@@ -4,9 +4,14 @@
 # Project exclude paths
 build/
 
+# Generated files
+bin/
+gen/
+out/
+
 # Private Files
 .env
-/rentalproperty-ktor/src/main/resources/private/
+/src/main/resources/private/
 /privates/
 *private.properties
 *-private.yml
