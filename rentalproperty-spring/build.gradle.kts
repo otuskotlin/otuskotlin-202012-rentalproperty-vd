@@ -14,10 +14,6 @@ group = "ru.otus.otuskotlin.vd.rentalproperty.spring"
 version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
   val kotestVersion: String by project
   val coroutinesVersion: String by project

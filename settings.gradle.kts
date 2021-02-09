@@ -1,9 +1,12 @@
 rootProject.name = "otuskotlin-202012-rentalproperty-vd"
 
 pluginManagement {
-  val kotlinVersion: String by settings
   plugins {
-    kotlin("jvm") version kotlinVersion
+    val kotlinVersion: String by settings
+    kotlin("jvm") version kotlinVersion apply false
+    kotlin("js") version kotlinVersion apply false
+    kotlin("multiplatform") version kotlinVersion apply false
+    kotlin("plugin.serialization") version kotlinVersion apply false
   }
   repositories {
     gradlePluginPortal()
@@ -12,3 +15,4 @@ pluginManagement {
 
 include("rentalproperty-spring")
 include("rentalproperty-ktor")
+include("rentalproperty-mp")
