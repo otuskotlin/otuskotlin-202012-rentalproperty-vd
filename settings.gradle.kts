@@ -16,3 +16,4 @@ pluginManagement {
 include("rentalproperty-spring")
 include("rentalproperty-ktor")
 include("rentalproperty-mp")
+include("rentalproperty-frontend")
