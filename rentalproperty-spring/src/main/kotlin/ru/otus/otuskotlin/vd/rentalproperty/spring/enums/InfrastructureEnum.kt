@@ -4,6 +4,6 @@ enum class InfrastructureEnum {
   GAZ,
   HEATING,
   ELECTRICITY,
-  SEWAGE_SYSTEM,
+  SEWERAGE,  //Канализация
   WATER
 }

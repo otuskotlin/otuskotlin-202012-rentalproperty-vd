@@ -6,7 +6,13 @@ enum class RealtyTypeEnum {
   COMMERCIAL,
   GARAGE,
   FLAT,
+  HOTEL,
+  HOSTEL,
   HOUSE,
+  NEW_BUILDING,
+  OFFICE,
   PARKING_SPACE,
+  PART_HOUSE,
+  PLOT,
   ROOM,
 }
