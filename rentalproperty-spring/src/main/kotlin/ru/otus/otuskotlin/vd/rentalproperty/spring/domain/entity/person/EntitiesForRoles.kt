@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity
+package ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity.person
 
 import javax.persistence.*
 

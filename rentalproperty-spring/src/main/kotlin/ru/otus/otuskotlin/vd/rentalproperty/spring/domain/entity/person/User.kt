@@ -1,5 +1,6 @@
-package ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity
+package ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity.person
 
+import ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity.BaseAuditEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.ManyToMany

@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
-import ru.otus.otuskotlin.vd.rentalproperty.spring.repository.UserRepository
+import ru.otus.otuskotlin.vd.rentalproperty.spring.service.UserService
 
 @RestController
-@RequestMapping("/user")
-class UserController(private val repository: UserRepository) {
+@RequestMapping("/users")
+class UserRestController(private val userService: UserService) {
 
   @GetMapping
-  fun findAll() = repository.findAll()
+  fun findAll() = userService.getAll()
 
   @GetMapping("/{email}")
-  fun findOne(@PathVariable email: String) = repository.findByEmail(email)
+  fun findOne(@PathVariable email: String) = userService.getByEmail(email)
     ?: throw ResponseStatusException(NOT_FOUND, "This user does not exist")
 }

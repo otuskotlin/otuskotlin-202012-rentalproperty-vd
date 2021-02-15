@@ -1,10 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity.realty
 
-import ru.otus.otuskotlin.vd.rentalproperty.spring.dsl.model.Id
+import ru.otus.otuskotlin.vd.rentalproperty.spring.domain.entity.meida.MediaFile
 import ru.otus.otuskotlin.vd.rentalproperty.spring.enums.*
 
 data class House(
-  override var id: Id = Id.NONE,
+  override var id: Long,
   override var realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
   override var price: Double,
   override var area: Double,
@@ -24,5 +24,5 @@ data class House(
   var metro: String? = "",
   var timeToMetro: Int? = 0,
   var distanceToMetro: Int? = 0,
-  var photos: MutableSet<InfrastructureEnum>? = null
+  var photos: MutableSet<MediaFile>? = null
 ) : Realty()
