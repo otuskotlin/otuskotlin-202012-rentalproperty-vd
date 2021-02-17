@@ -14,12 +14,12 @@ class User(
   @Column(nullable = false, unique = true)
   var email: String,
 
-  @Column(nullable = false, columnDefinition = "boolean default true")
-  var enabled: Boolean = true,
+  @NotEmpty
+  @ManyToMany var roles: MutableSet<Role>,
 
   @OneToOne var profile: Profile? = null,
 
-  @NotEmpty
-  @ManyToMany var roles: MutableSet<Role>
+  @Column(nullable = false, columnDefinition = "boolean default true")
+  var enabled: Boolean = true,
 ) : BaseAuditEntity<Long>()
 

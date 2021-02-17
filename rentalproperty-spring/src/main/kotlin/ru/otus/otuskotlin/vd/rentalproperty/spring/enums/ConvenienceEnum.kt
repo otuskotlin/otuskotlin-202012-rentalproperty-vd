@@ -1,5 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.enums
 
+/**
+ * Список удобств в квартире или в доме
+ */
 enum class ConvenienceEnum {
   AIR_CONDITIONER,
   CONCIERGE,

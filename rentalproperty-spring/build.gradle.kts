@@ -38,12 +38,16 @@ dependencies {
 
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    exclude(group = "org.junit.jupiter", module = "junit-jupiter")
     exclude(module = "mockito-core")
   }
 
   testImplementation(kotlin("test-junit5"))
-  testImplementation(platform("org.junit:junit-bom:5.7.1"))
+  testImplementation(platform("org.junit:junit-bom:5.6.3"))
   testImplementation("org.junit.jupiter:junit-jupiter")
+
+  //testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:jar:2.2.0")
+  testImplementation("io.mockk:mockk:1.10.6")
 
   testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
   testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")

@@ -1,5 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.spring.enums
 
+/**
+ * Список вариантов недвижимого имущества
+ */
 enum class RealtyTypeEnum {
   APARTMENT,
   CAR_BOX,
