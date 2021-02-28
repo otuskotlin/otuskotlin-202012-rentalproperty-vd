@@ -1,7 +1,7 @@
 plugins {
-  kotlin("multiplatform") apply false
-  kotlin("jvm") apply false
   kotlin("js") apply false
+  kotlin("jvm") apply false
+  kotlin("multiplatform") apply false
 }
 
 group = "ru.otus.otuskotlin.vd.rentalproperty"
@@ -16,5 +16,4 @@ subprojects {
     mavenCentral()
     maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
   }
-
 }
