@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   id("org.springframework.boot") version "2.3.8.RELEASE"
   id("io.spring.dependency-management") version "1.0.11.RELEASE"
-  kotlin("jvm") version "1.4.30"
+  kotlin("jvm")
   kotlin("plugin.spring") version "1.4.30"
   kotlin("plugin.allopen") version "1.4.30"
   kotlin("plugin.jpa") version "1.4.30"
-  kotlin("kapt") version "1.4.30"
+  kotlin("kapt")
 }
 
 group = "ru.otus.otuskotlin.vd.rentalproperty.spring"
