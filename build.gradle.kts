@@ -1,25 +1,20 @@
 plugins {
-  kotlin("jvm") version "1.4.21"
+  kotlin("jvm") apply false
+  kotlin("js") apply false
+  kotlin("multiplatform") apply false
 }
 
 group = "ru.otus.otuskotlin.vd.rentalproperty"
 version = "0.0.1"
 
-repositories {
-  mavenCentral()
-}
+subprojects {
+  group = rootProject.group
+  version = rootProject.version
 
-dependencies {
-  implementation(kotlin("stdlib"))
+  repositories {
+    jcenter()
+    mavenCentral()
+    maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+  }
 
-  testImplementation(kotlin("test"))
-  testImplementation(kotlin("test-junit"))
-}
-
-tasks.test {
-  useJUnit()
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-  kotlinOptions.jvmTarget = "11"
 }
