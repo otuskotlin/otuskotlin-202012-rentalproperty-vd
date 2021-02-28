@@ -14,6 +14,7 @@ pluginManagement {
 }
 
 include("rentalproperty-common-be")
-include("rentalproperty-spring")
+include("rentalproperty-mappers")
 include("rentalproperty-mp")
+include("rentalproperty-spring")
 include("rentalproperty-transport-mp")
