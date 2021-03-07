@@ -17,7 +17,7 @@ data class MpHouseDto(
   override val floors: Int? = null,
   override val areaPlot: Double? = null,
   override val plotStatus: PlotStatusDto? = null,
-  override val infrastructure: MutableSet<InfrastructureDto>? = null,
+  override val infrastructure: Set<InfrastructureDto>? = null,
   override val yearConstruction: Int? = null,
   override val garbageChute: Boolean? = null,
   override val unitOnFloor: Int? = null,
@@ -26,5 +26,5 @@ data class MpHouseDto(
   override val metro: String? = null,
   override val timeToMetro: Int? = null,
   override val distanceToMetro: Int? = null,
-  override val photos: MutableSet<MediaFileDto>? = null
+  override val photos: Set<MediaFileDto>? = null
 ) : IMpRealtyDto, IMpHouseDto

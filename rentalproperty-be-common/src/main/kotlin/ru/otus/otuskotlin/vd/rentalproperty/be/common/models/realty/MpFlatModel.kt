@@ -1,8 +1,11 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
+
 data class MpFlatModel(
-  override val id: ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpFlatIdModel = ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpFlatIdModel.Companion.NONE,
-  override val realtyType: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.FLAT,
+  override val id: MpFlatIdModel = MpFlatIdModel.NONE,
+  override val realtyType: RealtyTypeEnum = RealtyTypeEnum.FLAT,
   override val price: Double,
   override val area: Double,
   override val address: String,
@@ -12,21 +15,20 @@ data class MpFlatModel(
   override val areaLiving: Double = 0.0,
   override val areaKitchen: Double = 0.0,
   override val ceilingHeight: Double = 0.0,  //высота потолков
-  override val conveniences: MutableSet<ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.ConvenienceEnum> = mutableSetOf(),
+  override val conveniences: MutableSet<ConvenienceEnum> = mutableSetOf(),
   override val numberResidents: Int = 0,
-  override val photos: MutableSet<ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFile> = mutableSetOf(),
+  override val photos: MutableSet<MpMediaFileModel> = mutableSetOf(),
   override val bedrooms: Int = 0,
   override val beds: Int = 0,
   override val bathroom: Int = 0,
-  override val bathroomType: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.BathroomTypeEnum? = null,
+  override val bathroomType: BathroomTypeEnum? = null,
   override val balcony: Int = 0,
   override val loggia: Int = 0,
-  override val repairType: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RepairTypeEnum? = null,
+  override val repairType: RepairTypeEnum? = null,
   override val redevelopment: Boolean = false,   //Перепланировка
   override val noSmoking: Boolean = false,
   override val noAnimals: Boolean = false,
   override val noChildren: Boolean = false,
-  override val viewFromWindow: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.ViewFromWindowEnum? = null,
+  override val viewFromWindow: ViewFromWindowEnum? = null,
   override val description: String = "",
-) : ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.IMpRealtyModel,
-  ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.IMpFlatModel
+) : IMpRealtyModel, IMpFlatModel

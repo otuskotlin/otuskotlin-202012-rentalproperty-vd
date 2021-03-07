@@ -13,7 +13,7 @@ interface IMpHouseDto {
   val floors: Int?
   val areaPlot: Double?  //площадь участка
   val plotStatus: PlotStatusDto?
-  val infrastructure: MutableSet<InfrastructureDto>?
+  val infrastructure: Set<InfrastructureDto>?
   val yearConstruction: Int?
   val garbageChute: Boolean? //мусоропровод
   val unitOnFloor: Int?   //квартир на этаже
@@ -22,5 +22,5 @@ interface IMpHouseDto {
   val metro: String?
   val timeToMetro: Int?
   val distanceToMetro: Int?
-  val photos: MutableSet<MediaFileDto>?
+  val photos: Set<MediaFileDto>?
 }

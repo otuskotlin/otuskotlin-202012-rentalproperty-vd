@@ -1,8 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media
 
 data class MediaFileDto(
-  var id: Long,
-  var title: String,
-  var url: String,
-  var fileNameInStorage: String
+  val id: String? = null,
+  val title: String? = null,
+  val url: String? = null,
+  val fileNameInStorage: String? = null,
 )

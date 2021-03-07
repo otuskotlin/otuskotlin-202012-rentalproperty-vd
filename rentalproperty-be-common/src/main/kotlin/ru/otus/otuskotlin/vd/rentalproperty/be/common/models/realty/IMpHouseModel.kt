@@ -1,13 +1,19 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
+
 interface IMpHouseModel {
-  val material: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum
-  val type: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum
+  val material: HouseMaterialEnum
+  val type: HouseTypeEnum
   val series: String //Серия дома
   val floors: Int
   val areaPlot: Double  //площадь участка
-  val plotStatus: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum?
-  val infrastructure: MutableSet<ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum>
+  val plotStatus: PlotStatusEnum?
+  val infrastructure: MutableSet<InfrastructureEnum>
   val yearConstruction: Int
   val garbageChute: Boolean //мусоропровод
   val unitOnFloor: Int   //квартир на этаже
@@ -16,5 +22,5 @@ interface IMpHouseModel {
   val metro: String
   val timeToMetro: Int
   val distanceToMetro: Int
-  val photos: MutableSet<ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFile>
+  val photos: MutableSet<MpMediaFileModel>
 }
