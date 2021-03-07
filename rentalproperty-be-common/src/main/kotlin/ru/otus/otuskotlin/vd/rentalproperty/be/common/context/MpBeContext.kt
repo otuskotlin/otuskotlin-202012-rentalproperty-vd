@@ -4,7 +4,6 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseFilte
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
 
-
 data class MpBeContext(
     var requestHouseId: MpHouseIdModel = MpHouseIdModel.NONE,
     var requestHouse: MpHouseModel = MpHouseModel.NONE,

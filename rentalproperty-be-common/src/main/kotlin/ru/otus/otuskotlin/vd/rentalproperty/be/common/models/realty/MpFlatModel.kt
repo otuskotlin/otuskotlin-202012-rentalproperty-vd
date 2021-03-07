@@ -1,6 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.IMpIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
 
 data class MpFlatModel(
@@ -9,7 +10,7 @@ data class MpFlatModel(
   override val price: Double,
   override val area: Double,
   override val address: String,
-  override val houseId: ru.otus.otuskotlin.vd.rentalproperty.be.common.models.IMpIdModel,
+  override val houseId: IMpIdModel,
   override val rooms: Int,
   override val floor: Int = 0,
   override val areaLiving: Double = 0.0,
