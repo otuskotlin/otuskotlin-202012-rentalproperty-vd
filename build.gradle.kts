@@ -2,6 +2,9 @@ plugins {
   kotlin("jvm") apply false
   kotlin("js") apply false
   kotlin("multiplatform") apply false
+
+  id("org.openapi.generator") apply false
+  id("com.bmuschko.docker-java-application") apply false
 }
 
 group = "ru.otus.otuskotlin.vd.rentalproperty"
@@ -15,6 +18,6 @@ subprojects {
     jcenter()
     mavenCentral()
     maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+    maven { url = uri("https://repo.spring.io/milestone") }
   }
-
 }
