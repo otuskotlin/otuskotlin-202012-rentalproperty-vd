@@ -1,9 +1,11 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.flat
 
+import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpItemPermission
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 
+@Serializable
 data class MpFlatDto(
   override val id: String? = null,
   override val permissions: Set<MpItemPermission>? = null,

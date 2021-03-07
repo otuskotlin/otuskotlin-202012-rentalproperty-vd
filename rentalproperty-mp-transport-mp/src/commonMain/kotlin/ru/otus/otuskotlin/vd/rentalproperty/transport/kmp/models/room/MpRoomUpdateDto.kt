@@ -1,9 +1,11 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.room
 
+import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.ConvenienceDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.IMpRealtyUpdateDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.RealtyTypeDto
 
+@Serializable
 class MpRoomUpdateDto(
   override val id: String? = null,
   override val realtyType: RealtyTypeDto = RealtyTypeDto.ROOM,

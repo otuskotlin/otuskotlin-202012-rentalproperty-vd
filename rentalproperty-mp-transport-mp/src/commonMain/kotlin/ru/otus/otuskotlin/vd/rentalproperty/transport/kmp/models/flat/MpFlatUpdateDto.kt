@@ -1,8 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.flat
 
+import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 
+@Serializable
 data class MpFlatUpdateDto(
   override val id: String? = null,
   override val realtyType: RealtyTypeDto = RealtyTypeDto.FLAT,

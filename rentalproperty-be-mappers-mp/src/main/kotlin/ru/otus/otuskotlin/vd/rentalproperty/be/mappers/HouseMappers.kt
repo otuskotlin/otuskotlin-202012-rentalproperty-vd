@@ -1,11 +1,13 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpHouseDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
 
 internal fun MpHouseModel.toTransport() = MpHouseDto(
   id = id.id.takeIf { it.isNotBlank() },
@@ -34,6 +36,101 @@ internal fun MpHouseModel.toTransport() = MpHouseDto(
 )
 
 internal fun MpHouseDto.toModel() = MpHouseModel(
+  id = id?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE,
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
+  price = price ?: 0.0,
+  area = area ?: 0.0,
+  address = address ?: "",
+  material = material?.let { HouseMaterialEnum.valueOf(it.name) } ?: HouseMaterialEnum.NONE,
+  type = type?.let { HouseTypeEnum.valueOf(it.name) } ?: HouseTypeEnum.NONE,
+  series = series ?: "",
+  floors = floors ?: 0,
+  areaPlot = areaPlot ?: 0.0,
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
+  infrastructure = infrastructure?.map { InfrastructureEnum.valueOf(it.name) }
+    ?.toMutableSet() ?: mutableSetOf(),
+  yearConstruction = yearConstruction ?: 0,
+  garbageChute = garbageChute ?: false,
+  unitOnFloor = unitOnFloor ?: 0,
+  passengerElevator = passengerElevator ?: 0,
+  serviceElevator = serviceElevator ?: 0,
+  metro = metro ?: "",
+  timeToMetro = timeToMetro ?: 0,
+  distanceToMetro = distanceToMetro ?: 0,
+  photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
+)
+
+fun MpBeContext.setQuery(query: MpRequestHouseCreate) = apply {
+  requestHouse = query.createData?.toModel() ?: MpHouseModel.NONE
+}
+
+fun MpBeContext.setQuery(query: MpRequestHouseRead) = apply {
+  requestHouseId = query.houseId?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE
+}
+
+fun MpBeContext.setQuery(query: MpRequestHouseUpdate) = apply {
+  requestHouse = query.updateData?.toModel() ?: MpHouseModel.NONE
+}
+
+fun MpBeContext.setQuery(query: MpRequestHouseDelete) = apply {
+  requestHouseId = query.houseId?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE
+}
+
+fun MpBeContext.setQuery(query: MpRequestHouseList) = apply {
+  houseFilter = query.filterData?.let {
+    MpHouseFilterModel(
+      text = it.text ?: ""
+    )
+  } ?: MpHouseFilterModel.NONE
+}
+
+fun MpBeContext.respondHouseGet() = MpResponseHouseRead(
+  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+)
+
+fun MpBeContext.respondHouseCreate() = MpResponseHouseCreate(
+  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+)
+
+fun MpBeContext.respondHouseUpdate() = MpResponseHouseUpdate(
+  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+)
+
+fun MpBeContext.respondHouseDelete() = MpResponseHouseDelete(
+  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+)
+
+fun MpBeContext.respondHouseList() = MpResponseHouseList(
+  houses = responseHouses.takeIf { it.isNotEmpty() }?.filter { it != MpHouseModel.NONE }
+    ?.map { it.toTransport() }
+)
+
+
+private fun MpHouseCreateDto.toModel() = MpHouseModel(
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
+  price = price ?: 0.0,
+  area = area ?: 0.0,
+  address = address ?: "",
+  material = material?.let { HouseMaterialEnum.valueOf(it.name) } ?: HouseMaterialEnum.NONE,
+  type = type?.let { HouseTypeEnum.valueOf(it.name) } ?: HouseTypeEnum.NONE,
+  series = series ?: "",
+  floors = floors ?: 0,
+  areaPlot = areaPlot ?: 0.0,
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
+  infrastructure = infrastructure?.map { InfrastructureEnum.valueOf(it.name) }
+    ?.toMutableSet() ?: mutableSetOf(),
+  yearConstruction = yearConstruction ?: 0,
+  garbageChute = garbageChute ?: false,
+  unitOnFloor = unitOnFloor ?: 0,
+  passengerElevator = passengerElevator ?: 0,
+  serviceElevator = serviceElevator ?: 0,
+  metro = metro ?: "",
+  timeToMetro = timeToMetro ?: 0,
+  distanceToMetro = distanceToMetro ?: 0,
+  photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
+)
+
+private fun MpHouseUpdateDto.toModel() = MpHouseModel(
   id = id?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE,
   realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,

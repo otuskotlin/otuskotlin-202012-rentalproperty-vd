@@ -1,8 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house
 
+import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 
+@Serializable
 data class MpHouseUpdateDto(
   override val id: String? = null,
   override val realtyType: RealtyTypeDto = RealtyTypeDto.HOUSE,

@@ -6,11 +6,11 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileMo
 data class MpHouseModel(
   override val id: MpHouseIdModel = MpHouseIdModel.NONE,
   override val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
-  override val price: Double,
-  override val area: Double,
-  override val address: String,
-  override val material: HouseMaterialEnum,
-  override val type: HouseTypeEnum,
+  override val price: Double = 0.0,
+  override val area: Double = 0.0,
+  override val address: String = "",
+  override val material: HouseMaterialEnum = HouseMaterialEnum.NONE,
+  override val type: HouseTypeEnum = HouseTypeEnum.NONE,
   override val series: String = "",     //Серия дома
   override val floors: Int = 0,
   override val areaPlot: Double = 0.0,  //площадь участка
@@ -25,4 +25,8 @@ data class MpHouseModel(
   override val timeToMetro: Int = 0,
   override val distanceToMetro: Int = 0,
   override val photos: MutableSet<MpMediaFileModel> = mutableSetOf(),
-) : IMpRealtyModel, IMpHouseModel
+) : IMpRealtyModel, IMpHouseModel {
+  companion object {
+    val NONE = MpHouseModel()
+  }
+}
