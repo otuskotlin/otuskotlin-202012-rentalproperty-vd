@@ -16,5 +16,4 @@ pluginManagement {
 include("rentalproperty-be-app-spring-cl")
 include("rentalproperty-be-common")
 include("rentalproperty-be-mappers-mp")
-include("rentalproperty-mp")
 include("rentalproperty-mp-transport-mp")

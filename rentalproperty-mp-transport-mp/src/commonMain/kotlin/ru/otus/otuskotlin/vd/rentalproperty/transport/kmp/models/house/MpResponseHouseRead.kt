@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IMpResponse
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.*
 
+/**
+ * Response with house parameters
+ */
 @Serializable
 @SerialName("MpResponseHouseRead")
 data class MpResponseHouseRead(

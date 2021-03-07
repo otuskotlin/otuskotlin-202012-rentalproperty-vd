@@ -7,6 +7,9 @@ import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.IMpDebug
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpMessage
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpWorkModeDto
 
+/**
+ * Request for get house parameters
+ */
 @Serializable
 @SerialName("MpRequestHouseRead")
 data class MpRequestHouseRead(

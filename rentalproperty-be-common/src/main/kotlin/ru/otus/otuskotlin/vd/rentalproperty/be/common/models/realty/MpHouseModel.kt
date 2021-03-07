@@ -3,6 +3,9 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
 
+/**
+ * House parameters
+ */
 data class MpHouseModel(
   override val id: MpHouseIdModel = MpHouseIdModel.NONE,
   override val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,

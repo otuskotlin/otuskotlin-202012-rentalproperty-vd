@@ -5,6 +5,9 @@ import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpItemPe
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 
+/**
+ * House parameters
+ */
 @Serializable
 data class MpHouseDto(
   override val id: String? = null,
