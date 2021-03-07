@@ -1,5 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.mappers.backend
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
@@ -29,27 +31,27 @@ internal fun MpHouseModel.toTransport() = MpHouseDto(
   timeToMetro = timeToMetro.takeIf { it != 0 },
   distanceToMetro = distanceToMetro.takeIf { it != 0 },
   photos = photos.takeIf { it.isNotEmpty() }
-    ?.filter { it != ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel.NONE }
+    ?.filter { it != MpMediaFileModel.NONE }
     ?.map { it.toTransport() }?.toSet()
 )
 
 internal fun MpHouseDto.toModel() = MpHouseModel(
   id = id?.let { MpHouseIdModel(it) }
     ?: MpHouseIdModel.NONE,
-  realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.valueOf(realtyType.name),
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.NONE,
-  type = type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.NONE,
+  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
+    ?: HouseMaterialEnum.NONE,
+  type = type?.let { HouseTypeEnum.valueOf(it.name) }
+    ?: HouseTypeEnum.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum.valueOf(it.name) },
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
   infrastructure = infrastructure?.map {
-    ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum.valueOf(
+    InfrastructureEnum.valueOf(
       it.name
     )
   }
@@ -112,20 +114,20 @@ fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHo
 
 
 private fun MpHouseCreateDto.toModel() = MpHouseModel(
-  realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.valueOf(realtyType.name),
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.NONE,
-  type = type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.NONE,
+  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
+    ?: HouseMaterialEnum.NONE,
+  type = type?.let { HouseTypeEnum.valueOf(it.name) }
+    ?: HouseTypeEnum.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum.valueOf(it.name) },
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
   infrastructure = infrastructure?.map {
-    ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum.valueOf(
+    InfrastructureEnum.valueOf(
       it.name
     )
   }
@@ -144,20 +146,20 @@ private fun MpHouseCreateDto.toModel() = MpHouseModel(
 private fun MpHouseUpdateDto.toModel() = MpHouseModel(
   id = id?.let { MpHouseIdModel(it) }
     ?: MpHouseIdModel.NONE,
-  realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.valueOf(realtyType.name),
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.NONE,
-  type = type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.valueOf(it.name) }
-    ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.NONE,
+  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
+    ?: HouseMaterialEnum.NONE,
+  type = type?.let { HouseTypeEnum.valueOf(it.name) }
+    ?: HouseTypeEnum.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum.valueOf(it.name) },
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
   infrastructure = infrastructure?.map {
-    ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum.valueOf(
+    InfrastructureEnum.valueOf(
       it.name
     )
   }
