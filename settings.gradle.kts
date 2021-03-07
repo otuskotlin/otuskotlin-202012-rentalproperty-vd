@@ -1,4 +1,4 @@
-rootProject.name = "otuskotlin-202012-rentalproperty-vd"
+rootProject.name = "ok-202012-rentalproperty-vd"
 
 pluginManagement {
   plugins {
@@ -13,7 +13,7 @@ pluginManagement {
   }
 }
 
-include("rentalproperty-common-be")
-include("rentalproperty-spring")
-include("rentalproperty-mp")
-include("rentalproperty-transport-mp")
+include("rentalproperty-be-app-spring-cl")
+include("rentalproperty-be-common")
+include("rentalproperty-be-mappers-mp")
+include("rentalproperty-mp-transport-mp")
