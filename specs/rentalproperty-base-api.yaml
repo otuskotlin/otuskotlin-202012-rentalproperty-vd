@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: Rental property
+  description: 'Аренда недвижимости'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: Realty
+    description: Работа с недвижимостью
+  - name: Advert
+    description: Работа с объявлениями
+
+paths:
+  /adverts:
+    get:
+      tags:
+        - Advert
+      summary: Получить список объявлений
+      responses:
+        200:
+          description: Успех
+          content: { }
+
+components:
+  schemas:
+
+    BaseMessage:
+      type: object
+      title: Базовая структура сообщения
+      properties:
+        type:
+          type: string
+          title: Тип запроса
+          description: 'Идентификатор типа запроса. Используется в качестве дескриминатора при десериализации.
+            Наиболее востребован при пересылке через Websocket и другие транспорты без явного выделения канала.'
+      discriminator:
+        propertyName: type
+
+    MpRequestBase:
+      type: object
+      properties:
+        requestId:
+          type: string
+          title: Идентификатор запроса
+          description: Уникальный идентификатор запроса для мониторинга прохождения запроса по бэкенд-инфраструктуре
+        onResponse:
+          type: string
+          title: Сформирован на response.id
+          description: Идентификатор ответа, на который сформирован текущий запрос
+
+    MpResponseBase:
+      type: object
+      properties:
+        responseId:
+          type: string
+          title: Идентификатор запроса
+          description: Уникальный идентификатор запроса для мониторинга прохождения запроса по бэкенд-инфраструктуре
+        onRequest:
+          type: string
+          title: Сформирован на request.id
+          description: Идентификатор запроса, на который сформирован текущий ответ
+
+    MpItemPermission:
+      type: string
+      enum:
+        - read
+        - update
+        - delete
+
+    MpItemFilter:
+      type: object
+      title: Фильтр для поиска
+      properties:
+        text:
+          type: string
+          title: Строковое представление фильтра
+
+    BathroomTypeDto:
+      type: string
+      description: Тип санузла
+      enum:
+        - COMBINED
+        - SEPARATED
+
+    ConvenienceDto:
+      type: string
+      description: Список удобств в квартире или в доме
+      enum:
+        - AIR_CONDITIONER
+        - CONCIERGE
+        - DISHWASHER
+        - FRIDGE
+        - INTERCOM
+        - INTERNET
+        - KINDERGARTEN
+        - KITCHEN_STOVE
+        - FURNITURE_IN_KITCHEN
+        - FURNITURE_IN_ROOM
+        - PARK
+        - PARKING
+        - PLAYGROUND
+        - REFRIGERATOR
+        - SCHOOL
+        - SHOPPING_CENTER
+        - SPORTS_GROUND
+        - TELEPHONE
+        - TV
+        - WASHING_MACHINE
+
+    HouseMaterialDto:
+      type: string
+      description: Список видов основного материала из которого сделан дом
+      enum:
+        - BLOCK
+        - BRICK
+        - BRICK_MONOLITHIC
+        - MONOLITHIC
+        - PANEL
+
+    HouseTypeDto:
+      type: string
+      description: Тип дома
+      enum:
+        - SINGLE_HOUSE
+        - PART_HOUSE
+        - TOWNHOUSE
+        - DUPLEX
+
+    InfrastructureDto:
+      type: string
+      description: Инфраструктура в доме или квартире
+      enum:
+        - GAZ
+        - HEATING
+        - ELECTRICITY
+        - SEWERAGE
+        - WATER
+
+    PlotStatusDto:
+      type: string
+      description: Возможные варианты статуса земельного участка
+      enum:
+        - IRP
+        - GARDEN
+        - FARM
+
+    RealtyTypeDto:
+      type: string
+      description: Список вариантов недвижимого имущества
+      enum:
+        - APARTMENT
+        - CAR_BOX
+        - COMMERCIAL
+        - GARAGE
+        - FLAT
+        - HOTEL
+        - HOSTEL
+        - HOUSE
+        - NEW_BUILDING
+        - OFFICE
+        - PARKING_SPACE
+        - PART_HOUSE
+        - PLOT
+        - ROOM
+
+    RepairTypeDto:
+      type: string
+      description: Виды ремонтов в квартире
+      enum:
+        - WITHOUT_REPAIR
+        - RENOVATION
+        - DESIGNER_RENOVATION
+        - REDECORATING
+
+    ViewFromWindowDto:
+      type: string
+      description: Возможные виды из окна квартиры
+      enum:
+        - FOREST
+        - PARK
+        - POND
+        - STREET
+        - YARD
+
