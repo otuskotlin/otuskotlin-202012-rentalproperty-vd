@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
-  id("org.springframework.boot")
   id("io.spring.dependency-management")
+  id("org.springframework.boot")
 }
 
 group = "${rootProject.group}.be.spring.fu"
@@ -19,25 +19,31 @@ dependencies {
   implementation(project(":rentalproperty-be-mappers-mp"))
   implementation(project(":rentalproperty-mp-transport-mp"))
 
-  implementation("org.springframework.boot:spring-boot-starter-web")
   implementation(kotlin("stdlib"))
 
+  implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.fu:spring-fu-kofu:$springFuVersion")
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
   implementation("org.springframework:spring-webmvc")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
 
   testImplementation(kotlin("test-junit5"))
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
-    jvmTarget = "11"
+tasks {
+  withType<KotlinCompile> {
+    kotlinOptions {
+      freeCompilerArgs = listOf("-Xjsr305=strict")
+      jvmTarget = "11"
+    }
   }
-}
 
-tasks.withType<Test> {
-  useJUnitPlatform()
+  withType<Test> {
+    useJUnitPlatform()
+  }
+
+  bootBuildImage {
+    imageName = "rentalproperty-app-spring-fu:${rootProject.version}"
+  }
 }

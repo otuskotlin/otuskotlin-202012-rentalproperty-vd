@@ -134,7 +134,7 @@ internal class MarketplaceHouseIT {
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .bodyValue(
                 MpRequestHouseDelete(
-                    houseId = "d-6543",
+                    houseId = "house123",
                 )
             )
             .exchange()
@@ -143,7 +143,7 @@ internal class MarketplaceHouseIT {
             .returnResult()
             .responseBody
 
-        assertEquals("d-6543", res?.house?.id)
+        assertEquals("house123", res?.house?.id)
         assertTrue(res?.deleted!!)
     }
 
