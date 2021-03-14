@@ -1,35 +1,35 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
 
 /**
  * House parameters
  */
 data class MpHouseModel(
-  override val id: MpHouseIdModel = MpHouseIdModel.NONE,
-  override val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
-  override val price: Double = 0.0,
-  override val area: Double = 0.0,
-  override val address: String = "",
-  override val material: HouseMaterialEnum = HouseMaterialEnum.NONE,
-  override val type: HouseTypeEnum = HouseTypeEnum.NONE,
-  override val series: String = "",     //Серия дома
-  override val floors: Int = 0,
-  override val areaPlot: Double = 0.0,  //площадь участка
-  override val plotStatus: PlotStatusEnum? = null,
-  override val infrastructure: MutableSet<InfrastructureEnum> = mutableSetOf(),
-  override val yearConstruction: Int = 0,
-  override val garbageChute: Boolean = false, //мусоропровод
-  override val unitOnFloor: Int = 0,          //квартир на этаже
-  override val passengerElevator: Int = 0,
-  override val serviceElevator: Int = 0,
-  override val metro: String = "",
-  override val timeToMetro: Int = 0,
-  override val distanceToMetro: Int = 0,
-  override val photos: MutableSet<MpMediaFileModel> = mutableSetOf(),
-) : IMpRealtyModel, IMpHouseModel {
-  companion object {
-    val NONE = MpHouseModel()
-  }
+   val id: MpHouseIdModel = MpHouseIdModel.NONE,
+   val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
+   val price: Double = 0.0,
+   val area: Double = 0.0,
+   val address: String = "",
+   val material: HouseMaterialEnum = HouseMaterialEnum.NONE,
+   val type: HouseTypeEnum = HouseTypeEnum.NONE,
+   val series: String = "",     //Серия дома
+   val floors: Int = 0,
+   val areaPlot: Double = 0.0,  //площадь участка
+   val plotStatus: PlotStatusEnum? = null,
+   val infrastructure: MutableSet<InfrastructureEnum> = mutableSetOf(),
+   val yearConstruction: Int = 0,
+   val garbageChute: Boolean = false, //мусоропровод
+   val unitOnFloor: Int = 0,          //квартир на этаже
+   val passengerElevator: Int = 0,
+   val serviceElevator: Int = 0,
+   val metro: String = "",
+   val timeToMetro: Int = 0,
+   val distanceToMetro: Int = 0,
+   val photos: MutableSet<MpMediaFileModel> = mutableSetOf(),
+) {
+   companion object {
+      val NONE = MpHouseModel()
+   }
 }

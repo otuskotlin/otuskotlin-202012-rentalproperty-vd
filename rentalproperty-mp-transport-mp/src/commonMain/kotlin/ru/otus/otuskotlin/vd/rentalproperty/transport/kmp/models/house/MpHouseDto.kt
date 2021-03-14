@@ -1,35 +1,35 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house
 
 import kotlinx.serialization.Serializable
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpItemPermission
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 
 /**
  * House parameters
  */
 @Serializable
 data class MpHouseDto(
-  override val id: String? = null,
-  override val permissions: Set<MpItemPermission>? = null,
-  override val realtyType: RealtyTypeDto = RealtyTypeDto.HOUSE,
-  override val price: Double? = null,
-  override val area: Double? = null,
-  override val address: String? = null,
-  override val material: HouseMaterialDto? = null,
-  override val type: HouseTypeDto? = null,
-  override val series: String? = null,
-  override val floors: Int? = null,
-  override val areaPlot: Double? = null,
-  override val plotStatus: PlotStatusDto? = null,
-  override val infrastructure: Set<InfrastructureDto>? = null,
-  override val yearConstruction: Int? = null,
-  override val garbageChute: Boolean? = null,
-  override val unitOnFloor: Int? = null,
-  override val passengerElevator: Int? = null,
-  override val serviceElevator: Int? = null,
-  override val metro: String? = null,
-  override val timeToMetro: Int? = null,
-  override val distanceToMetro: Int? = null,
-  override val photos: Set<MediaFileDto>? = null
-) : IMpRealtyDto, IMpHouseDto
+  val id: String? = null,
+  val permissions: Set<MpItemPermission>? = null,
+  val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
+  val price: Double? = null,
+  val area: Double? = null,
+  val address: String? = null,
+  val material: HouseMaterialEnum? = null,
+  val type: HouseTypeEnum? = null,
+  val series: String? = null,
+  val floors: Int? = null,
+  val areaPlot: Double? = null,
+  val plotStatus: PlotStatusEnum? = null,
+  val infrastructure: Set<InfrastructureEnum>? = null,
+  val yearConstruction: Int? = null,
+  val garbageChute: Boolean? = null,
+  val unitOnFloor: Int? = null,
+  val passengerElevator: Int? = null,
+  val serviceElevator: Int? = null,
+  val metro: String? = null,
+  val timeToMetro: Int? = null,
+  val distanceToMetro: Int? = null,
+  val photos: Set<MediaFileDto>? = null
+)

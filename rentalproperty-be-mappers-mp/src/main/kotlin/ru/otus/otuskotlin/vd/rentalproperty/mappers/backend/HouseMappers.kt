@@ -1,10 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.mappers.backend
 
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
 

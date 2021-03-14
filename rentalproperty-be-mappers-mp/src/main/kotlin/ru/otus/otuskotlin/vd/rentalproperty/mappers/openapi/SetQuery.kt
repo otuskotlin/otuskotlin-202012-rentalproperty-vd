@@ -23,27 +23,27 @@ fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(
 private fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(request: MpRequestHouseCreate) {
   request.createData?.let { data ->
     this.requestHouse = MpHouseModel(
-      realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.valueOf(data.realtyType.name),
+      realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.RealtyTypeEnum.valueOf(data.realtyType.name),
       price = data.price ?: 0.0,
       area = data.area ?: 0.0,
       address = data.address ?: "",
       material = data.material?.let {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.valueOf(
+        ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseMaterialEnum.valueOf(
           it.name
         )
-      } ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.NONE,
-      type = data.type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.valueOf(it.name) }
-        ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.NONE,
+      } ?: ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseMaterialEnum.NONE,
+      type = data.type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseTypeEnum.valueOf(it.name) }
+        ?: ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseTypeEnum.NONE,
       series = data.series ?: "",
       floors = data.floors ?: 0,
       areaPlot = data.areaPlot ?: 0.0,
       plotStatus = data.plotStatus?.let {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum.valueOf(
+        ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.PlotStatusEnum.valueOf(
           it.name
         )
       },
       infrastructure = data.infrastructure?.map {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum.valueOf(
+        ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.InfrastructureEnum.valueOf(
           it.name
         )
       }

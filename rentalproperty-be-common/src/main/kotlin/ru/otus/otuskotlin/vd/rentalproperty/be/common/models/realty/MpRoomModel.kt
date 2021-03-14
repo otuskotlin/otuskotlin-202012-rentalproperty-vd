@@ -1,18 +1,17 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.ConvenienceEnum
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.IMpIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.ConvenienceEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.RealtyTypeEnum
 
 class MpRoomModel(
-  override val id: MpRoomIdModel = MpRoomIdModel.NONE,
-  override val realtyType: RealtyTypeEnum = RealtyTypeEnum.ROOM,
-  override val price: Double,
-  override val area: Double,
-  override val address: String,
-  override val houseId: IMpIdModel,
-  override val number: Int = 1,
-  override val ceilingHeight: Double? = null,
-  override val conveniences: MutableSet<ConvenienceEnum> = mutableSetOf(),
-) : IMpRealtyModel,
-  IMpRoomModel
+   val id: MpRoomIdModel = MpRoomIdModel.NONE,
+   val realtyType: RealtyTypeEnum = RealtyTypeEnum.ROOM,
+   val price: Double,
+   val area: Double,
+   val address: String,
+   val houseId: IMpIdModel,
+   val number: Int = 1,
+   val ceilingHeight: Double? = null,
+   val conveniences: MutableSet<ConvenienceEnum> = mutableSetOf(),
+)

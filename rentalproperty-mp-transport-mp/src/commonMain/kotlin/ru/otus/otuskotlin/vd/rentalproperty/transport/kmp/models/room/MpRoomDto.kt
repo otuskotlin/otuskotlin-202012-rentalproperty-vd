@@ -1,21 +1,20 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.room
 
 import kotlinx.serialization.Serializable
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.ConvenienceEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.RealtyTypeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpItemPermission
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.ConvenienceDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.IMpRealtyDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.RealtyTypeDto
 
 @Serializable
 class MpRoomDto(
-  override val id: String? = null,
-  override val permissions: Set<MpItemPermission>? = null,
-  override val realtyType: RealtyTypeDto = RealtyTypeDto.ROOM,
-  override val price: Double? = null,
-  override val area: Double? = null,
-  override val address: String? = null,
-  override val houseId: String? = null,
-  override val number: Int? = null,
-  override val ceilingHeight: Double? = null,
-  override val conveniences: MutableSet<ConvenienceDto>? = null,
-) : IMpRealtyDto, IMpRoomDto
+  val id: String? = null,
+  val permissions: Set<MpItemPermission>? = null,
+  val realtyType: RealtyTypeEnum = RealtyTypeEnum.ROOM,
+  val price: Double? = null,
+  val area: Double? = null,
+  val address: String? = null,
+  val houseId: String? = null,
+  val number: Int? = null,
+  val ceilingHeight: Double? = null,
+  val conveniences: MutableSet<ConvenienceEnum>? = null,
+)
