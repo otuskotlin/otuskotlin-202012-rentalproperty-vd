@@ -1,0 +1,55 @@
+POST {{server}}/realty/house/list
+Content-Type: application/json
+
+{}
+
+###
+POST {{server}}/realty/house/create
+Content-Type: application/json
+
+{
+  "createData": {
+    "price": 5000000.0,
+    "area": 100.0,
+    "address": "Novosibirsk",
+    "material": "BRICK",
+    "type": "SINGLE_HOUSE",
+    "floors": 1,
+    "areaPlot": 5.0
+  }
+}
+
+###
+POST {{server}}/realty/house/read
+Content-Type: application/json
+
+{
+  "houseId": "house123"
+}
+
+###
+POST {{server}}/realty/house/update
+Content-Type: application/json
+
+{
+  "updateData": {
+    "id": "house321",
+    "price": 13000000.0,
+    "area": 330.0,
+    "address": "Petersburg",
+    "material": "BRICK",
+    "type": "SINGLE_HOUSE",
+    "floors": 3,
+    "areaPlot": 15.0
+  }
+}
+
+###
+POST {{server}}/realty/house/delete
+Content-Type: application/json
+
+{
+  "houseId": "house123"
+}
+
+###

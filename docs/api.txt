@@ -1,20 +1,12 @@
-Home
-  /ping
-
-Регистрация / авторизация
-  POST  /auth/registration
-  POST  /auth/login
-  POST  /auth/logout
-  GET   /auth/check
-  POST  /auth/confirm/email
 
 Пользователь / Профиль пользователя
-  GET     /users
   POST    /users
-  PUT     /users
-  DELETE  /users
-  POST    /auth/confirm/phone
+    - create
+    - read
+    - update
+    - delete
 
+!!! Вынести в отдельный модуль / микросервис
 Справочники (списки)
   GET /directories/
     - материал дома
@@ -24,39 +16,38 @@ Home
     - удобства
     - возможные виды из окна квартиры
     - виды ремонта квартиры
-    -
 
 Основная страница / Демонстрация квартир / Список доступных квартир / Фильтр квартир
   Фильтр квартир
-  GET     /flats
-  Краткая информация о квартире
-  GET     /flats/info
-  Подробная информация о квартире
-  GET     /flats/info
+  POST     /flats
+    - read
+  Информация о квартире
+  POST     /flats/info
+    - read
 
 Операции по объявлениям пользователя / Личный кабинет арендодателя
   Создать новое объявление
-  POST    /adverts
   Редактировать объявление
-  PUT    /adverts
+  POST    /adverts
+     - create
+     - read
+     - update
+     - delete
   Опубликовать объявление
-  PUT     /adverts/publication
   Снять объявление с публикации
-  DELETE  /adverts/publication
+  POST    /adverts/publication
+     - create
+     - delete
 
 Операции по недвижимости пользователя / Личный кабинет собственника
   Получить список квартир собственника, в т.ч. по фильтру
-  GET     /users/flats
   Добавить квартиру
-  POST    /users/flats
   Изменить данные по квартире
-  PUT     /users/flats
   Удалить квартиру
-  DELETE  /users/flats
-
-АДМИНКА / Личный кабинет администратора / Личный кабинет менеджера
-  GET/PUT/DELETE     /users
-    - by id
-    - by email
+  POST    /users/flats
+     - create
+     - read
+     - update
+     - delete
 
 Уведомления / подписки / рассылки
