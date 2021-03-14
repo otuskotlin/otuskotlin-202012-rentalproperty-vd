@@ -1,27 +1,26 @@
 package ru.otus.otuskotlin.vd.rentalproperty.mappers.backend
 
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MpMediaFileModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseFilterModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseFilterModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
 
-internal fun MpHouseModel.toTransport() = MpHouseDto(
+internal fun HouseModel.toTransport() = HouseDto(
   id = id.id.takeIf { it.isNotBlank() },
-  realtyType = RealtyTypeDto.valueOf(realtyType.name),
+  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price.takeIf { it != 0.0 },
   area = area.takeIf { it != 0.0 },
   address = address.takeIf { it.isNotBlank() },
-  material = HouseMaterialDto.valueOf(material.name),
-  type = HouseTypeDto.valueOf(type.name),
+  material = HouseMaterialEnum.valueOf(material.name),
+  type = HouseTypeEnum.valueOf(type.name),
   series = series.takeIf { it.isNotBlank() },
   floors = floors.takeIf { it != 0 },
   areaPlot = areaPlot.takeIf { it != 0.0 },
-  plotStatus = plotStatus?.let { PlotStatusDto.valueOf(it.name) },
+  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
   infrastructure = infrastructure.takeIf { it.isNotEmpty() }
-    ?.map { InfrastructureDto.valueOf(it.name) }?.toSet(),
+    ?.map { InfrastructureEnum.valueOf(it.name) }?.toSet(),
   yearConstruction = yearConstruction.takeIf { it != 0 },
   garbageChute = garbageChute.takeIf { it },
   unitOnFloor = unitOnFloor.takeIf { it != 0 },
@@ -31,13 +30,13 @@ internal fun MpHouseModel.toTransport() = MpHouseDto(
   timeToMetro = timeToMetro.takeIf { it != 0 },
   distanceToMetro = distanceToMetro.takeIf { it != 0 },
   photos = photos.takeIf { it.isNotEmpty() }
-    ?.filter { it != MpMediaFileModel.NONE }
+    ?.filter { it != MediaFileModel.NONE }
     ?.map { it.toTransport() }?.toSet()
 )
 
-internal fun MpHouseDto.toModel() = MpHouseModel(
-  id = id?.let { MpHouseIdModel(it) }
-    ?: MpHouseIdModel.NONE,
+internal fun HouseDto.toModel() = HouseModel(
+  id = id?.let { HouseIdModel(it) }
+    ?: HouseIdModel.NONE,
   realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,
@@ -67,53 +66,53 @@ internal fun MpHouseDto.toModel() = MpHouseModel(
   photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(query: MpRequestHouseCreate) = apply {
-  requestHouse = query.createData?.toModel() ?: MpHouseModel.NONE
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseCreate) = apply {
+  requestHouse = query.createData?.toModel() ?: HouseModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(query: MpRequestHouseRead) = apply {
-  requestHouseId = query.houseId?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseRead) = apply {
+  requestHouseId = query.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(query: MpRequestHouseUpdate) = apply {
-  requestHouse = query.updateData?.toModel() ?: MpHouseModel.NONE
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseUpdate) = apply {
+  requestHouse = query.updateData?.toModel() ?: HouseModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(query: MpRequestHouseDelete) = apply {
-  requestHouseId = query.houseId?.let { MpHouseIdModel(it) } ?: MpHouseIdModel.NONE
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseDelete) = apply {
+  requestHouseId = query.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(query: MpRequestHouseList) = apply {
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseList) = apply {
   houseFilter = query.filterData?.let {
-    MpHouseFilterModel(
+    HouseFilterModel(
       text = it.text ?: ""
     )
-  } ?: MpHouseFilterModel.NONE
+  } ?: HouseFilterModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHouseGet() = MpResponseHouseRead(
-  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseGet() = ResponseHouseRead(
+  house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHouseCreate() = MpResponseHouseCreate(
-  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseCreate() = ResponseHouseCreate(
+  house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHouseUpdate() = MpResponseHouseUpdate(
-  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseUpdate() = ResponseHouseUpdate(
+  house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHouseDelete() = MpResponseHouseDelete(
-  house = responseHouse.takeIf { it != MpHouseModel.NONE }?.toTransport()
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseDelete() = ResponseHouseDelete(
+  house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.respondHouseList() = MpResponseHouseList(
-  houses = responseHouses.takeIf { it.isNotEmpty() }?.filter { it != MpHouseModel.NONE }
+fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseList() = ResponseHouseList(
+  houses = responseHouses.takeIf { it.isNotEmpty() }?.filter { it != HouseModel.NONE }
     ?.map { it.toTransport() }
 )
 
 
-private fun MpHouseCreateDto.toModel() = MpHouseModel(
+private fun HouseCreateDto.toModel() = HouseModel(
   realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,
@@ -143,9 +142,9 @@ private fun MpHouseCreateDto.toModel() = MpHouseModel(
   photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
 )
 
-private fun MpHouseUpdateDto.toModel() = MpHouseModel(
-  id = id?.let { MpHouseIdModel(it) }
-    ?: MpHouseIdModel.NONE,
+private fun HouseUpdateDto.toModel() = HouseModel(
+  id = id?.let { HouseIdModel(it) }
+    ?: HouseIdModel.NONE,
   realtyType = RealtyTypeEnum.valueOf(realtyType.name),
   price = price ?: 0.0,
   area = area ?: 0.0,

@@ -1,11 +1,11 @@
 import ru.otus.otuskotlin.marketplace.mappers.openapi.setQuery
-import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IMpRequest
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext
+import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IRequest
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpHouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpRequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpRequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.HouseCreateDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -13,10 +13,10 @@ internal class HouseMappersTest {
 
   @Test
   fun requestIdMappingTest() {
-    val request: IMpRequest = MpRequestHouseRead(
+    val request: IRequest = RequestHouseRead(
       houseId = "some-id"
     )
-    val context = MpBeContext()
+    val context = BeContext()
 
     context.setQuery(request)
 
@@ -25,8 +25,8 @@ internal class HouseMappersTest {
 
   @Test
   fun requestCreateMappingTest() {
-    val requestHouse: IMpRequest = MpRequestHouseCreate(
-      createData = MpHouseCreateDto(
+    val requestHouse: IRequest = RequestHouseCreate(
+      createData = HouseCreateDto(
         price = 10_000_000.0,
         material = HouseMaterialDto.BRICK,
         type = HouseTypeDto.SINGLE_HOUSE,
@@ -34,7 +34,7 @@ internal class HouseMappersTest {
         areaPlot = 10.0,
       )
     )
-    val context = MpBeContext()
+    val context = BeContext()
 
     context.setQuery(requestHouse)
 

@@ -27,13 +27,13 @@ internal class HouseControllerIT {
   @Test
     fun `House List`() {
         val res = client
-            .post()
-            .uri("$REALTY_ENDPOINT/house/list")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .bodyValue(MpRequestHouseList())
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody<MpResponseHouseList>()
+          .post()
+          .uri("$REALTY_ENDPOINT/house/list")
+          .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+          .bodyValue(RequestHouseList())
+          .exchange()
+          .expectStatus().is2xxSuccessful
+          .expectBody<ResponseHouseList>()
             .returnResult()
             .responseBody
 
@@ -47,21 +47,21 @@ internal class HouseControllerIT {
             .uri("$REALTY_ENDPOINT/house/create")
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .bodyValue(
-                MpRequestHouseCreate(
-                    createData = MpHouseCreateDto(
-                      price = 5_000_000.0,
-                      area = 100.0,
-                      address = "Novosibirsk",
-                      material = HouseMaterialEnum.BRICK,
-                      type = HouseTypeEnum.SINGLE_HOUSE,
-                      floors = 1,
-                      areaPlot = 5.0,
-                    )
+              RequestHouseCreate(
+                createData = HouseCreateDto(
+                  price = 5_000_000.0,
+                  area = 100.0,
+                  address = "Novosibirsk",
+                  material = HouseMaterialEnum.BRICK,
+                  type = HouseTypeEnum.SINGLE_HOUSE,
+                  floors = 1,
+                  areaPlot = 5.0,
                 )
+              )
             )
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody<MpResponseHouseCreate>()
+          .exchange()
+          .expectStatus().is2xxSuccessful
+          .expectBody<ResponseHouseCreate>()
             .returnResult()
             .responseBody
 
@@ -74,17 +74,17 @@ internal class HouseControllerIT {
     @Test
     fun `House Read`() {
         val res = client
-            .post()
-            .uri("$REALTY_ENDPOINT/house/read")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .bodyValue(
-                MpRequestHouseRead(
-                    houseId = "house123",
-                )
+          .post()
+          .uri("$REALTY_ENDPOINT/house/read")
+          .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+          .bodyValue(
+            RequestHouseRead(
+              houseId = "house123",
             )
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody<MpResponseHouseRead>()
+          )
+          .exchange()
+          .expectStatus().is2xxSuccessful
+          .expectBody<ResponseHouseRead>()
             .returnResult()
             .responseBody
 
@@ -101,22 +101,22 @@ internal class HouseControllerIT {
             .uri("$REALTY_ENDPOINT/house/update")
             .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
             .bodyValue(
-                MpRequestHouseUpdate(
-                    updateData = MpHouseUpdateDto(
-                      id = "house321",
-                      price = 13_000_000.0,
-                      area = 330.0,
-                      address = "Petersburg",
-                      material = HouseMaterialEnum.BRICK,
-                      type = HouseTypeEnum.SINGLE_HOUSE,
-                      floors = 3,
-                      areaPlot = 13.5
-                    )
+              RequestHouseUpdate(
+                updateData = HouseUpdateDto(
+                  id = "house321",
+                  price = 13_000_000.0,
+                  area = 330.0,
+                  address = "Petersburg",
+                  material = HouseMaterialEnum.BRICK,
+                  type = HouseTypeEnum.SINGLE_HOUSE,
+                  floors = 3,
+                  areaPlot = 13.5
                 )
+              )
             )
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody<MpResponseHouseDelete>()
+          .exchange()
+          .expectStatus().is2xxSuccessful
+          .expectBody<ResponseHouseDelete>()
             .returnResult()
             .responseBody
 
@@ -129,17 +129,17 @@ internal class HouseControllerIT {
     @Test
     fun `House Delete`() {
         val res = client
-            .post()
-            .uri("$REALTY_ENDPOINT/house/delete")
-            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .bodyValue(
-                MpRequestHouseDelete(
-                    houseId = "house123",
-                )
+          .post()
+          .uri("$REALTY_ENDPOINT/house/delete")
+          .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+          .bodyValue(
+            RequestHouseDelete(
+              houseId = "house123",
             )
-            .exchange()
-            .expectStatus().is2xxSuccessful
-            .expectBody<MpResponseHouseDelete>()
+          )
+          .exchange()
+          .expectStatus().is2xxSuccessful
+          .expectBody<ResponseHouseDelete>()
             .returnResult()
             .responseBody
 
