@@ -1,24 +1,25 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.InfrastructureModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
 
 /**
  * House parameters
  */
 data class HouseModel(
   val id: HouseIdModel = HouseIdModel.NONE,
-  val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
-  val price: Double = 0.0,
   val area: Double = 0.0,
   val address: String = "",
-  val material: HouseMaterialEnum = HouseMaterialEnum.NONE,
-  val type: HouseTypeEnum = HouseTypeEnum.NONE,
-  val series: String = "",     //Серия дома
+  val material: HouseMaterialModel = HouseMaterialModel.NONE,
+  val type: HouseTypeModel = HouseTypeModel.NONE,
+  val series: String = "",     //серия дома
   val floors: Int = 0,
   val areaPlot: Double = 0.0,  //площадь участка
-  val plotStatus: PlotStatusEnum? = null,
-  val infrastructure: MutableSet<InfrastructureEnum> = mutableSetOf(),
+  val plotStatus: PlotStatusModel = PlotStatusModel.NONE,
+  val infrastructure: MutableSet<InfrastructureModel> = mutableSetOf(),
   val yearConstruction: Int = 0,
   val garbageChute: Boolean = false, //мусоропровод
   val unitOnFloor: Int = 0,          //квартир на этаже

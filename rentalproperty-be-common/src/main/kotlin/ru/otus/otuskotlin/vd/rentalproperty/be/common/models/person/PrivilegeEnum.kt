@@ -1,8 +1,5 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums
+package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 enum class PrivilegeEnum {
   USER_CREATE,
   USER_READ,

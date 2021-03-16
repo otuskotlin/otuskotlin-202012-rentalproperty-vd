@@ -7,8 +7,8 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseMaterialEnum
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseTypeEnum
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -49,11 +49,10 @@ internal class HouseControllerIT {
             .bodyValue(
               RequestHouseCreate(
                 createData = HouseCreateDto(
-                  price = 5_000_000.0,
                   area = 100.0,
                   address = "Novosibirsk",
-                  material = HouseMaterialEnum.BRICK,
-                  type = HouseTypeEnum.SINGLE_HOUSE,
+                  material = HouseMaterialDto("id", "BRICK"),
+                  type = HouseTypeDto("id", "SINGLE_HOUSE"),
                   floors = 1,
                   areaPlot = 5.0,
                 )
@@ -67,7 +66,7 @@ internal class HouseControllerIT {
 
         assertEquals("house123", res?.house?.id)
       assertEquals("Novosibirsk", res?.house?.address)
-      assertEquals(HouseTypeEnum.SINGLE_HOUSE, res?.house?.type)
+      assertEquals(HouseTypeDto("id", "SINGLE_HOUSE"), res?.house?.type)
       assertEquals(1, res?.house?.floors)
     }
 
@@ -90,7 +89,7 @@ internal class HouseControllerIT {
 
         assertEquals("house123", res?.house?.id)
       assertEquals("Moscow", res?.house?.address)
-      assertEquals(HouseTypeEnum.SINGLE_HOUSE, res?.house?.type)
+      assertEquals(HouseTypeDto("id", "SINGLE_HOUSE"), res?.house?.type)
       assertEquals(2, res?.house?.floors)
     }
 
@@ -104,11 +103,10 @@ internal class HouseControllerIT {
               RequestHouseUpdate(
                 updateData = HouseUpdateDto(
                   id = "house321",
-                  price = 13_000_000.0,
                   area = 330.0,
                   address = "Petersburg",
-                  material = HouseMaterialEnum.BRICK,
-                  type = HouseTypeEnum.SINGLE_HOUSE,
+                  material = HouseMaterialDto("id", "BRICK"),
+                  type = HouseTypeDto("id", "SINGLE_HOUSE"),
                   floors = 3,
                   areaPlot = 13.5
                 )
@@ -122,7 +120,7 @@ internal class HouseControllerIT {
 
         assertEquals("house321", res?.house?.id)
       assertEquals("Petersburg", res?.house?.address)
-      assertEquals(HouseTypeEnum.SINGLE_HOUSE, res?.house?.type)
+      assertEquals(HouseTypeDto("id", "SINGLE_HOUSE"), res?.house?.type)
       assertEquals(3, res?.house?.floors)
     }
 

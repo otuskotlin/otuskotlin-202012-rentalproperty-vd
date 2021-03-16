@@ -1,22 +1,23 @@
 package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house
 
 import kotlinx.serialization.Serializable
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.media.MediaFileDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.InfrastructureDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.PlotStatusDto
 
 @Serializable
 data class HouseCreateDto(
-  val realtyType: RealtyTypeEnum = RealtyTypeEnum.HOUSE,
-  val price: Double? = null,
   val area: Double? = null,
   val address: String? = null,
-  val material: HouseMaterialEnum? = null,
-  val type: HouseTypeEnum? = null,
+  val material: HouseMaterialDto? = null,
+  val type: HouseTypeDto? = null,
   val series: String? = null,
   val floors: Int? = null,
   val areaPlot: Double? = null,
-  val plotStatus: PlotStatusEnum? = null,
-  val infrastructure: MutableSet<InfrastructureEnum>? = null,
+  val plotStatus: PlotStatusDto? = null,
+  val infrastructure: MutableSet<InfrastructureDto>? = null,
   val yearConstruction: Int? = null,
   val garbageChute: Boolean? = null,
   val unitOnFloor: Int? = null,

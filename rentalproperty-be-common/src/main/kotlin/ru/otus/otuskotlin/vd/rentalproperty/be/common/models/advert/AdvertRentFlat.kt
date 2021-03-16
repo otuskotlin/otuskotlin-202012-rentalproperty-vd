@@ -1,16 +1,25 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert
 
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.DealTypeEnum
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.RealtyTypeEnum
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.UserIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import java.time.Instant
 
+/**
+ * Объявление о сдачи квартиры в аренду
+ */
 data class AdvertRentFlat(
-  var id: Long,
-  var realtyType: RealtyTypeEnum = RealtyTypeEnum.FLAT,
-  var dealType: DealTypeEnum = DealTypeEnum.RENT,
-  var name: String,
+  val id: AdvertIdModel = AdvertIdModel.NONE,
+  val userId: UserIdModel = UserIdModel.NONE,
+  var flatId: FlatIdModel = FlatIdModel.NONE,
+  var name: String = "",
+  val description: String = "",
+  val price: Double = 0.0,
+  /**
+   * if null, then the ad is removed or not displayed
+   */
   var published: Instant? = null,
-  val userId: String,
-  var flat: FlatModel,
-)
+) {
+  companion object {
+    val NONE = AdvertRentFlat()
+  }
+}

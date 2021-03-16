@@ -3,10 +3,10 @@ package controller
 import org.springframework.web.servlet.function.ServerRequest
 import org.springframework.web.servlet.function.ServerResponse
 import org.springframework.web.servlet.function.ServerResponse.ok
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseMaterialEnum
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.HouseTypeEnum
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ErrorDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
 import java.time.Instant
 
@@ -38,13 +38,12 @@ class HouseController {
       status = ResponseStatusDto.SUCCESS,
       house = mockUpdate(
         id = "house123",
-        price = query?.createData?.price,
-        area = query?.createData?.area,
-        address = query?.createData?.address,
-        material = query?.createData?.material,
-        type = query?.createData?.type,
-        floors = query?.createData?.floors,
-        areaPlot = query?.createData?.areaPlot,
+        area = query.createData?.area,
+        address = query.createData?.address,
+        material = query.createData?.material,
+        type = query.createData?.type,
+        floors = query.createData?.floors,
+        areaPlot = query.createData?.areaPlot,
       )
     )
     return ok().body(response)
@@ -73,13 +72,12 @@ class HouseController {
         status = ResponseStatusDto.SUCCESS,
         house = mockUpdate(
           id = id,
-          price = query?.updateData!!.price,
-          area = query?.updateData!!.area,
-          address = query?.updateData!!.address,
-          material = query?.updateData!!.material,
-          type = query?.updateData!!.type,
-          floors = query?.updateData!!.floors,
-          areaPlot = query?.updateData!!.areaPlot,
+          area = query.updateData!!.area,
+          address = query.updateData!!.address,
+          material = query.updateData!!.material,
+          type = query.updateData!!.type,
+          floors = query.updateData!!.floors,
+          areaPlot = query.updateData!!.areaPlot,
         )
       )
     else
@@ -118,16 +116,14 @@ class HouseController {
   companion object {
     fun mockUpdate(
       id: String,
-      price: Double?,
       area: Double?,
       address: String?,
-      material: HouseMaterialEnum?,
-      type: HouseTypeEnum?,
+      material: HouseMaterialDto?,
+      type: HouseTypeDto?,
       floors: Int?,
       areaPlot: Double?,
     ) = HouseDto(
       id = id,
-      price = price,
       area = area,
       address = address,
       material = material,
@@ -138,11 +134,10 @@ class HouseController {
 
     fun mockRead(id: String) = mockUpdate(
       id = id,
-      price = 10_000_000.0,
       area = 200.0,
       address = "Moscow",
-      material = HouseMaterialEnum.BRICK,
-      type = HouseTypeEnum.SINGLE_HOUSE,
+      material = HouseMaterialDto("id", "BRICK"),
+      type = HouseTypeDto("id", "SINGLE_HOUSE"),
       floors = 2,
       areaPlot = 10.0,
     )
