@@ -7,7 +7,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ErrorDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 import java.time.Instant
 
 class HouseController {

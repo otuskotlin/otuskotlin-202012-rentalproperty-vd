@@ -8,8 +8,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.toModel
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
 
 private fun BeContext.setQuery(request: RequestHouseRead) {
   this.requestHouseId = request.houseId?.let {

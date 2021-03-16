@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
 internal fun HouseModel.toTransport() = HouseDto(
   id = id.id.takeIf { it.isNotBlank() },
