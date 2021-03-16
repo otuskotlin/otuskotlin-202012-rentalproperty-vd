@@ -16,6 +16,7 @@ dependencies {
   val serializationVersion: String by project
 
   implementation(project(":rentalproperty-be-common"))
+  implementation(project(":rentalproperty-be-directory"))
   implementation(project(":rentalproperty-be-mappers-mp"))
   implementation(project(":rentalproperty-mp-transport-mp"))
 

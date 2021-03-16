@@ -3,7 +3,7 @@ plugins {
   kotlin("plugin.serialization")
 }
 
-group = "ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models"
+group = "${rootProject.group}.transport.kmp.models"
 version = "0.0.1"
 
 kotlin {
@@ -30,6 +30,8 @@ kotlin {
 
     val commonMain by getting {
       dependencies {
+        implementation(project(":rentalproperty-be-directory"))
+
         implementation(kotlin("stdlib-common"))
         api("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
         api("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")

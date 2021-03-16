@@ -1,49 +1,51 @@
 package ru.otus.otuskotlin.marketplace.mappers.openapi
 
-import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IMpRequest
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.MpHouseModel
+import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IRequest
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.toModel
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpRequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpRequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
 
-private fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(request: MpRequestHouseRead) {
+private fun BeContext.setQuery(request: RequestHouseRead) {
   this.requestHouseId = request.houseId?.let {
-    MpHouseIdModel(it)
-  } ?: MpHouseIdModel.NONE
+    HouseIdModel(it)
+  } ?: HouseIdModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(request: IMpRequest) =
+fun BeContext.setQuery(request: IRequest) =
   when (request) {
-    is MpRequestHouseRead -> setQuery(request)
-    is MpRequestHouseCreate -> setQuery(request)
+    is RequestHouseRead -> setQuery(request)
+    is RequestHouseCreate -> setQuery(request)
     else -> null
   }
 
-private fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.MpBeContext.setQuery(request: MpRequestHouseCreate) {
+private fun BeContext.setQuery(request: RequestHouseCreate) {
   request.createData?.let { data ->
-    this.requestHouse = MpHouseModel(
-      realtyType = ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.RealtyTypeEnum.valueOf(data.realtyType.name),
+    this.requestHouse = HouseModel(
+      realtyType = RealtyTypeEnum.valueOf(data.realtyType.name),
       price = data.price ?: 0.0,
       area = data.area ?: 0.0,
       address = data.address ?: "",
       material = data.material?.let {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.valueOf(
+        HouseMaterialEnum.valueOf(
           it.name
         )
-      } ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseMaterialEnum.NONE,
-      type = data.type?.let { ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.valueOf(it.name) }
-        ?: ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.HouseTypeEnum.NONE,
+      } ?: HouseMaterialEnum.NONE,
+      type = data.type?.let { HouseTypeEnum.valueOf(it.name) }
+        ?: HouseTypeEnum.NONE,
       series = data.series ?: "",
       floors = data.floors ?: 0,
       areaPlot = data.areaPlot ?: 0.0,
       plotStatus = data.plotStatus?.let {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.PlotStatusEnum.valueOf(
+        PlotStatusEnum.valueOf(
           it.name
         )
       },
       infrastructure = data.infrastructure?.map {
-        ru.otus.otuskotlin.vd.rentalproperty.be.common.enums.InfrastructureEnum.valueOf(
+        InfrastructureEnum.valueOf(
           it.name
         )
       }
