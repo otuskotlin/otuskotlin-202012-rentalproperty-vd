@@ -3,8 +3,8 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.interview
 import java.time.Instant
 
 data class Interview(
-  var id: String,
-  var name: String,
-  var answer: Int,
-  var published: Instant?
-)
+  override val id: InfoIdModel = InfoIdModel.NONE,
+  override val name: String = "",
+  override val answer: String = "",
+  override val published: Instant? = null,
+) : Info()

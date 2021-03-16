@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person
 
-inline class UserId(val id: String) {
+inline class UserIdModel(val id: String) {
   companion object {
-    val NONE = UserId("")
+    val NONE = UserIdModel("")
   }
 }
