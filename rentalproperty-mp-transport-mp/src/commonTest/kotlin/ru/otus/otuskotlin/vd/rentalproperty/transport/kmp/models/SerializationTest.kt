@@ -7,8 +7,8 @@ import kotlinx.serialization.modules.polymorphic
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.HouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.HouseCreateDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

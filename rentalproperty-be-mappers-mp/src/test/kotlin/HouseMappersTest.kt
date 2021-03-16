@@ -5,9 +5,9 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.HouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.HouseCreateDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
