@@ -11,7 +11,7 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -49,7 +49,7 @@ fun Application.module(testing: Boolean = false) {
       resources("static")
     }
 
-    route("/houses") {
+    route("/realty/houses") {
       post("/get") {
         try {
           val query = call.receive<Message>() as RequestHouseRead
