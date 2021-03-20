@@ -14,7 +14,7 @@ data class ResponseAdvertRentHouseCreate(
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
-  val house: AdvertRentHouseDto? = null,
+  val advert: AdvertRentHouseDto? = null,
 ) : IResponse, Message() {
 
   @Serializable
