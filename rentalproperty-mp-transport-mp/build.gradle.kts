@@ -54,7 +54,7 @@ kotlin {
     }
     val jvmMain by getting {
       dependencies {
-        implementation(kotlin("stdlib"))
+        implementation(kotlin("stdlib-jdk8"))
       }
     }
     val jvmTest by getting {
