@@ -2,27 +2,26 @@ package com.example.service
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertRentHouse
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertRentHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.UserIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
 class AdvertRentHouseService {
-  private val house = AdvertRentHouse(
+  private val advert = AdvertRentHouseModel(
     id = AdvertIdModel("test-id"),
     userId = UserIdModel("test-user-id"),
-    name = "Продаётся кавртира",
-    description = "Хорошая кавртира",
+    name = "Продаётся квартира",
+    description = "Хорошая квартира",
     price = 1_500_000.0,
   )
 
   suspend fun get(query: RequestAdvertRentHouseRead): Message = BeContext().run {
     try {
       setQuery(query)
-      responseAdvertRentHouse = house
+      responseAdvertRentHouse = advert
       respondAdvertRentHouseGet().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -40,7 +39,7 @@ class AdvertRentHouseService {
   suspend fun create(query: RequestAdvertRentHouseCreate): Message = BeContext().run {
     try {
       setQuery(query)
-      responseAdvertRentHouse = house
+      responseAdvertRentHouse = advert
       respondAdvertRentHouseCreate().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -58,7 +57,7 @@ class AdvertRentHouseService {
   suspend fun update(query: RequestAdvertRentHouseUpdate): Message = BeContext().run {
     try {
       setQuery(query)
-      responseAdvertRentHouse = house
+      responseAdvertRentHouse = advert
       respondAdvertRentHouseUpdate().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -76,7 +75,7 @@ class AdvertRentHouseService {
   suspend fun delete(query: RequestAdvertRentHouseDelete): Message = BeContext().run {
     try {
       setQuery(query)
-      responseAdvertRentHouse = house
+      responseAdvertRentHouse = advert
       respondAdvertRentHouseDelete().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -94,7 +93,7 @@ class AdvertRentHouseService {
   suspend fun filter(query: RequestAdvertRentHouseList): Message = BeContext().run {
     try {
       setQuery(query)
-      responseAdvertRentHouses = mutableListOf(house)
+      responseAdvertRentHouses = mutableListOf(advert)
       respondAdvertRentHouseList().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
