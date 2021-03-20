@@ -4,11 +4,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.MpMessage
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseMaterialDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpHouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.MpRequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.HouseCreateDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -16,48 +16,46 @@ import kotlin.test.assertTrue
 class SerializationTest {
 
     @Test
-    fun serializeMpRequestHouseCreateTest() {
+    fun serializeRequestHouseCreateTest() {
         val json = Json {
             prettyPrint = true
         }
-        val dto = MpRequestHouseCreate(
+        val dto = RequestHouseCreate(
             requestId = "create-id",
             startTime = "2021-03-08T00:10:24",
-            createData = MpHouseCreateDto(
-                price = 10_000_000.0,
-                material = HouseMaterialDto.BRICK,
-                type = HouseTypeDto.SINGLE_HOUSE,
+            createData = HouseCreateDto(
+                material = HouseMaterialDto("id", "BRICK"),
+                type = HouseTypeDto("id", "SINGLE_HOUSE"),
                 floors = 2,
                 areaPlot = 10.0
             )
         )
 
-        val serializedString = json.encodeToString(MpRequestHouseCreate.serializer(), dto)
+        val serializedString = json.encodeToString(RequestHouseCreate.serializer(), dto)
         println(serializedString)
         assertTrue { serializedString.contains("BRICK") }
-        val deserializedDto = json.decodeFromString(MpRequestHouseCreate.serializer(), serializedString)
-        assertEquals(HouseTypeDto.SINGLE_HOUSE, deserializedDto.createData?.type)
+        val deserializedDto = json.decodeFromString(RequestHouseCreate.serializer(), serializedString)
+        assertEquals(HouseTypeDto("id", "SINGLE_HOUSE"), (deserializedDto as? RequestHouseCreate)?.createData?.type)
     }
 
     @Test
-    fun serializeMpRequestTest() {
+    fun serializeRequestTest() {
         val jsonRequest = Json {
             prettyPrint = true
             serializersModule = SerializersModule {
-                polymorphic(MpMessage::class) {
-                    subclass(MpRequestHouseCreate::class, MpRequestHouseCreate.serializer())
+                polymorphic(Message::class) {
+                    subclass(RequestHouseCreate::class, RequestHouseCreate.serializer())
                 }
 
             }
             classDiscriminator = "type"
         }
-        val dto: MpMessage = MpRequestHouseCreate(
+        val dto: Message = RequestHouseCreate(
             requestId = "create-id",
             startTime = "2021-02-13T12:00:00",
-            createData = MpHouseCreateDto(
-                price = 5_000_000.0,
-                material = HouseMaterialDto.PANEL,
-                type = HouseTypeDto.PART_HOUSE,
+            createData = HouseCreateDto(
+                material = HouseMaterialDto("id", "PANEL"),
+                type = HouseTypeDto("id", "PART_HOUSE"),
                 floors = 2,
                 areaPlot = 4.0
             )
@@ -65,8 +63,8 @@ class SerializationTest {
         val serializedString = jsonRequest.encodeToString(dto)
         println(serializedString)
         assertTrue { serializedString.contains("PANEL") }
-        val deserializedDto = jsonRequest.decodeFromString(MpMessage.serializer(), serializedString)
-        assertEquals(HouseTypeDto.PART_HOUSE, (deserializedDto as? MpRequestHouseCreate)?.createData?.type)
+        val deserializedDto = jsonRequest.decodeFromString(Message.serializer(), serializedString)
+        assertEquals(HouseTypeDto("id", "PART_HOUSE"), (deserializedDto as? RequestHouseCreate)?.createData?.type)
     }
 
 }

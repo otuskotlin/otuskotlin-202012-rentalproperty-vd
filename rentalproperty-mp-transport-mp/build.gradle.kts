@@ -3,7 +3,7 @@ plugins {
   kotlin("plugin.serialization")
 }
 
-group = "ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models"
+group = "${rootProject.group}.transport.kmp.models"
 version = "0.0.1"
 
 kotlin {

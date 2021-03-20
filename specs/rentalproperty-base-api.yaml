@@ -40,7 +40,7 @@ components:
       discriminator:
         propertyName: type
 
-    MpRequestBase:
+    RequestBase:
       type: object
       properties:
         requestId:
@@ -52,7 +52,7 @@ components:
           title: Сформирован на response.id
           description: Идентификатор ответа, на который сформирован текущий запрос
 
-    MpResponseBase:
+    ResponseBase:
       type: object
       properties:
         responseId:
@@ -64,21 +64,21 @@ components:
           title: Сформирован на request.id
           description: Идентификатор запроса, на который сформирован текущий ответ
 
-    MpItemPermission:
+    ItemPermission:
       type: string
       enum:
         - read
         - update
         - delete
 
-    MpItemFilter:
+    ItemFilter:
       type: object
-      title: Фильтр для поиска 
+      title: Фильтр для поиска
       properties:
         text:
           type: string
           title: Строковое представление фильтра
-          
+
     BathroomTypeDto:
       type: string
       description: Тип санузла
