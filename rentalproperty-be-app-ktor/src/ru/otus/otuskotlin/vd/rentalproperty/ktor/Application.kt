@@ -1,7 +1,5 @@
-package com.example
+package ru.otus.otuskotlin.vd.rentalproperty.ktor
 
-import com.example.service.AdvertRentHouseService
-import com.example.service.HouseService
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -10,6 +8,8 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
+import ru.otus.otuskotlin.vd.rentalproperty.ktor.service.AdvertRentHouseService
+import ru.otus.otuskotlin.vd.rentalproperty.ktor.service.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto

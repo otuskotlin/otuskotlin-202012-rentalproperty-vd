@@ -1,4 +1,5 @@
-import com.example.module
+package ru.otus.otuskotlin.vd.rentalproperty.ktor
+
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.Test
