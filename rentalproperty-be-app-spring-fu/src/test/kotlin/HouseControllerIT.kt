@@ -9,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
