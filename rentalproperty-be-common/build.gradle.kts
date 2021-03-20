@@ -13,7 +13,7 @@ dependencies {
 
   implementation(project(":rentalproperty-be-directory"))
 
-  implementation(kotlin("stdlib"))
+  implementation(kotlin("stdlib-jdk8"))
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
   testImplementation(kotlin("test-junit5"))

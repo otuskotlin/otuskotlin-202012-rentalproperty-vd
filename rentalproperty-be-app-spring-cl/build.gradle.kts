@@ -18,6 +18,11 @@ dependencies {
   val kotestVersion: String by project
   val coroutinesVersion: String by project
 
+  implementation(project(":rentalproperty-be-common"))
+  implementation(project(":rentalproperty-be-directory"))
+  implementation(project(":rentalproperty-be-mappers-mp"))
+  implementation(project(":rentalproperty-mp-transport-mp"))
+
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-mustache")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
