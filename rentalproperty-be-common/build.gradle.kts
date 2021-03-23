@@ -7,13 +7,11 @@ plugins {
 group = rootProject.group
 version = rootProject.version
 
-repositories {
-  mavenCentral()
-}
-
 dependencies {
   val kotestVersion: String by project
   val coroutinesVersion: String by project
+
+  implementation(project(":rentalproperty-be-directory"))
 
   implementation(kotlin("stdlib"))
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")

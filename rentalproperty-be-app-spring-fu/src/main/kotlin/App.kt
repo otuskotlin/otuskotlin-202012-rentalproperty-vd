@@ -26,9 +26,3 @@ val app = webApplication {
 fun main() {
   app.run()
 }
-
-//@Suppress("UNUSED_PARAMETER")
-//class SampleHandler(private val sampleService: SampleService) {
-//    fun hello(request: ServerRequest)= ok().body(sampleService.generateMessage())
-//    fun json(request: ServerRequest) = ok().body(Sample(sampleService.generateMessage()))
-//}

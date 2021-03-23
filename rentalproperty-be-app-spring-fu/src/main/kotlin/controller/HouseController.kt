@@ -5,15 +5,15 @@ import org.springframework.web.servlet.function.ServerResponse
 import org.springframework.web.servlet.function.ServerResponse.ok
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ErrorDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseMaterialDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 import java.time.Instant
 
 class HouseController {
   fun list(request: ServerRequest): ServerResponse {
-    val query = request.body(MpRequestHouseList::class.java)
-    val response = MpResponseHouseList(
+    val query = request.body(RequestHouseList::class.java)
+    val response = ResponseHouseList(
       responseId = "123",
       onRequest = query.requestId,
       endTime = Instant.now().toString(),
@@ -30,29 +30,28 @@ class HouseController {
   }
 
   fun create(request: ServerRequest): ServerResponse {
-    val query = request.body(MpRequestHouseCreate::class.java)
-    val response = MpResponseHouseCreate(
+    val query = request.body(RequestHouseCreate::class.java)
+    val response = ResponseHouseCreate(
       responseId = "123",
       onRequest = query.requestId,
       endTime = Instant.now().toString(),
       status = ResponseStatusDto.SUCCESS,
       house = mockUpdate(
         id = "house123",
-        price = query?.createData?.price,
-        area = query?.createData?.area,
-        address = query?.createData?.address,
-        material = query?.createData?.material,
-        type = query?.createData?.type,
-        floors = query?.createData?.floors,
-        areaPlot = query?.createData?.areaPlot,
+        area = query.createData?.area,
+        address = query.createData?.address,
+        material = query.createData?.material,
+        type = query.createData?.type,
+        floors = query.createData?.floors,
+        areaPlot = query.createData?.areaPlot,
       )
     )
     return ok().body(response)
   }
 
   fun read(request: ServerRequest): ServerResponse {
-    val query = request.body(MpRequestHouseRead::class.java)
-    val response = MpResponseHouseRead(
+    val query = request.body(RequestHouseRead::class.java)
+    val response = ResponseHouseRead(
       responseId = "123",
       onRequest = query.requestId,
       endTime = Instant.now().toString(),
@@ -63,27 +62,26 @@ class HouseController {
   }
 
   fun update(request: ServerRequest): ServerResponse {
-    val query = request.body(MpRequestHouseUpdate::class.java)
+    val query = request.body(RequestHouseUpdate::class.java)
     val id = query.updateData?.id
     val response = if (id != null)
-      MpResponseHouseUpdate(
+      ResponseHouseUpdate(
         responseId = "123",
         onRequest = query.requestId,
         endTime = Instant.now().toString(),
         status = ResponseStatusDto.SUCCESS,
         house = mockUpdate(
           id = id,
-          price = query?.updateData!!.price,
-          area = query?.updateData!!.area,
-          address = query?.updateData!!.address,
-          material = query?.updateData!!.material,
-          type = query?.updateData!!.type,
-          floors = query?.updateData!!.floors,
-          areaPlot = query?.updateData!!.areaPlot,
+          area = query.updateData!!.area,
+          address = query.updateData!!.address,
+          material = query.updateData!!.material,
+          type = query.updateData!!.type,
+          floors = query.updateData!!.floors,
+          areaPlot = query.updateData!!.areaPlot,
         )
       )
     else
-      MpResponseHouseUpdate(
+      ResponseHouseUpdate(
         responseId = "123",
         onRequest = query.requestId,
         endTime = Instant.now().toString(),
@@ -102,9 +100,9 @@ class HouseController {
   }
 
   fun delete(request: ServerRequest): ServerResponse {
-    val query = request.body(MpRequestHouseDelete::class.java)
+    val query = request.body(RequestHouseDelete::class.java)
     return ok().body(
-      MpResponseHouseDelete(
+      ResponseHouseDelete(
         responseId = "123",
         onRequest = query.requestId,
         endTime = Instant.now().toString(),
@@ -118,16 +116,14 @@ class HouseController {
   companion object {
     fun mockUpdate(
       id: String,
-      price: Double?,
       area: Double?,
       address: String?,
       material: HouseMaterialDto?,
       type: HouseTypeDto?,
       floors: Int?,
       areaPlot: Double?,
-    ) = MpHouseDto(
+    ) = HouseDto(
       id = id,
-      price = price,
       area = area,
       address = address,
       material = material,
@@ -138,11 +134,10 @@ class HouseController {
 
     fun mockRead(id: String) = mockUpdate(
       id = id,
-      price = 10_000_000.0,
       area = 200.0,
       address = "Moscow",
-      material = HouseMaterialDto.BRICK,
-      type = HouseTypeDto.SINGLE_HOUSE,
+      material = HouseMaterialDto("id", "BRICK"),
+      type = HouseTypeDto("id", "SINGLE_HOUSE"),
       floors = 2,
       areaPlot = 10.0,
     )

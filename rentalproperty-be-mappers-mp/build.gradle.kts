@@ -6,10 +6,11 @@ group = rootProject.group
 version = rootProject.version
 
 dependencies {
+  implementation(project(":rentalproperty-be-common"))
+  implementation(project(":rentalproperty-be-directory"))
+  implementation(project(":rentalproperty-mp-transport-mp"))
+
   implementation(kotlin("stdlib"))
   testImplementation(kotlin("test"))
   testImplementation(kotlin("test-junit"))
-
-  implementation(project(":rentalproperty-be-common"))
-  implementation(project(":rentalproperty-mp-transport-mp"))
 }
