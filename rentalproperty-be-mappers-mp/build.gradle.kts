@@ -10,7 +10,7 @@ dependencies {
   implementation(project(":rentalproperty-be-directory"))
   implementation(project(":rentalproperty-mp-transport-mp"))
 
-  implementation(kotlin("stdlib"))
+  implementation(kotlin("stdlib-jdk8"))
   testImplementation(kotlin("test"))
   testImplementation(kotlin("test-junit"))
 }
