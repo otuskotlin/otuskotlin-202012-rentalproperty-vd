@@ -1,26 +1,27 @@
 package ru.otus.otuskotlin.vd.rentalproperty.mappers.backend
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
 internal fun HouseModel.toTransport() = HouseDto(
   id = id.id.takeIf { it.isNotBlank() },
-  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
-  price = price.takeIf { it != 0.0 },
   area = area.takeIf { it != 0.0 },
   address = address.takeIf { it.isNotBlank() },
-  material = HouseMaterialEnum.valueOf(material.name),
-  type = HouseTypeEnum.valueOf(type.name),
+  material = material.toTransport(),
+  type = type.toTransport(),
   series = series.takeIf { it.isNotBlank() },
   floors = floors.takeIf { it != 0 },
   areaPlot = areaPlot.takeIf { it != 0.0 },
-  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
+  plotStatus = plotStatus?.toTransport(),
   infrastructure = infrastructure.takeIf { it.isNotEmpty() }
-    ?.map { InfrastructureEnum.valueOf(it.name) }?.toSet(),
+    ?.map { it.toTransport() }?.toSet(),
   yearConstruction = yearConstruction.takeIf { it != 0 },
   garbageChute = garbageChute.takeIf { it },
   unitOnFloor = unitOnFloor.takeIf { it != 0 },
@@ -37,23 +38,15 @@ internal fun HouseModel.toTransport() = HouseDto(
 internal fun HouseDto.toModel() = HouseModel(
   id = id?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
-  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
-  price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
-    ?: HouseMaterialEnum.NONE,
-  type = type?.let { HouseTypeEnum.valueOf(it.name) }
-    ?: HouseTypeEnum.NONE,
+  material = material?.toModel() ?: HouseMaterialModel.NONE,
+  type = type?.toModel() ?: HouseTypeModel.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
-  infrastructure = infrastructure?.map {
-    InfrastructureEnum.valueOf(
-      it.name
-    )
-  }
+  plotStatus = plotStatus?.toModel() ?: PlotStatusModel.NONE,
+  infrastructure = infrastructure?.map { it.toModel() }
     ?.toMutableSet() ?: mutableSetOf(),
   yearConstruction = yearConstruction ?: 0,
   garbageChute = garbageChute ?: false,
@@ -66,23 +59,23 @@ internal fun HouseDto.toModel() = HouseModel(
   photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseCreate) = apply {
+fun BeContext.setQuery(query: RequestHouseCreate) = apply {
   requestHouse = query.createData?.toModel() ?: HouseModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseRead) = apply {
+fun BeContext.setQuery(query: RequestHouseRead) = apply {
   requestHouseId = query.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseUpdate) = apply {
+fun BeContext.setQuery(query: RequestHouseUpdate) = apply {
   requestHouse = query.updateData?.toModel() ?: HouseModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseDelete) = apply {
+fun BeContext.setQuery(query: RequestHouseDelete) = apply {
   requestHouseId = query.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(query: RequestHouseList) = apply {
+fun BeContext.setQuery(query: RequestHouseList) = apply {
   houseFilter = query.filterData?.let {
     HouseFilterModel(
       text = it.text ?: ""
@@ -90,46 +83,37 @@ fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.setQuery(qu
   } ?: HouseFilterModel.NONE
 }
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseGet() = ResponseHouseRead(
+fun BeContext.respondHouseGet() = ResponseHouseRead(
   house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseCreate() = ResponseHouseCreate(
+fun BeContext.respondHouseCreate() = ResponseHouseCreate(
   house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseUpdate() = ResponseHouseUpdate(
+fun BeContext.respondHouseUpdate() = ResponseHouseUpdate(
   house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseDelete() = ResponseHouseDelete(
+fun BeContext.respondHouseDelete() = ResponseHouseDelete(
   house = responseHouse.takeIf { it != HouseModel.NONE }?.toTransport()
 )
 
-fun ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext.respondHouseList() = ResponseHouseList(
+fun BeContext.respondHouseList() = ResponseHouseList(
   houses = responseHouses.takeIf { it.isNotEmpty() }?.filter { it != HouseModel.NONE }
     ?.map { it.toTransport() }
 )
 
-
 private fun HouseCreateDto.toModel() = HouseModel(
-  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
-  price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
-    ?: HouseMaterialEnum.NONE,
-  type = type?.let { HouseTypeEnum.valueOf(it.name) }
-    ?: HouseTypeEnum.NONE,
+  material = material?.toModel() ?: HouseMaterialModel.NONE,
+  type = type?.toModel() ?: HouseTypeModel.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
-  infrastructure = infrastructure?.map {
-    InfrastructureEnum.valueOf(
-      it.name
-    )
-  }
+  plotStatus = plotStatus?.toModel() ?: PlotStatusModel.NONE,
+  infrastructure = infrastructure?.map { it.toModel() }
     ?.toMutableSet() ?: mutableSetOf(),
   yearConstruction = yearConstruction ?: 0,
   garbageChute = garbageChute ?: false,
@@ -145,23 +129,15 @@ private fun HouseCreateDto.toModel() = HouseModel(
 private fun HouseUpdateDto.toModel() = HouseModel(
   id = id?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
-  realtyType = RealtyTypeEnum.valueOf(realtyType.name),
-  price = price ?: 0.0,
   area = area ?: 0.0,
   address = address ?: "",
-  material = material?.let { HouseMaterialEnum.valueOf(it.name) }
-    ?: HouseMaterialEnum.NONE,
-  type = type?.let { HouseTypeEnum.valueOf(it.name) }
-    ?: HouseTypeEnum.NONE,
+  material = material?.toModel() ?: HouseMaterialModel.NONE,
+  type = type?.toModel() ?: HouseTypeModel.NONE,
   series = series ?: "",
   floors = floors ?: 0,
   areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.let { PlotStatusEnum.valueOf(it.name) },
-  infrastructure = infrastructure?.map {
-    InfrastructureEnum.valueOf(
-      it.name
-    )
-  }
+  plotStatus = plotStatus?.toModel() ?: PlotStatusModel.NONE,
+  infrastructure = infrastructure?.map { it.toModel() }
     ?.toMutableSet() ?: mutableSetOf(),
   yearConstruction = yearConstruction ?: 0,
   garbageChute = garbageChute ?: false,

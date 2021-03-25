@@ -2,53 +2,49 @@ package ru.otus.otuskotlin.marketplace.mappers.openapi
 
 import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IRequest
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertRentHouseModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.UserIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.enums.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.toModel
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertRentHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertRentHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
+import java.time.Instant
 
+fun BeContext.setQuery(request: IRequest) =
+  when (request) {
+    is RequestHouseRead -> setQuery(request)
+    is RequestHouseCreate -> setQuery(request)
+    is RequestAdvertRentHouseRead -> setQuery(request)
+    is RequestAdvertRentHouseCreate -> setQuery(request)
+    else -> null
+  }
+
+//House
 private fun BeContext.setQuery(request: RequestHouseRead) {
   this.requestHouseId = request.houseId?.let {
     HouseIdModel(it)
   } ?: HouseIdModel.NONE
 }
 
-fun BeContext.setQuery(request: IRequest) =
-  when (request) {
-    is RequestHouseRead -> setQuery(request)
-    is RequestHouseCreate -> setQuery(request)
-    else -> null
-  }
-
 private fun BeContext.setQuery(request: RequestHouseCreate) {
   request.createData?.let { data ->
     this.requestHouse = HouseModel(
-      realtyType = RealtyTypeEnum.valueOf(data.realtyType.name),
-      price = data.price ?: 0.0,
       area = data.area ?: 0.0,
       address = data.address ?: "",
-      material = data.material?.let {
-        HouseMaterialEnum.valueOf(
-          it.name
-        )
-      } ?: HouseMaterialEnum.NONE,
-      type = data.type?.let { HouseTypeEnum.valueOf(it.name) }
-        ?: HouseTypeEnum.NONE,
+      material = data.material?.toModel() ?: HouseMaterialModel.NONE,
+      type = data.type?.toModel() ?: HouseTypeModel.NONE,
       series = data.series ?: "",
       floors = data.floors ?: 0,
       areaPlot = data.areaPlot ?: 0.0,
-      plotStatus = data.plotStatus?.let {
-        PlotStatusEnum.valueOf(
-          it.name
-        )
-      },
-      infrastructure = data.infrastructure?.map {
-        InfrastructureEnum.valueOf(
-          it.name
-        )
-      }
+      plotStatus = data.plotStatus?.toModel() ?: PlotStatusModel.NONE,
+      infrastructure = data.infrastructure?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf(),
       yearConstruction = data.yearConstruction ?: 0,
       garbageChute = data.garbageChute ?: false,
@@ -59,6 +55,26 @@ private fun BeContext.setQuery(request: RequestHouseCreate) {
       timeToMetro = data.timeToMetro ?: 0,
       distanceToMetro = data.distanceToMetro ?: 0,
       photos = data.photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
+    )
+  }
+}
+
+//AdvertRentHouse
+private fun BeContext.setQuery(request: RequestAdvertRentHouseRead) {
+  this.requestAdvertRentHouseId = request.advertId?.let {
+    AdvertIdModel(it)
+  } ?: AdvertIdModel.NONE
+}
+
+private fun BeContext.setQuery(request: RequestAdvertRentHouseCreate) {
+  request.createData?.let { data ->
+    this.requestAdvertRentHouse = AdvertRentHouseModel(
+      userId = data.userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
+      houseId = data.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
+      name = data.name ?: "",
+      description = data.description ?: "",
+      price = data.price ?: 0.0,
+      published = data.published?.let { Instant.parse(data.published) },
     )
   }
 }

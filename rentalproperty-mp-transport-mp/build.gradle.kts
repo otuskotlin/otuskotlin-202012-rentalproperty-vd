@@ -30,8 +30,6 @@ kotlin {
 
     val commonMain by getting {
       dependencies {
-        implementation(project(":rentalproperty-be-directory"))
-
         implementation(kotlin("stdlib-common"))
         api("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
         api("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
@@ -56,7 +54,7 @@ kotlin {
     }
     val jvmMain by getting {
       dependencies {
-        implementation(kotlin("stdlib"))
+        implementation(kotlin("stdlib-jdk8"))
       }
     }
     val jvmTest by getting {

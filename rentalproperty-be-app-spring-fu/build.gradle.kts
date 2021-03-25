@@ -20,7 +20,7 @@ dependencies {
   implementation(project(":rentalproperty-be-mappers-mp"))
   implementation(project(":rentalproperty-mp-transport-mp"))
 
-  implementation(kotlin("stdlib"))
+  implementation(kotlin("stdlib-jdk8"))
 
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.fu:spring-fu-kofu:$springFuVersion")

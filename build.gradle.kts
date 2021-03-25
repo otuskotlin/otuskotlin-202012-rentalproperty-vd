@@ -1,6 +1,6 @@
 plugins {
-  kotlin("jvm") apply false
   kotlin("js") apply false
+  kotlin("jvm") apply false
   kotlin("multiplatform") apply false
 
   id("org.openapi.generator") apply false
@@ -18,6 +18,7 @@ subprojects {
     jcenter()
     mavenCentral()
     maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+    maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://repo.spring.io/milestone") }
   }
 }

@@ -1,11 +1,13 @@
 import ru.otus.otuskotlin.marketplace.mappers.openapi.setQuery
 import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IRequest
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseMaterialDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.realty.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.HouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.house.RequestHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseMaterialDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.directory.HouseTypeDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.HouseCreateDto
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -27,9 +29,8 @@ internal class HouseMappersTest {
   fun requestCreateMappingTest() {
     val requestHouse: IRequest = RequestHouseCreate(
       createData = HouseCreateDto(
-        price = 10_000_000.0,
-        material = HouseMaterialDto.BRICK,
-        type = HouseTypeDto.SINGLE_HOUSE,
+        material = HouseMaterialDto("id", "BRICK"),
+        type = HouseTypeDto("id", "SINGLE_HOUSE"),
         floors = 2,
         areaPlot = 10.0,
       )
@@ -38,7 +39,7 @@ internal class HouseMappersTest {
 
     context.setQuery(requestHouse)
 
-    assertEquals(10_000_000.0, context.requestHouse.price)
+    assertEquals(HouseTypeModel(DirectoryIdModel("id"), "SINGLE_HOUSE"), context.requestHouse.type)
     assertEquals(2, context.requestHouse.floors)
   }
 }
