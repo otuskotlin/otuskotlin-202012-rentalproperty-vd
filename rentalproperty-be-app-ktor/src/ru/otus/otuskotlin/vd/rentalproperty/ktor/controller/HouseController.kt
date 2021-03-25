@@ -4,6 +4,7 @@ import io.ktor.application.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import ru.otus.otuskotlin.vd.rentalproperty.business.logic.backend.HouseCrud
 import ru.otus.otuskotlin.vd.rentalproperty.ktor.service.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
@@ -11,7 +12,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
 fun Routing.houseRoute() {
 
-  val houseService = HouseService()
+  val houseCrud = HouseCrud()
+  val houseService = HouseService(houseCrud)
 
   route("/realty/houses") {
     post("/get") {

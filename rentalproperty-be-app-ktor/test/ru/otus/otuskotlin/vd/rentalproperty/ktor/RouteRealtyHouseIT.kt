@@ -41,7 +41,8 @@ class RouteRealtyHouseIT {
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
         assertEquals("321", res.onRequest)
-        assertEquals("Novosibirsk", res.house?.address)
+        assertEquals("test-address", res.house?.address)
+        assertEquals("SINGLE_HOUSE", res.house?.type?.name)
       }
     }
   }

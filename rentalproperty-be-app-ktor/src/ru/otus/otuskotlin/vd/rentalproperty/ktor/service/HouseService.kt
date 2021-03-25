@@ -1,31 +1,19 @@
 package ru.otus.otuskotlin.vd.rentalproperty.ktor.service
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.business.logic.backend.HouseCrud
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
-class HouseService {
-  private val house = HouseModel(
-    id = HouseIdModel("test-id"),
-    area = 100.0,
-    address = "Novosibirsk",
-    material = HouseMaterialModel(DirectoryIdModel("id"), "BRICK"),
-    type = HouseTypeModel(DirectoryIdModel("id"), "SINGLE_HOUSE"),
-    floors = 1,
-    areaPlot = 5.0,
-  )
+class HouseService(
+  private val crud: HouseCrud
+) {
 
   suspend fun get(query: RequestHouseRead): Message = BeContext().run {
     try {
-      setQuery(query)
-      responseHouse = house
+      crud.read(setQuery(query))
       respondHouseGet().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -42,8 +30,7 @@ class HouseService {
 
   suspend fun create(query: RequestHouseCreate): Message = BeContext().run {
     try {
-      setQuery(query)
-      responseHouse = house
+      crud.create(setQuery(query))
       respondHouseCreate().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -60,8 +47,7 @@ class HouseService {
 
   suspend fun update(query: RequestHouseUpdate): Message = BeContext().run {
     try {
-      setQuery(query)
-      responseHouse = house
+      crud.update(setQuery(query))
       respondHouseUpdate().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -78,8 +64,7 @@ class HouseService {
 
   suspend fun delete(query: RequestHouseDelete): Message = BeContext().run {
     try {
-      setQuery(query)
-      responseHouse = house
+      crud.delete(setQuery(query))
       respondHouseDelete().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -96,8 +81,7 @@ class HouseService {
 
   suspend fun filter(query: RequestHouseList): Message = BeContext().run {
     try {
-      setQuery(query)
-      responseHouses = mutableListOf(house)
+      crud.filter(setQuery(query))
       respondHouseList().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
@@ -111,5 +95,4 @@ class HouseService {
       )
     }
   }
-
 }
