@@ -16,7 +16,6 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 dependencies {
   val kotestVersion: String by project
-  val coroutinesVersion: String by project
 
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
@@ -31,7 +30,6 @@ dependencies {
   implementation(kotlin("stdlib"))
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
   implementation("org.liquibase:liquibase-core")
   runtimeOnly("org.postgresql:postgresql")

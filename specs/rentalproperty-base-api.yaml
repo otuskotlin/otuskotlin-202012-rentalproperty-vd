@@ -147,7 +147,7 @@ components:
         - IRP
         - GARDEN
         - FARM
-          
+
     RealtyTypeDto:
       type: string
       description: Список вариантов недвижимого имущества
