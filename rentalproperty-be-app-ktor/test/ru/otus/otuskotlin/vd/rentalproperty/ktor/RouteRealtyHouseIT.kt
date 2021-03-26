@@ -2,6 +2,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.ktor
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import ru.otus.otuskotlin.vd.rentalproperty.common.kmp.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
@@ -13,9 +14,9 @@ import kotlin.test.fail
 class RouteRealtyHouseIT {
 
   @Test
-  fun testGet() {
+  fun testRead() {
     withTestApplication({ module(testing = true) }) {
-      handleRequest(HttpMethod.Post, "/realty/houses/get") {
+      handleRequest(HttpMethod.Post, RestEndpoints.houseRead) {
         val body = RequestHouseRead(
           requestId = "321",
           houseId = "test-id",
@@ -41,7 +42,8 @@ class RouteRealtyHouseIT {
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
         assertEquals("321", res.onRequest)
-        assertEquals("Novosibirsk", res.house?.address)
+        assertEquals("test-address", res.house?.address)
+        assertEquals("SINGLE_HOUSE", res.house?.type?.name)
       }
     }
   }

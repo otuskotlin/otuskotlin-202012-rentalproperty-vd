@@ -7,8 +7,11 @@ data class HouseTypeModel(
   companion object {
     val NONE = HouseTypeModel()
     val list = setOf(
-      "COMBINED",   //совмещённый
-      "SEPARATED",  //раздельный
+      "DUPLEX",
+      "MULTI_APARTMENT",
+      "SINGLE_HOUSE",
+      "PART_HOUSE",
+      "TOWNHOUSE",
     )
   }
 }
