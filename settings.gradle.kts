@@ -9,15 +9,15 @@ pluginManagement {
     val springBootVersion: String by settings
     val springDependencyVersion: String by settings
 
-    kotlin("jvm") version kotlinVersion apply false
-    kotlin("js") version kotlinVersion apply false
-    kotlin("multiplatform") version kotlinVersion apply false
-    kotlin("plugin.serialization") version kotlinVersion apply false
+    kotlin("jvm") version kotlinVersion
+    kotlin("js") version kotlinVersion
+    kotlin("multiplatform") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
 
-    id("com.bmuschko.docker-java-application") version bmuschkoVersion apply false
+    id("com.bmuschko.docker-java-application") version bmuschkoVersion
     id("io.kotless") version kotlessVersion apply false
     id("io.spring.dependency-management") version springDependencyVersion
-    id("org.openapi.generator") version openApiVersion apply false
+    id("org.openapi.generator") version openApiVersion
     id("org.springframework.boot") version springBootVersion
   }
   repositories {
@@ -28,8 +28,11 @@ pluginManagement {
 include("rentalproperty-be-app-ktor")
 include("rentalproperty-be-app-spring-cl")
 include("rentalproperty-be-app-spring-fu")
+include("rentalproperty-be-business-logic")
 include("rentalproperty-be-common")
 include("rentalproperty-be-directory")
 include("rentalproperty-be-mappers-mp")
-include("rentalproperty-mp-transport-mp")
 include("rentalproperty-be-transport-openapi")
+include("rentalproperty-mp-common")
+include("rentalproperty-mp-pipelines")
+include("rentalproperty-mp-transport-mp")
