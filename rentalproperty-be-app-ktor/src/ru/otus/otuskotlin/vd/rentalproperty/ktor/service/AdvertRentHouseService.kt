@@ -22,7 +22,7 @@ class AdvertRentHouseService {
     try {
       setQuery(query)
       responseAdvertRentHouse = advert
-      respondAdvertRentHouseGet().copy(
+      respondAdvertRentHouseRead().copy(
         responseId = "123",
         status = ResponseStatusDto.SUCCESS,
         onRequest = query.requestId

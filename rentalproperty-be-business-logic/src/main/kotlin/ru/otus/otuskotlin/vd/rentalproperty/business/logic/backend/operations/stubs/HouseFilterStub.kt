@@ -16,7 +16,7 @@ object HouseFilterStub : IOperation<BeContext> by pipeline({
   startIf { stubCase != StubCase.NONE }
 
   operation {
-    startIf { stubCase == StubCase.HOUSE_FILTER_SUCCESS }
+    startIf { stubCase == StubCase.HOUSE_LIST_SUCCESS }
     execute {
       responseHouses.add(
         HouseModel(

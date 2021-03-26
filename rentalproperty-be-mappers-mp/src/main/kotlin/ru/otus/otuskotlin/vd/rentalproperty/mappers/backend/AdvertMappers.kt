@@ -53,11 +53,11 @@ fun BeContext.setQuery(query: RequestAdvertRentHouseList) = apply {
   } ?: AdvertFilterModel.NONE
 }
 
-fun BeContext.respondAdvertRentHouseGet() = ResponseAdvertRentHouseRead(
+fun BeContext.respondAdvertRentHouseCreate() = ResponseAdvertRentHouseCreate(
   advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
 )
 
-fun BeContext.respondAdvertRentHouseCreate() = ResponseAdvertRentHouseCreate(
+fun BeContext.respondAdvertRentHouseRead() = ResponseAdvertRentHouseRead(
   advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
 )
 

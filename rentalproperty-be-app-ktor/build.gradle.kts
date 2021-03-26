@@ -19,6 +19,7 @@ dependencies {
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
   implementation(project(":rentalproperty-be-mappers-mp"))
+  implementation(project(":rentalproperty-mp-common"))
   implementation(project(":rentalproperty-mp-transport-mp"))
 
   implementation(kotlin("stdlib-jdk8"))

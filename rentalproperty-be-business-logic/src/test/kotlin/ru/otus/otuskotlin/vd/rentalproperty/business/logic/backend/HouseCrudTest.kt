@@ -18,7 +18,7 @@ class HouseCrudTest {
   fun filter() {
     val givenCrud = HouseCrud()
     val givenContext = BeContext(
-      stubCase = StubCase.HOUSE_FILTER_SUCCESS,
+      stubCase = StubCase.HOUSE_LIST_SUCCESS,
       houseFilter = HouseFilterModel(text = "test")
     )
 

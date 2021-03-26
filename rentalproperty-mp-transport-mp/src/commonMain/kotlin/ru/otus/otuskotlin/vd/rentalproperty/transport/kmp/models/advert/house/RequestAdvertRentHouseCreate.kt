@@ -21,4 +21,10 @@ data class RequestAdvertRentHouseCreate(
   data class Debug(
     override val mode: WorkModeDto?
   ) : IDebug
+
+  @Serializable
+  enum class StubCase {
+    NONE,
+    SUCCESS
+  }
 }
