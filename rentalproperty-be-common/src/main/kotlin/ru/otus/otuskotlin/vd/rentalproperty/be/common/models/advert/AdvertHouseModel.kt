@@ -7,7 +7,7 @@ import java.time.Instant
 /**
  * Объявление о сдачи дома в аренду
  */
-data class AdvertRentHouseModel(
+data class AdvertHouseModel(
   val id: AdvertIdModel = AdvertIdModel.NONE,
   val userId: UserIdModel = UserIdModel.NONE,
   val houseId: HouseIdModel = HouseIdModel.NONE,
@@ -20,6 +20,6 @@ data class AdvertRentHouseModel(
   val published: Instant? = null,
 ) {
   companion object {
-    val NONE = AdvertRentHouseModel()
+    val NONE = AdvertHouseModel()
   }
 }

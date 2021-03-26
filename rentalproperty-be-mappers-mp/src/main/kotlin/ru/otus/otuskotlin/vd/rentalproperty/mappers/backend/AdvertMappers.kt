@@ -1,15 +1,16 @@
 package ru.otus.otuskotlin.vd.rentalproperty.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilterModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertRentHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.UserIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.*
 import java.time.Instant
 
-internal fun AdvertRentHouseModel.toTransport() = AdvertRentHouseDto(
+internal fun AdvertHouseModel.toTransport() = AdvertHouseDto(
   id = id.id.takeIf { it.isNotBlank() },
   userId = userId.takeIf { it.id.isNotBlank() }?.id,
   houseId = houseId.takeIf { it.id.isNotBlank() }?.id,
@@ -19,62 +20,97 @@ internal fun AdvertRentHouseModel.toTransport() = AdvertRentHouseDto(
   published = published.takeIf { it != null }?.toString(),
 )
 
-internal fun AdvertRentHouseDto.toModel() = AdvertRentHouseModel(
-  id = id?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE,
-  userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
-  houseId = houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
-  name = name ?: "",
-  description = description ?: "",
-  price = price ?: 0.0,
-  published = published?.let { Instant.parse(published) },
-)
-
-fun BeContext.setQuery(query: RequestAdvertRentHouseCreate) = apply {
-  requestAdvertRentHouse = query.createData?.toModel() ?: AdvertRentHouseModel.NONE
+fun BeContext.setQuery(query: RequestAdvertHouseCreate) = apply {
+  requestAdvertHouse = query.createData?.toModel() ?: AdvertHouseModel.NONE
+  stubCase = when (query.debug?.stubCase) {
+    RequestAdvertHouseCreate.StubCase.SUCCESS -> StubCase.ADVERT_CREATE_SUCCESS
+    else -> StubCase.NONE
+  }
 }
 
-fun BeContext.setQuery(query: RequestAdvertRentHouseRead) = apply {
-  requestAdvertRentHouseId = query.advertId?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE
+fun BeContext.setQuery(query: RequestAdvertHouseRead) = apply {
+  requestAdvertHouseId = query.advertId?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE
+  stubCase = when (query.debug?.stubCase) {
+    RequestAdvertHouseRead.StubCase.SUCCESS -> StubCase.ADVERT_READ_SUCCESS
+    else -> StubCase.NONE
+  }
 }
 
-fun BeContext.setQuery(query: RequestAdvertRentHouseUpdate) = apply {
-  requestAdvertRentHouse = query.updateData?.toModel() ?: AdvertRentHouseModel.NONE
+fun BeContext.setQuery(query: RequestAdvertHouseUpdate) = apply {
+  requestAdvertHouse = query.updateData?.toModel() ?: AdvertHouseModel.NONE
+  stubCase = when (query.debug?.stubCase) {
+    RequestAdvertHouseUpdate.StubCase.SUCCESS -> StubCase.ADVERT_UPDATE_SUCCESS
+    else -> StubCase.NONE
+  }
 }
 
-fun BeContext.setQuery(query: RequestAdvertRentHouseDelete) = apply {
-  requestAdvertRentHouseId = query.advertId?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE
+fun BeContext.setQuery(query: RequestAdvertHouseDelete) = apply {
+  requestAdvertHouseId = query.advertId?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE
+  stubCase = when (query.debug?.stubCase) {
+    RequestAdvertHouseDelete.StubCase.SUCCESS -> StubCase.ADVERT_DELETE_SUCCESS
+    else -> StubCase.NONE
+  }
 }
 
-fun BeContext.setQuery(query: RequestAdvertRentHouseList) = apply {
+fun BeContext.setQuery(query: RequestAdvertHouseList) = apply {
   advertFilter = query.filterData?.let {
     AdvertFilterModel(
       text = it.text ?: ""
     )
   } ?: AdvertFilterModel.NONE
+  stubCase = when (query.debug?.stubCase) {
+    RequestAdvertHouseList.StubCase.SUCCESS -> StubCase.ADVERT_LIST_SUCCESS
+    else -> StubCase.NONE
+  }
 }
 
-fun BeContext.respondAdvertRentHouseCreate() = ResponseAdvertRentHouseCreate(
-  advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
+fun BeContext.respondAdvertHouseCreate() = ResponseAdvertHouseCreate(
+  advert = responseAdvertHouse.takeIf { it != AdvertHouseModel.NONE }?.toTransport(),
+  errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+  status = status.toTransport(),
+  responseId = responseId,
+  onRequest = onRequest,
+  endTime = Instant.now().toString()
 )
 
-fun BeContext.respondAdvertRentHouseRead() = ResponseAdvertRentHouseRead(
-  advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
+fun BeContext.respondAdvertHouseRead() = ResponseAdvertHouseRead(
+  advert = responseAdvertHouse.takeIf { it != AdvertHouseModel.NONE }?.toTransport(),
+  errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+  status = status.toTransport(),
+  responseId = responseId,
+  onRequest = onRequest,
+  endTime = Instant.now().toString()
 )
 
-fun BeContext.respondAdvertRentHouseUpdate() = ResponseAdvertRentHouseUpdate(
-  advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
+fun BeContext.respondAdvertHouseUpdate() = ResponseAdvertHouseUpdate(
+  advert = responseAdvertHouse.takeIf { it != AdvertHouseModel.NONE }?.toTransport(),
+  errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+  status = status.toTransport(),
+  responseId = responseId,
+  onRequest = onRequest,
+  endTime = Instant.now().toString()
 )
 
-fun BeContext.respondAdvertRentHouseDelete() = ResponseAdvertRentHouseDelete(
-  advert = responseAdvertRentHouse.takeIf { it != AdvertRentHouseModel.NONE }?.toTransport()
+fun BeContext.respondAdvertHouseDelete() = ResponseAdvertHouseDelete(
+  advert = responseAdvertHouse.takeIf { it != AdvertHouseModel.NONE }?.toTransport(),
+  errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+  status = status.toTransport(),
+  responseId = responseId,
+  onRequest = onRequest,
+  endTime = Instant.now().toString()
 )
 
-fun BeContext.respondAdvertRentHouseList() = ResponseAdvertRentHouseList(
-  adverts = responseAdvertRentHouses.takeIf { it.isNotEmpty() }?.filter { it != AdvertRentHouseModel.NONE }
-    ?.map { it.toTransport() }
+fun BeContext.respondAdvertHouseList() = ResponseAdvertHouseList(
+  adverts = responseAdvertHouses.takeIf { it.isNotEmpty() }?.filter { it != AdvertHouseModel.NONE }
+    ?.map { it.toTransport() },
+  errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+  status = status.toTransport(),
+  responseId = responseId,
+  onRequest = onRequest,
+  endTime = Instant.now().toString()
 )
 
-private fun AdvertRentHouseCreateDto.toModel() = AdvertRentHouseModel(
+private fun AdvertHouseCreateDto.toModel() = AdvertHouseModel(
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   houseId = houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
   name = name ?: "",
@@ -83,7 +119,7 @@ private fun AdvertRentHouseCreateDto.toModel() = AdvertRentHouseModel(
   published = published?.let { Instant.parse(published) },
 )
 
-private fun AdvertRentHouseUpdateDto.toModel() = AdvertRentHouseModel(
+private fun AdvertHouseUpdateDto.toModel() = AdvertHouseModel(
   id = id?.let { AdvertIdModel(it) } ?: AdvertIdModel.NONE,
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   houseId = houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,

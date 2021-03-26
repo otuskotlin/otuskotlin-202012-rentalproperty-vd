@@ -8,18 +8,19 @@ import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.WorkModeDto
 
 @Serializable
-@SerialName("RequestAdvertRentHouseRead")
-data class RequestAdvertRentHouseRead(
+@SerialName("RequestAdvertHouseUpdate")
+data class RequestAdvertHouseUpdate(
   override val requestId: String? = null,
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val advertId: String? = null,
+  val updateData: AdvertHouseUpdateDto? = null,
 ) : IRequest, Message() {
 
   @Serializable
   data class Debug(
-    override val mode: WorkModeDto?
+    override val mode: WorkModeDto?,
+    val stubCase: StubCase? = null
   ) : IDebug
 
   @Serializable

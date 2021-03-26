@@ -6,12 +6,10 @@ object RestEndpoints {
     const val houseRead = "/realty/houses/read"
     const val houseUpdate = "/realty/houses/update"
     const val houseDelete = "/realty/houses/delete"
-    const val houseOffers = "/realty/houses/offers"
 
-    const val advertList = "/adverts/houses/list"
-    const val advertCreate = "/adverts/houses/create"
-    const val advertRead = "/adverts/houses/read"
-    const val advertUpdate = "/adverts/houses/update"
-    const val advertDelete = "/adverts/houses/delete"
-    const val advertOffers = "/adverts/houses/offers"
+    const val advertHouseList = "/adverts/houses/list"
+    const val advertHouseCreate = "/adverts/houses/create"
+    const val advertHouseRead = "/adverts/houses/read"
+    const val advertHouseUpdate = "/adverts/houses/update"
+    const val advertHouseDelete = "/adverts/houses/delete"
 }

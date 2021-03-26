@@ -37,30 +37,6 @@ internal fun HouseModel.toTransport() = HouseDto(
     ?.map { it.toTransport() }?.toSet()
 )
 
-internal fun HouseDto.toModel() = HouseModel(
-  id = id?.let { HouseIdModel(it) }
-    ?: HouseIdModel.NONE,
-  area = area ?: 0.0,
-  address = address ?: "",
-  material = material?.toModel() ?: HouseMaterialModel.NONE,
-  type = type?.toModel() ?: HouseTypeModel.NONE,
-  series = series ?: "",
-  floors = floors ?: 0,
-  areaPlot = areaPlot ?: 0.0,
-  plotStatus = plotStatus?.toModel() ?: PlotStatusModel.NONE,
-  infrastructure = infrastructure?.map { it.toModel() }
-    ?.toMutableSet() ?: mutableSetOf(),
-  yearConstruction = yearConstruction ?: 0,
-  garbageChute = garbageChute ?: false,
-  unitOnFloor = unitOnFloor ?: 0,
-  passengerElevator = passengerElevator ?: 0,
-  serviceElevator = serviceElevator ?: 0,
-  metro = metro ?: "",
-  timeToMetro = timeToMetro ?: 0,
-  distanceToMetro = distanceToMetro ?: 0,
-  photos = photos?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf(),
-)
-
 fun BeContext.setQuery(query: RequestHouseCreate) = setQuery(query) {
   requestHouse = query.createData?.toModel() ?: HouseModel.NONE
   stubCase = when (query.debug?.stubCase) {

@@ -22,7 +22,7 @@ class HouseCrudTest {
       houseFilter = HouseFilterModel(text = "test")
     )
 
-    runBlockingTest { givenCrud.filter(givenContext) }
+    runBlockingTest { givenCrud.list(givenContext) }
 
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     assertEquals(1, givenContext.responseHouses.size)

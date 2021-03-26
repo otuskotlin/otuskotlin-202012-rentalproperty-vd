@@ -3,8 +3,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AdvertRentHouseUpdateDto(
-  val id: String? = null,
+data class AdvertHouseCreateDto(
   val userId: String? = null,
   val houseId: String? = null,
   val name: String? = null,
