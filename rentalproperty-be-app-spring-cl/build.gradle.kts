@@ -20,9 +20,9 @@ dependencies {
   implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
-  implementation(project(":rentalproperty-be-mappers-mp"))
+  implementation(project(":rentalproperty-be-mappers"))
   implementation(project(":rentalproperty-mp-common"))
-  implementation(project(":rentalproperty-mp-transport-mp"))
+  implementation(project(":rentalproperty-mp-transport"))
 
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-mustache")

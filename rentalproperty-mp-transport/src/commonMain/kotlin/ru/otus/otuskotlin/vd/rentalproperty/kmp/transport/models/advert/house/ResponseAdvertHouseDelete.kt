@@ -1,0 +1,24 @@
+package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.*
+
+@Serializable
+@SerialName("ResponseAdvertHouseDelete")
+data class ResponseAdvertHouseDelete(
+  override val responseId: String? = null,
+  override val onRequest: String? = null,
+  override val endTime: String? = null,
+  override val errors: List<ErrorDto>? = null,
+  override val status: ResponseStatusDto? = null,
+  override val debug: ResponseAdvertHouseDelete.Debug? = null,
+  val advert: AdvertHouseDto? = null,
+  val deleted: Boolean? = null,
+) : IResponse, Message() {
+
+  @Serializable
+  data class Debug(
+    override val mode: WorkModeDto?
+  ) : IDebug
+}
