@@ -16,14 +16,14 @@ data class RequestHouseRead(
   override val requestId: String? = null,
   override val onResponse: String? = null,
   override val startTime: String? = null,
-  override val debug: RequestHouseRead.Debug? = null,
+  override val debug: Debug? = null,
   val houseId: String? = null,
 ) : IRequest, Message() {
 
   @Serializable
   data class Debug(
     override val mode: WorkModeDto? = null,
-    val stubCase: RequestHouseRead.StubCase? = null
+    val stubCase: StubCase? = null
   ) : IDebug
 
   @Serializable

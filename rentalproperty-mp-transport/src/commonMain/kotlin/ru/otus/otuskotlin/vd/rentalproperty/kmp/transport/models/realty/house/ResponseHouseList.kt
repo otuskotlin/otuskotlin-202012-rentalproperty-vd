@@ -12,7 +12,7 @@ data class ResponseHouseList(
   override val endTime: String? = null,
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
-  override val debug: ResponseHouseList.Debug? = null,
+  override val debug: Debug? = null,
   val houses: List<HouseDto>? = null,
 ) : IResponse, Message() {
 

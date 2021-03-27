@@ -24,21 +24,21 @@ fun Routing.advertHouseRoute(crud: AdvertHouseCrud) {
   post(RestEndpoints.houseUpdate) {
     handleRoute<RequestAdvertHouseUpdate, ResponseAdvertHouseUpdate> { query ->
       query?.also { setQuery(it) }
-      crud.read(this)
+      crud.update(this)
       respondAdvertHouseUpdate()
     }
   }
   post(RestEndpoints.houseDelete) {
     handleRoute<RequestAdvertHouseDelete, ResponseAdvertHouseDelete> { query ->
       query?.also { setQuery(it) }
-      crud.read(this)
+      crud.delete(this)
       respondAdvertHouseDelete()
     }
   }
   post(RestEndpoints.houseList) {
     handleRoute<RequestAdvertHouseList, ResponseAdvertHouseList> { query ->
       query?.also { setQuery(it) }
-      crud.read(this)
+      crud.list(this)
       respondAdvertHouseList()
     }
   }

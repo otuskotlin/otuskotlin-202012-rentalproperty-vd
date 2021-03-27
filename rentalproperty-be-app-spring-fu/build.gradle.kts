@@ -25,7 +25,7 @@ dependencies {
 
   implementation(kotlin("stdlib-jdk8"))
 
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$coroutinesVersion")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.fu:spring-fu-kofu:$springFuVersion")
   implementation("org.springframework:spring-webmvc")

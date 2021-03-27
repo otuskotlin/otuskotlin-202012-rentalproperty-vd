@@ -12,7 +12,7 @@ data class ResponseHouseDelete(
   override val endTime: String? = null,
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
-  override val debug: ResponseHouseDelete.Debug? = null,
+  override val debug: Debug? = null,
   val house: HouseDto? = null,
   val deleted: Boolean? = null,
 ) : IResponse, Message() {

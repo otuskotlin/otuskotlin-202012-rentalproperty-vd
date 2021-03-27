@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.*
@@ -20,7 +21,6 @@ import kotlin.test.assertTrue
 internal class HouseControllerIT {
   private val client = WebTestClient.bindToServer().baseUrl("http://localhost:8181").build()
   private lateinit var context: ConfigurableApplicationContext
-  private val REALTY_ENDPOINT: String = "/realty"
 
   @BeforeAll
   fun beforeAll() {
@@ -31,7 +31,7 @@ internal class HouseControllerIT {
   fun `House List`() {
     val res = client
       .post()
-      .uri("$REALTY_ENDPOINT/house/list")
+      .uri(RestEndpoints.houseList)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(RequestHouseList())
       .exchange()
@@ -47,7 +47,7 @@ internal class HouseControllerIT {
   fun `House Create`() {
     val res = client
       .post()
-      .uri("$REALTY_ENDPOINT/house/create")
+      .uri(RestEndpoints.houseCreate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseCreate(
@@ -88,7 +88,7 @@ internal class HouseControllerIT {
   fun `House Read`() {
     val res = client
       .post()
-      .uri("$REALTY_ENDPOINT/house/read")
+      .uri(RestEndpoints.houseRead)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseRead(
@@ -116,7 +116,7 @@ internal class HouseControllerIT {
   fun `House Update`() {
     val res = client
       .post()
-      .uri("$REALTY_ENDPOINT/house/update")
+      .uri(RestEndpoints.houseUpdate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseUpdate(
@@ -158,7 +158,7 @@ internal class HouseControllerIT {
   fun `House Delete`() {
     val res = client
       .post()
-      .uri("$REALTY_ENDPOINT/house/delete")
+      .uri(RestEndpoints.houseDelete)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseDelete(
