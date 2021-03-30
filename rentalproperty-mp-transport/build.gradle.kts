@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "${rootProject.group}.transport.kmp.models"
-version = "0.0.1"
+version = rootProject.version
 
 kotlin {
   /* Targets configuration omitted.
