@@ -7,19 +7,24 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.Re
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.ResponseAdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.fail
 
-class RouteAdvertHouseIT {
+class AdvertHouseReadValidationTest {
 
   @Test
-  fun testRead() {
+  fun `non-empty advertId must success`() {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.advertHouseRead) {
         val body = RequestAdvertHouseRead(
           requestId = "321",
           advertId = "test-id",
+          debug = RequestAdvertHouseRead.Debug(
+            mode = WorkModeDto.TEST,
+            stubCase = RequestAdvertHouseRead.StubCase.SUCCESS
+          )
         )
 
         val format = jsonConfig

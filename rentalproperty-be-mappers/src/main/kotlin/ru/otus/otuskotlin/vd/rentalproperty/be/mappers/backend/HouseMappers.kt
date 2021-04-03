@@ -21,7 +21,7 @@ internal fun HouseModel.toTransport() = HouseDto(
   series = series.takeIf { it.isNotBlank() },
   floors = floors.takeIf { it != 0 },
   areaPlot = areaPlot.takeIf { it != 0.0 },
-  plotStatus = plotStatus?.toTransport(),
+  plotStatus = plotStatus.toTransport(),
   infrastructure = infrastructure.takeIf { it.isNotEmpty() }
     ?.map { it.toTransport() }?.toSet(),
   yearConstruction = yearConstruction.takeIf { it != 0 },

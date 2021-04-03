@@ -13,14 +13,14 @@ data class RequestAdvertHouseCreate(
   override val requestId: String? = null,
   override val onResponse: String? = null,
   override val startTime: String? = null,
-  override val debug: RequestAdvertHouseCreate.Debug? = null,
+  override val debug: Debug? = null,
   val createData: AdvertHouseCreateDto? = null,
 ) : IRequest, Message() {
 
   @Serializable
   data class Debug(
     override val mode: WorkModeDto?,
-    val stubCase: RequestAdvertHouseCreate.StubCase? = null
+    val stubCase: StubCase? = null
   ) : IDebug
 
   @Serializable

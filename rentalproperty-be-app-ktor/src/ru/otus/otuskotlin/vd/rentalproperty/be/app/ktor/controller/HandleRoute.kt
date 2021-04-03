@@ -19,7 +19,7 @@ import java.util.*
 @OptIn(InternalSerializationApi::class)
 suspend inline fun <reified T : IRequest, reified U : Message>
     PipelineContext<Unit, ApplicationCall>.handleRoute(
-    block: suspend BeContext.(T?) -> U
+  block: BeContext.(T?) -> U
 ) {
     val ctx = BeContext(
         responseId = UUID.randomUUID().toString(),

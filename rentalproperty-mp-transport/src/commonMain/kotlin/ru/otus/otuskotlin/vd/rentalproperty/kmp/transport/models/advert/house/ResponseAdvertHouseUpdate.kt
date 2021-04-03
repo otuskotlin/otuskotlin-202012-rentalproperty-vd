@@ -12,7 +12,7 @@ data class ResponseAdvertHouseUpdate(
   override val endTime: String? = null,
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
-  override val debug: ResponseAdvertHouseUpdate.Debug? = null,
+  override val debug: Debug? = null,
   val advert: AdvertHouseDto? = null,
 ) : IResponse, Message() {
 

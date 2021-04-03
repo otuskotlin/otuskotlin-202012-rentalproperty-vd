@@ -7,10 +7,6 @@ plugins {
 group = "${rootProject.group}.be.ktor"
 version = rootProject.version
 
-application {
-  mainClassName = "io.ktor.server.netty.EngineMain"
-}
-
 dependencies {
   val ktorVersion: String by project
   val logbackVersion: String by project

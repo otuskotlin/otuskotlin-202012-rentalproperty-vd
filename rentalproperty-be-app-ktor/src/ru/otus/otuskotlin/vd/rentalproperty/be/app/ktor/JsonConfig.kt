@@ -35,7 +35,6 @@ val jsonConfig: Json by lazy {
               subclass(ResponseAdvertHouseUpdate::class)
               subclass(ResponseAdvertHouseList::class)
             }
-
         }
         classDiscriminator = "type"
     }

@@ -3,7 +3,7 @@ plugins {
   kotlin("plugin.serialization")
 }
 
-group = "${rootProject.group}.transport.kmp.models"
+group = "${rootProject.group}.kmp.transport.models"
 version = rootProject.version
 
 kotlin {
@@ -20,7 +20,6 @@ kotlin {
       binaries.executable()
     }
   }
-
   jvm {
     withJava()
   }

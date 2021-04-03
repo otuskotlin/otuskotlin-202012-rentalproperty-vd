@@ -5,7 +5,7 @@ import io.ktor.server.testing.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ApplicationIT {
+class ApplicationTest {
 
   @Test
   fun testRoot() {
