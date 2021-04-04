@@ -17,7 +17,7 @@ class AdvertHouseCrudTest {
     val givenCrud = AdvertHouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.ADVERT_LIST_SUCCESS,
-      advertFilter = AdvertFilterModel(text = "test")
+      advertHouseFilter = AdvertFilterModel(text = "test")
     )
 
     runBlockingTest { givenCrud.list(givenContext) }
@@ -37,12 +37,7 @@ class AdvertHouseCrudTest {
     val givenCrud = AdvertHouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.ADVERT_CREATE_SUCCESS,
-      requestAdvertHouse = AdvertHouseModel(
-        userId = UserIdModel("test-user-id"),
-        name = "Продаётся дом",
-        description = "Хороший дом",
-        price = 1_500_000.0,
-      )
+      requestAdvertHouse = AdvertHouseModel.STUB
     )
 
     runBlockingTest { givenCrud.create(givenContext) }
@@ -80,13 +75,7 @@ class AdvertHouseCrudTest {
     val givenCrud = AdvertHouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.ADVERT_UPDATE_SUCCESS,
-      requestAdvertHouse = AdvertHouseModel(
-        id = AdvertIdModel("test-id"),
-        userId = UserIdModel("test-user-id"),
-        name = "Продаётся дом",
-        description = "Хороший дом",
-        price = 1_500_000.0,
-      )
+      requestAdvertHouse = AdvertHouseModel.STUB
     )
 
     runBlockingTest { givenCrud.update(givenContext) }

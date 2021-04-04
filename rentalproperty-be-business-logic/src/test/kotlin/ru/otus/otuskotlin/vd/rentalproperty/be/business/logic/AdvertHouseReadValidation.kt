@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.business.logic
 
 import kotlinx.coroutines.runBlocking
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.pipelines.AdvertHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.pipelines.house.AdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
@@ -14,7 +14,7 @@ internal class AdvertHouseReadValidation {
   @Test
   fun `houseId success non-empty`() {
     val ctx = BeContext(
-      requestAdvertHouseId = AdvertIdModel("123")
+      requestAdvertHouseId = AdvertIdModel("test-id")
     )
 
     runBlocking {

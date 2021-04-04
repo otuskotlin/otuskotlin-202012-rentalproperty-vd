@@ -9,8 +9,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.PlotS
 
 @Serializable
 data class HouseCreateDto(
-  val area: Double? = null,
   val address: String? = null,
+  val area: Double? = null,
   val material: HouseMaterialDto? = null,
   val type: HouseTypeDto? = null,
   val series: String? = null,

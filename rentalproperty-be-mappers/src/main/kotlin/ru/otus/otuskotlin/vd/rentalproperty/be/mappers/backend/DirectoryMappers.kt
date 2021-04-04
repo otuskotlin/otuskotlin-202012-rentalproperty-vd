@@ -3,6 +3,18 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 
+//Appliances
+internal fun AppliancesModel.toTransport() = AppliancesDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
+
+internal fun AppliancesDto.toModel() = AppliancesModel(
+  id = id?.let { DirectoryIdModel(it) }
+    ?: DirectoryIdModel.NONE,
+  name = name ?: ""
+)
+
 //BathroomType
 internal fun BathroomTypeModel.toTransport() =
   BathroomTypeDto(
@@ -17,11 +29,10 @@ internal fun BathroomTypeDto.toModel() = BathroomTypeModel(
 )
 
 //ConvenienceType
-internal fun ConvenienceTypeModel.toTransport() =
-  ConvenienceTypeDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun ConvenienceTypeModel.toTransport() = ConvenienceTypeDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun ConvenienceTypeDto.toModel() = ConvenienceTypeModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -30,11 +41,10 @@ internal fun ConvenienceTypeDto.toModel() = ConvenienceTypeModel(
 )
 
 //HouseMaterial
-internal fun HouseMaterialModel.toTransport() =
-  HouseMaterialDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun HouseMaterialModel.toTransport() = HouseMaterialDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun HouseMaterialDto.toModel() = HouseMaterialModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -43,11 +53,10 @@ internal fun HouseMaterialDto.toModel() = HouseMaterialModel(
 )
 
 //HouseType
-internal fun HouseTypeModel.toTransport() =
-  HouseTypeDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun HouseTypeModel.toTransport() = HouseTypeDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun HouseTypeDto.toModel() = HouseTypeModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -56,11 +65,10 @@ internal fun HouseTypeDto.toModel() = HouseTypeModel(
 )
 
 //Infrastructure
-internal fun InfrastructureModel.toTransport() =
-  InfrastructureDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun InfrastructureModel.toTransport() = InfrastructureDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun InfrastructureDto.toModel() = InfrastructureModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -69,11 +77,10 @@ internal fun InfrastructureDto.toModel() = InfrastructureModel(
 )
 
 //PlotStatus
-internal fun PlotStatusModel.toTransport() =
-  PlotStatusDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun PlotStatusModel.toTransport() = PlotStatusDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun PlotStatusDto.toModel() = PlotStatusModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -82,11 +89,10 @@ internal fun PlotStatusDto.toModel() = PlotStatusModel(
 )
 
 //RealtyType
-internal fun RealtyTypeModel.toTransport() =
-  RealtyTypeDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun RealtyTypeModel.toTransport() = RealtyTypeDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun RealtyTypeDto.toModel() = RealtyTypeModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -95,11 +101,10 @@ internal fun RealtyTypeDto.toModel() = RealtyTypeModel(
 )
 
 //RepairType
-internal fun RepairTypeModel.toTransport() =
-  RepairTypeDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun RepairTypeModel.toTransport() = RepairTypeDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun RepairTypeDto.toModel() = RepairTypeModel(
   id = id?.let { DirectoryIdModel(it) }
@@ -108,11 +113,10 @@ internal fun RepairTypeDto.toModel() = RepairTypeModel(
 )
 
 //ViewFromWindow
-internal fun ViewFromWindowModel.toTransport() =
-  ViewFromWindowDto(
-    id = id.id.takeIf { it.isNotBlank() },
-    name = name
-  )
+internal fun ViewFromWindowModel.toTransport() = ViewFromWindowDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
 
 internal fun ViewFromWindowDto.toModel() = ViewFromWindowModel(
   id = id?.let { DirectoryIdModel(it) }

@@ -6,9 +6,6 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import runBlockingTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -28,8 +25,8 @@ class HouseCrudTest {
     assertEquals(1, givenContext.responseHouses.size)
     with(givenContext.responseHouses[0]) {
       assertEquals(HouseIdModel("test-id"), id)
-      assertEquals(160.4, area)
       assertEquals("test-address", address)
+      assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
       assertEquals(2, floors)
     }
@@ -40,14 +37,7 @@ class HouseCrudTest {
     val givenCrud = HouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.HOUSE_CREATE_SUCCESS,
-      requestHouse = HouseModel(
-        area = 160.4,
-        address = "test-address",
-        material = HouseMaterialModel(DirectoryIdModel("id"), "BRICK"),
-        type = HouseTypeModel(DirectoryIdModel("id"), "SINGLE_HOUSE"),
-        floors = 2,
-        areaPlot = 15.0,
-      )
+      requestHouse = HouseModel.STUB_SINGLE_HOUSE
     )
 
     runBlockingTest { givenCrud.create(givenContext) }
@@ -55,8 +45,8 @@ class HouseCrudTest {
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
       assertEquals(HouseIdModel("test-id"), id)
-      assertEquals(160.4, area)
       assertEquals("test-address", address)
+      assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
       assertEquals(2, floors)
     }
@@ -75,8 +65,8 @@ class HouseCrudTest {
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
       assertEquals(HouseIdModel("test-id"), id)
-      assertEquals(160.4, area)
       assertEquals("test-address", address)
+      assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
       assertEquals(2, floors)
     }
@@ -87,15 +77,7 @@ class HouseCrudTest {
     val givenCrud = HouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.HOUSE_UPDATE_SUCCESS,
-      requestHouse = HouseModel(
-        id = HouseIdModel("test-id"),
-        area = 160.4,
-        address = "test-address",
-        material = HouseMaterialModel(DirectoryIdModel("id"), "BRICK"),
-        type = HouseTypeModel(DirectoryIdModel("id"), "SINGLE_HOUSE"),
-        floors = 2,
-        areaPlot = 15.0,
-      )
+      requestHouse = HouseModel.STUB_SINGLE_HOUSE
     )
 
     runBlockingTest { givenCrud.update(givenContext) }
@@ -103,8 +85,8 @@ class HouseCrudTest {
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
       assertEquals(HouseIdModel("test-id"), id)
-      assertEquals(160.4, area)
       assertEquals("test-address", address)
+      assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
       assertEquals(2, floors)
     }
@@ -123,8 +105,8 @@ class HouseCrudTest {
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
       assertEquals(HouseIdModel("test-id"), id)
-      assertEquals(160.4, area)
       assertEquals("test-address", address)
+      assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
       assertEquals(2, floors)
     }
