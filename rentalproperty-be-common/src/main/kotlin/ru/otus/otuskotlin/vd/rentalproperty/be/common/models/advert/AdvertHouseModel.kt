@@ -21,5 +21,12 @@ data class AdvertHouseModel(
 ) {
   companion object {
     val NONE = AdvertHouseModel()
+    val STUB = AdvertHouseModel(
+      id = AdvertIdModel("test-id"),
+      userId = UserIdModel("test-user-id"),
+      name = "Продаётся дом",
+      description = "Хороший дом",
+      price = 1_500_000.0,
+    )
   }
 }

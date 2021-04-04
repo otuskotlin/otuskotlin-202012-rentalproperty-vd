@@ -29,14 +29,13 @@ tasks {
   test {
     useJUnitPlatform()
   }
-}
 
-tasks.test {
-  useJUnit()
-}
-
-tasks.withType<KotlinCompile>() {
-  kotlinOptions.jvmTarget = "11"
+  compileKotlin {
+    targetCompatibility = "11"
+    kotlinOptions {
+      jvmTarget = "11"
+    }
+  }
 }
 
 val compileKotlin: KotlinCompile by tasks

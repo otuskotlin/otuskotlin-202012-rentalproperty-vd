@@ -10,29 +10,31 @@ plugins {
   kotlin("kapt")
 }
 
-group = "ru.otus.otuskotlin.vd.rentalproperty.spring"
-version = "0.0.1"
+group = "${rootProject.group}.spring"
+version = rootProject.version
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 dependencies {
   val kotestVersion: String by project
 
+  implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
-  implementation(project(":rentalproperty-be-mappers-mp"))
-  implementation(project(":rentalproperty-mp-transport-mp"))
+  implementation(project(":rentalproperty-be-mappers"))
+  implementation(project(":rentalproperty-mp-common"))
+  implementation(project(":rentalproperty-mp-transport"))
 
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-mustache")
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-  implementation("org.springframework.boot:spring-boot-starter-validation")
+  //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  //implementation("org.springframework.boot:spring-boot-starter-validation")
 
   implementation(kotlin("stdlib"))
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  //implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-  implementation("org.liquibase:liquibase-core")
-  runtimeOnly("org.postgresql:postgresql")
+  //implementation("org.liquibase:liquibase-core")
+  //runtimeOnly("org.postgresql:postgresql")
   //runtimeOnly("com.h2database:h2")
 
   runtimeOnly("org.springframework.boot:spring-boot-devtools")

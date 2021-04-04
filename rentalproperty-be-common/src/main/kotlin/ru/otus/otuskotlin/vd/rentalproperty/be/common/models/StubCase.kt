@@ -3,6 +3,12 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.models
 enum class StubCase {
   NONE,
 
+  FLAT_LIST_SUCCESS,
+  FLAT_CREATE_SUCCESS,
+  FLAT_READ_SUCCESS,
+  FLAT_UPDATE_SUCCESS,
+  FLAT_DELETE_SUCCESS,
+
   HOUSE_LIST_SUCCESS,
   HOUSE_CREATE_SUCCESS,
   HOUSE_READ_SUCCESS,
