@@ -8,12 +8,11 @@ import runBlockingTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class ValidationTest {
+internal class PipelineValidationTest {
 
     @Test
     fun pipelineValidation() {
         val pl = pipeline<TestContext> {
-
             validation {
                 errorHandler { v: ValidationResult ->
                     if (v.isSuccess) return@errorHandler

@@ -8,6 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 internal class ValidationTest {
+
     @Test
     fun createValidationTest() = runBlockingTest {
         val validator = ValidatorStringNonEmpty()

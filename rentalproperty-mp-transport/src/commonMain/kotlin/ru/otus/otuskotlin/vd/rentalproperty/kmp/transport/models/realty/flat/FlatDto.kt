@@ -1,6 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat
 
 import kotlinx.serialization.Serializable
+import media.MediaFileDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ItemPermission
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.BathroomTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.ConvenienceTypeDto
@@ -22,7 +23,7 @@ data class FlatDto(
   val ceilingHeight: Double? = null,
   val conveniences: MutableSet<ConvenienceTypeDto>? = null,
   val numberResidents: Int? = null,
-  val photos: MutableSet<media.MediaFileDto>? = null,
+  val photos: MutableSet<MediaFileDto>? = null,
   val bedrooms: Int? = null,
   val beds: Int? = null,
   val bathroom: Int? = null,
