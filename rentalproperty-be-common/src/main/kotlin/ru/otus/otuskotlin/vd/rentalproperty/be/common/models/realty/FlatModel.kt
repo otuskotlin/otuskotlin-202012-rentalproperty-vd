@@ -68,7 +68,7 @@ data class FlatModel(
   companion object {
     val NONE = FlatModel()
     val STUB = FlatModel(
-      id = FlatIdModel("test-id"),
+      id = FlatIdModel("test-flat-id"),
       houseId = HouseIdModel("test-house-id"),
       number = "95",
       area = 44.4,
@@ -80,21 +80,20 @@ data class FlatModel(
       bedrooms = 1,
       beds = 1,
       bathroom = 1,
-      bathroomType = BathroomTypeModel(
-        DirectoryIdModel("test-brt-id"), "COMBINED"
-      ),
+      bathroomType = BathroomTypeModel.STUB_COMBINED,
       balcony = 0,
       loggia = 0,
-      repairType = RepairTypeModel(
-        DirectoryIdModel("test-rt-id"), "RENOVATION"
-      ),
-      viewFromWindow = ViewFromWindowModel(
-        DirectoryIdModel("test-vfw-id"), "FOREST"
-      ),
+      repairType = RepairTypeModel.STUB_RENOVATION,
+      viewFromWindow = ViewFromWindowModel.STUB_PARK,
       conveniences = mutableSetOf(
-        ConvenienceTypeModel(DirectoryIdModel("test-ct-id"), "AIR_CONDITIONER"),
-        ConvenienceTypeModel(DirectoryIdModel("test-ct-id"), "KITCHEN_STOVE"),
-        ConvenienceTypeModel(DirectoryIdModel("test-ct-id"), "INTERNET"),
+        ConvenienceTypeModel.STUB_GAS,
+        ConvenienceTypeModel.STUB_FURNITURE_IN_KITCHEN,
+        ConvenienceTypeModel.STUB_PARKING,
+      ),
+      appliances = mutableSetOf(
+        AppliancesModel.STUB_AIR_CONDITIONER,
+        AppliancesModel.STUB_KITCHEN_STOVE,
+        AppliancesModel.STUB_INTERNET,
       ),
       residents = 4,
       noSmoking = true,

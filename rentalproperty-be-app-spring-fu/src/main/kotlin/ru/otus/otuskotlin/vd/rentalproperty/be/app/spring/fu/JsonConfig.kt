@@ -13,7 +13,6 @@ val jsonConfig: Json by lazy {
         prettyPrint = true
         serializersModule = SerializersModule {
             polymorphic(Message::class) {
-
                 subclass(RequestHouseList::class)
                 subclass(RequestHouseCreate::class)
                 subclass(RequestHouseRead::class)
@@ -38,7 +37,6 @@ val jsonConfig: Json by lazy {
                 subclass(ResponseAdvertHouseDelete::class)
                 subclass(ResponseAdvertHouseUpdate::class)
             }
-
         }
         classDiscriminator = "type"
     }

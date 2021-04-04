@@ -7,35 +7,35 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.*
 
 fun Routing.advertHouseRoute(crud: AdvertHouseCrud) {
-  post(RestEndpoints.houseCreate) {
+  post(RestEndpoints.advertHouseCreate) {
     handleRoute<RequestAdvertHouseCreate, ResponseAdvertHouseCreate> { query ->
       query?.also { setQuery(it) }
       crud.create(this)
       respondAdvertHouseCreate()
     }
   }
-  post(RestEndpoints.houseRead) {
+  post(RestEndpoints.advertHouseRead) {
     handleRoute<RequestAdvertHouseRead, ResponseAdvertHouseRead> { query ->
       query?.also { setQuery(it) }
       crud.read(this)
       respondAdvertHouseRead()
     }
   }
-  post(RestEndpoints.houseUpdate) {
+  post(RestEndpoints.advertHouseUpdate) {
     handleRoute<RequestAdvertHouseUpdate, ResponseAdvertHouseUpdate> { query ->
       query?.also { setQuery(it) }
       crud.update(this)
       respondAdvertHouseUpdate()
     }
   }
-  post(RestEndpoints.houseDelete) {
+  post(RestEndpoints.advertHouseDelete) {
     handleRoute<RequestAdvertHouseDelete, ResponseAdvertHouseDelete> { query ->
       query?.also { setQuery(it) }
       crud.delete(this)
       respondAdvertHouseDelete()
     }
   }
-  post(RestEndpoints.houseList) {
+  post(RestEndpoints.advertHouseList) {
     handleRoute<RequestAdvertHouseList, ResponseAdvertHouseList> { query ->
       query?.also { setQuery(it) }
       crud.list(this)

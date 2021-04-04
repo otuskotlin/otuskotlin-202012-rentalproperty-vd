@@ -24,7 +24,7 @@ class HouseCrudTest {
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     assertEquals(1, givenContext.responseHouses.size)
     with(givenContext.responseHouses[0]) {
-      assertEquals(HouseIdModel("test-id"), id)
+      assertEquals(HouseIdModel("test-house-id"), id)
       assertEquals("test-address", address)
       assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
@@ -44,7 +44,7 @@ class HouseCrudTest {
 
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
-      assertEquals(HouseIdModel("test-id"), id)
+      assertEquals(HouseIdModel("test-house-id"), id)
       assertEquals("test-address", address)
       assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
@@ -57,14 +57,14 @@ class HouseCrudTest {
     val givenCrud = HouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.HOUSE_READ_SUCCESS,
-      requestHouseId = HouseIdModel("test-id")
+      requestHouseId = HouseIdModel("test-house-id")
     )
 
     runBlockingTest { givenCrud.read(givenContext) }
 
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
-      assertEquals(HouseIdModel("test-id"), id)
+      assertEquals(HouseIdModel("test-house-id"), id)
       assertEquals("test-address", address)
       assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
@@ -84,7 +84,7 @@ class HouseCrudTest {
 
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
-      assertEquals(HouseIdModel("test-id"), id)
+      assertEquals(HouseIdModel("test-house-id"), id)
       assertEquals("test-address", address)
       assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)
@@ -97,14 +97,14 @@ class HouseCrudTest {
     val givenCrud = HouseCrud()
     val givenContext = BeContext(
       stubCase = StubCase.HOUSE_DELETE_SUCCESS,
-      requestHouseId = HouseIdModel("test-id")
+      requestHouseId = HouseIdModel("test-house-id")
     )
 
     runBlockingTest { givenCrud.delete(givenContext) }
 
     assertEquals(BeContextStatus.SUCCESS, givenContext.status)
     with(givenContext.responseHouse) {
-      assertEquals(HouseIdModel("test-id"), id)
+      assertEquals(HouseIdModel("test-house-id"), id)
       assertEquals("test-address", address)
       assertEquals(160.4, area)
       assertEquals("SINGLE_HOUSE", type.name)

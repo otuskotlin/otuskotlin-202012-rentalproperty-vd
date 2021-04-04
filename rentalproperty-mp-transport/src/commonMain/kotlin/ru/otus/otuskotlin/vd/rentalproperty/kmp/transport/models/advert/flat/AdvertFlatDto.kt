@@ -13,6 +13,7 @@ data class AdvertFlatDto(
   val description: String? = null,
   val price: Double? = null,
   val startDate: String? = null,
-  val period: Int? = null,
+  val endDate: String? = null,
+  val minPeriod: Int? = null,
   val published: String? = null,
 )

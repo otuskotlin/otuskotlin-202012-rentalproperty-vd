@@ -11,5 +11,9 @@ data class PlotStatusModel(
       "GARDEN",
       "FARM"
     )
+    val STUB_IRP = PlotStatusModel(
+      DirectoryIdModel("test-ps-id"),
+      "IRP"
+    )
   }
 }

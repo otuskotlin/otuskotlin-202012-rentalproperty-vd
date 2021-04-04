@@ -6,4 +6,11 @@ import kotlinx.serialization.Serializable
 data class BathroomTypeDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto
+) : IDirectoryTypeDto {
+  companion object {
+    val STUB_COMBINED = BathroomTypeDto(
+      "test-brt-id",
+      "COMBINED"
+    )
+  }
+}

@@ -6,4 +6,11 @@ import kotlinx.serialization.Serializable
 data class PlotStatusDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto
+) : IDirectoryTypeDto {
+  companion object {
+    val STUB_IRP = PlotStatusDto(
+      "test-ps-id",
+      "IRP"
+    )
+  }
+}

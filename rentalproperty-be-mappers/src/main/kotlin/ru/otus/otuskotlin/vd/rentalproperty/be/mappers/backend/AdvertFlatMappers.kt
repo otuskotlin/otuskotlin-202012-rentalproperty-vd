@@ -19,7 +19,7 @@ internal fun AdvertFlatModel.toTransport() = AdvertFlatDto(
   description = description.takeIf { it.isNotBlank() },
   price = price.takeIf { !it.isNaN() },
   startDate = startDate.toString(),
-  period = period.takeIf { !it.isZero }?.toDays()?.toInt(),
+  minPeriod = minPeriod.takeIf { !it.isZero }?.toDays()?.toInt(),
   published = published.takeIf { it != null }?.toString(),
 )
 
@@ -120,7 +120,7 @@ private fun AdvertFlatCreateDto.toModel() = AdvertFlatModel(
   description = description ?: "",
   price = price ?: 0.0,
   startDate = startDate?.let { Instant.parse(it) } ?: Instant.now(),
-  period = period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
+  minPeriod = period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
   published = published?.let { Instant.parse(it) },
 )
 
@@ -132,6 +132,6 @@ private fun AdvertFlatUpdateDto.toModel() = AdvertFlatModel(
   description = description ?: "",
   price = price ?: 0.0,
   startDate = startDate?.let { Instant.parse(it) } ?: Instant.now(),
-  period = period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
+  minPeriod = period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
   published = published?.let { Instant.parse(it) },
 )

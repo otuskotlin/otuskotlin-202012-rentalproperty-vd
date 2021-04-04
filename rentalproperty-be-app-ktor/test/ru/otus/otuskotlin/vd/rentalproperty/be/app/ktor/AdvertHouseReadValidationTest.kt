@@ -20,7 +20,7 @@ class AdvertHouseReadValidationTest {
       handleRequest(HttpMethod.Post, RestEndpoints.advertHouseRead) {
         val body = RequestAdvertHouseRead(
           requestId = "321",
-          advertId = "test-id",
+          advertId = "test-advert-id",
           debug = RequestAdvertHouseRead.Debug(
             mode = WorkModeDto.TEST,
             stubCase = RequestAdvertHouseRead.StubCase.SUCCESS

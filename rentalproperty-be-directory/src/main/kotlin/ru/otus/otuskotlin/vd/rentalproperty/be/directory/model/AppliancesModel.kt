@@ -21,5 +21,17 @@ data class AppliancesModel(
       "TV",
       "WASHING_MACHINE"
     )
+    val STUB_AIR_CONDITIONER = AppliancesModel(
+      DirectoryIdModel("test-a-id"),
+      "AIR_CONDITIONER"
+    )
+    val STUB_KITCHEN_STOVE = AppliancesModel(
+      DirectoryIdModel("test-a-id"),
+      "KITCHEN_STOVE"
+    )
+    val STUB_INTERNET = AppliancesModel(
+      DirectoryIdModel("test-a-id"),
+      "INTERNET"
+    )
   }
 }

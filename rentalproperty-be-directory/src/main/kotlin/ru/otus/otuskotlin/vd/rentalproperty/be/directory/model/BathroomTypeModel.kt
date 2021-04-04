@@ -10,5 +10,9 @@ data class BathroomTypeModel(
       "COMBINED",   //совмещённый
       "SEPARATED",  //раздельный
     )
+    val STUB_COMBINED = BathroomTypeModel(
+      DirectoryIdModel("test-brt-id"),
+      "COMBINED"
+    )
   }
 }

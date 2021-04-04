@@ -13,7 +13,7 @@ data class ResponseFlatList(
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
-  val houses: List<FlatDto>? = null,
+  val flats: List<FlatDto>? = null,
 ) : IResponse, Message() {
 
   @Serializable
