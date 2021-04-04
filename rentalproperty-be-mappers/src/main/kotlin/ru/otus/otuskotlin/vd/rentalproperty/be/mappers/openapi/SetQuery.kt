@@ -147,7 +147,7 @@ private fun BeContext.setQuery(request: RequestAdvertFlatCreate) {
       description = data.description ?: "",
       price = data.price ?: 0.0,
       startDate = data.startDate?.let { Instant.parse(it) } ?: Instant.now(),
-      period = data.period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
+      minPeriod = data.period?.let { Duration.ofDays(it.toLong()) } ?: Duration.ZERO,
       published = data.published?.let { Instant.parse(data.published) },
     )
   }

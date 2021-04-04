@@ -13,7 +13,7 @@ data class ResponseFlatDelete(
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
-  val house: FlatDto? = null,
+  val flat: FlatDto? = null,
   val deleted: Boolean? = null,
 ) : IResponse, Message() {
 

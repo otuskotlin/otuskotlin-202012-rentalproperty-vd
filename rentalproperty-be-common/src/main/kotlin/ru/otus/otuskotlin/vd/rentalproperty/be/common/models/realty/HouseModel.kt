@@ -1,7 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.InfrastructureModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
 
 /**
  * House parameters
@@ -47,25 +50,25 @@ data class HouseModel(
 ) {
   companion object {
     val NONE = HouseModel()
-    val STUB_MULTI_APARTMENT = HouseModel(
-      id = HouseIdModel("test-id"),
+    val STUB_SINGLE_HOUSE = HouseModel(
+      id = HouseIdModel("test-advert-id"),
       address = "test-address",
-      area = 0.0,
-      material = HouseMaterialModel(DirectoryIdModel("test-hm-id"), "BRICK"),
-      type = HouseTypeModel(DirectoryIdModel("test-ht-id"), "MULTI_APARTMENT"),
+      area = 160.4,
+      material = HouseMaterialModel.STUB_BRICK,
+      type = HouseTypeModel.STUB_SINGLE_HOUSE,
       series = "",
-      floors = 5,
-      areaPlot = 0.0,
-      plotStatus = PlotStatusModel.NONE,
+      floors = 2,
+      areaPlot = 15.0,
+      plotStatus = PlotStatusModel.STUB_IRP,
       infrastructure = mutableSetOf(
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "GAZ"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "ELECTRICITY"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "SEWERAGE"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "WATER"),
+        InfrastructureModel.STUB_GAZ,
+        InfrastructureModel.STUB_ELECTRICITY,
+        InfrastructureModel.STUB_SEWERAGE,
+        InfrastructureModel.STUB_WATER,
       ),
-      yearConstruction = 1975,
+      yearConstruction = 2005,
       garbageChute = false,
-      unitOnFloor = 4,
+      unitOnFloor = 3,
       passengerElevator = 0,
       serviceElevator = 0,
       metro = "",
@@ -73,25 +76,25 @@ data class HouseModel(
       distanceToMetro = 0,
       photos = mutableSetOf(),
     )
-    val STUB_SINGLE_HOUSE = HouseModel(
-      id = HouseIdModel("test-id"),
+    val STUB_MULTI_APARTMENT = HouseModel(
+      id = HouseIdModel("test-house-id"),
       address = "test-address",
-      area = 160.4,
-      material = HouseMaterialModel(DirectoryIdModel("test-hm-id"), "BRICK"),
-      type = HouseTypeModel(DirectoryIdModel("test-ht-id"), "SINGLE_HOUSE"),
+      area = 0.0,
+      material = HouseMaterialModel.STUB_BRICK,
+      type = HouseTypeModel.STUB_MULTI_APARTMENT,
       series = "",
-      floors = 2,
-      areaPlot = 15.0,
-      plotStatus = PlotStatusModel(DirectoryIdModel("test-psm-id"), "IRP"),
+      floors = 5,
+      areaPlot = 0.0,
+      plotStatus = PlotStatusModel.NONE,
       infrastructure = mutableSetOf(
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "GAZ"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "ELECTRICITY"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "SEWERAGE"),
-        InfrastructureModel(DirectoryIdModel("test-im-id"), "WATER"),
+        InfrastructureModel.STUB_GAZ,
+        InfrastructureModel.STUB_ELECTRICITY,
+        InfrastructureModel.STUB_SEWERAGE,
+        InfrastructureModel.STUB_WATER,
       ),
-      yearConstruction = 2005,
+      yearConstruction = 1975,
       garbageChute = false,
-      unitOnFloor = 3,
+      unitOnFloor = 4,
       passengerElevator = 0,
       serviceElevator = 0,
       metro = "",

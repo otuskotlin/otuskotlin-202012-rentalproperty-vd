@@ -11,14 +11,13 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBody
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class HouseControllerIT {
+internal class HouseControllerTest {
   private val client = WebTestClient.bindToServer().baseUrl("http://localhost:8181").build()
   private lateinit var context: ConfigurableApplicationContext
 
@@ -51,20 +50,7 @@ internal class HouseControllerIT {
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseCreate(
-          createData = HouseCreateDto(
-            area = 100.0,
-            address = "Novosibirsk",
-            material = HouseMaterialDto(
-              "id",
-              "BRICK"
-            ),
-            type = HouseTypeDto(
-              "id",
-              "SINGLE_HOUSE"
-            ),
-            floors = 1,
-            areaPlot = 5.0,
-          )
+          createData = HouseCreateDto.STUB_SINGLE_HOUSE
         )
       )
       .exchange()
@@ -73,15 +59,12 @@ internal class HouseControllerIT {
       .returnResult()
       .responseBody
 
-    assertEquals("house123", res?.house?.id)
-    assertEquals("Novosibirsk", res?.house?.address)
+    assertEquals("test-house-id", res?.house?.id)
+    assertEquals("test-address", res?.house?.address)
     assertEquals(
-      HouseTypeDto(
-        "id",
-        "SINGLE_HOUSE"
-      ), res?.house?.type
+      HouseTypeDto.STUB_SINGLE_HOUSE, res?.house?.type
     )
-    assertEquals(1, res?.house?.floors)
+    assertEquals(2, res?.house?.floors)
   }
 
   @Test
@@ -92,7 +75,7 @@ internal class HouseControllerIT {
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseRead(
-          houseId = "house123",
+          houseId = "test-house-id",
         )
       )
       .exchange()
@@ -101,14 +84,9 @@ internal class HouseControllerIT {
       .returnResult()
       .responseBody
 
-    assertEquals("house123", res?.house?.id)
-    assertEquals("Moscow", res?.house?.address)
-    assertEquals(
-      HouseTypeDto(
-        "id",
-        "SINGLE_HOUSE"
-      ), res?.house?.type
-    )
+    assertEquals("test-house-id", res?.house?.id)
+    assertEquals("test-address", res?.house?.address)
+    assertEquals(HouseTypeDto.STUB_SINGLE_HOUSE, res?.house?.type)
     assertEquals(2, res?.house?.floors)
   }
 
@@ -119,39 +97,18 @@ internal class HouseControllerIT {
       .uri(RestEndpoints.houseUpdate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestHouseUpdate(
-          updateData = HouseUpdateDto(
-            id = "house321",
-            area = 330.0,
-            address = "Petersburg",
-            material = HouseMaterialDto(
-              "id",
-              "BRICK"
-            ),
-            type = HouseTypeDto(
-              "id",
-              "SINGLE_HOUSE"
-            ),
-            floors = 3,
-            areaPlot = 13.5
-          )
-        )
+        RequestHouseUpdate(updateData = HouseUpdateDto.STUB_MULTI_APARTMENT)
       )
       .exchange()
       .expectStatus().is2xxSuccessful
-      .expectBody<ResponseHouseDelete>()
+      .expectBody<ResponseHouseUpdate>()
       .returnResult()
       .responseBody
 
-    assertEquals("house321", res?.house?.id)
-    assertEquals("Petersburg", res?.house?.address)
-    assertEquals(
-      HouseTypeDto(
-        "id",
-        "SINGLE_HOUSE"
-      ), res?.house?.type
-    )
-    assertEquals(3, res?.house?.floors)
+    assertEquals("test-house-id", res?.house?.id)
+    assertEquals("test-address", res?.house?.address)
+    assertEquals(HouseTypeDto.STUB_MULTI_APARTMENT, res?.house?.type)
+    assertEquals(5, res?.house?.floors)
   }
 
   @Test
@@ -162,7 +119,7 @@ internal class HouseControllerIT {
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseDelete(
-          houseId = "house123",
+          houseId = "test-house-id",
         )
       )
       .exchange()
@@ -171,7 +128,7 @@ internal class HouseControllerIT {
       .returnResult()
       .responseBody
 
-    assertEquals("house123", res?.house?.id)
+    assertEquals("test-house-id", res?.house?.id)
     assertTrue(res?.deleted!!)
   }
 

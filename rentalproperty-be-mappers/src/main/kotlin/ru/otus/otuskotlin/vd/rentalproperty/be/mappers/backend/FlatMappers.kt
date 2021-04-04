@@ -90,7 +90,7 @@ fun BeContext.setQuery(query: RequestFlatList) = apply {
 
 fun BeContext.respondFlatCreate() =
   ResponseFlatCreate(
-    house = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
+    flat = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
     responseId = responseId,
@@ -100,7 +100,7 @@ fun BeContext.respondFlatCreate() =
 
 fun BeContext.respondFlatRead() =
   ResponseFlatRead(
-    house = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
+    flat = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
     responseId = responseId,
@@ -110,7 +110,7 @@ fun BeContext.respondFlatRead() =
 
 fun BeContext.respondFlatUpdate() =
   ResponseFlatUpdate(
-    house = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
+    flat = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
     responseId = responseId,
@@ -120,7 +120,7 @@ fun BeContext.respondFlatUpdate() =
 
 fun BeContext.respondFlatDelete() =
   ResponseFlatDelete(
-    house = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
+    flat = responseFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
     responseId = responseId,
@@ -130,7 +130,7 @@ fun BeContext.respondFlatDelete() =
 
 fun BeContext.respondFlatList() =
   ResponseFlatList(
-    houses = responseFlats.takeIf { it.isNotEmpty() }?.filter { it != FlatModel.NONE }
+    flats = responseFlats.takeIf { it.isNotEmpty() }?.filter { it != FlatModel.NONE }
       ?.map { it.toTransport() },
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),

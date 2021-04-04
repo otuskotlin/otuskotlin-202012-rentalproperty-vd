@@ -13,5 +13,9 @@ data class ViewFromWindowModel(
       "STREET",
       "YARD"  //двор
     )
+    val STUB_PARK = ViewFromWindowModel(
+      DirectoryIdModel("test-vfw-id"),
+      "PARK"
+    )
   }
 }

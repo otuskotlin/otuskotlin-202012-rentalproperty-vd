@@ -6,4 +6,15 @@ import kotlinx.serialization.Serializable
 data class HouseMaterialDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto
+) : IDirectoryTypeDto {
+  companion object {
+    val STUB_BRICK = HouseMaterialDto(
+      "test-hm-id",
+      "BRICK"
+    )
+    val STUB_PANEL = HouseMaterialDto(
+      "test-hm-id",
+      "PANEL"
+    )
+  }
+}

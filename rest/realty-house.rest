@@ -34,7 +34,7 @@ Content-Type: application/json
   "debug": {
     "stubCase": "SUCCESS"
   },
-  "houseId": "house123"
+  "houseId": "test-house-id"
 }
 
 ###
@@ -65,7 +65,7 @@ Content-Type: application/json
   "debug": {
     "stubCase": "SUCCESS"
   },
-  "houseId": "house123"
+  "houseId": "test-house-id"
 }
 
 ###

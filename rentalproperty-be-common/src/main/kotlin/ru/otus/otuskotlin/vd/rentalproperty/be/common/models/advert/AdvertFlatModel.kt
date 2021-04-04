@@ -18,21 +18,24 @@ data class AdvertFlatModel(
   val price: Double = 0.0,
   /** Дата возможного начала аренды */
   val startDate: Instant = Instant.now(),
-  /** Период в днях возможной аренды */
-  val period: Duration = Duration.ZERO,
+  /** Дата возможного окончания аренды */
+  val endDate: Instant = Instant.now(),
+  /** Минимальный срок аренды */
+  val minPeriod: Duration = Duration.ZERO,
   /** if null, then the ad is removed or not displayed */
   val published: Instant? = null,
 ) {
   companion object {
     val NONE = AdvertFlatModel()
     val STUB = AdvertFlatModel(
-      id = AdvertIdModel("test-id"),
+      id = AdvertIdModel("test-advert-id"),
       userId = UserIdModel("test-user-id"),
       name = "Продаётся дом",
       description = "Хороший дом",
       price = 1_500_000.0,
       startDate = Instant.now(),
-      period = Duration.ofDays(30)
+      endDate = Instant.now().plusSeconds(Duration.ofDays(90).toSeconds()),
+      minPeriod = Duration.ofDays(1)
     )
   }
 }

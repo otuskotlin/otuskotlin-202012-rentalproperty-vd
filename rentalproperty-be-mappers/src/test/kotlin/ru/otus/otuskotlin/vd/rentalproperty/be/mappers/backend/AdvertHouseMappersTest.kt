@@ -15,13 +15,13 @@ internal class AdvertHouseMappersTest {
   fun requestIdMappingTest() {
     val request: IRequest =
       RequestAdvertHouseRead(
-        advertId = "test-id"
+        advertId = "test-advert-id"
       )
     val context = BeContext()
 
     context.setQuery(request)
 
-    assertEquals("test-id", context.requestAdvertHouseId.id)
+    assertEquals("test-advert-id", context.requestAdvertHouseId.id)
   }
 
   @Test

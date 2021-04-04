@@ -14,7 +14,7 @@ internal class AdvertHouseReadValidation {
   @Test
   fun `houseId success non-empty`() {
     val ctx = BeContext(
-      requestAdvertHouseId = AdvertIdModel("test-id")
+      requestAdvertHouseId = AdvertIdModel("test-advert-id")
     )
 
     runBlocking {

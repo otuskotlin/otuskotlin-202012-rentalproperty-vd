@@ -21,7 +21,7 @@ class HouseReadValidationTest {
       handleRequest(HttpMethod.Post, RestEndpoints.houseRead) {
         val body = RequestHouseRead(
           requestId = "321",
-          houseId = "test-id",
+          houseId = "test-house-id",
           debug = RequestHouseRead.Debug(
             mode = WorkModeDto.TEST,
             stubCase = RequestHouseRead.StubCase.SUCCESS

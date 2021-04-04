@@ -22,5 +22,17 @@ data class ConvenienceTypeModel(
       "SHOPPING_CENTER",
       "SPORTS_GROUND",
     )
+    val STUB_GAS = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "GAS"
+    )
+    val STUB_FURNITURE_IN_KITCHEN = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "FURNITURE_IN_KITCHEN"
+    )
+    val STUB_PARKING = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "PARKING"
+    )
   }
 }

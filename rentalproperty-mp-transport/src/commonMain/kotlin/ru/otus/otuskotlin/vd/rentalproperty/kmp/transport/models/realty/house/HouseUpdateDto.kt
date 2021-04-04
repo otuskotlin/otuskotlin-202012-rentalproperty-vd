@@ -28,4 +28,59 @@ data class HouseUpdateDto(
   val timeToMetro: Int? = null,
   val distanceToMetro: Int? = null,
   val photos: MutableSet<MediaFileDto>? = null
-)
+) {
+  companion object {
+    val STUB_SINGLE_HOUSE = HouseUpdateDto(
+      id = "test-house-id",
+      address = "test-address",
+      area = 160.4,
+      material = HouseMaterialDto.STUB_BRICK,
+      type = HouseTypeDto.STUB_SINGLE_HOUSE,
+      series = "",
+      floors = 2,
+      areaPlot = 15.0,
+      plotStatus = PlotStatusDto.STUB_IRP,
+      infrastructure = mutableSetOf(
+        InfrastructureDto.STUB_GAZ,
+        InfrastructureDto.STUB_ELECTRICITY,
+        InfrastructureDto.STUB_SEWERAGE,
+        InfrastructureDto.STUB_WATER,
+      ),
+      yearConstruction = 2005,
+      garbageChute = false,
+      unitOnFloor = 3,
+      passengerElevator = 0,
+      serviceElevator = 0,
+      metro = "",
+      timeToMetro = 0,
+      distanceToMetro = 0,
+      photos = mutableSetOf(),
+    )
+    val STUB_MULTI_APARTMENT = HouseUpdateDto(
+      id = "test-house-id",
+      address = "test-address",
+      area = 0.0,
+      material = HouseMaterialDto.STUB_BRICK,
+      type = HouseTypeDto.STUB_MULTI_APARTMENT,
+      series = "",
+      floors = 5,
+      areaPlot = 0.0,
+      plotStatus = null,
+      infrastructure = mutableSetOf(
+        InfrastructureDto.STUB_GAZ,
+        InfrastructureDto.STUB_ELECTRICITY,
+        InfrastructureDto.STUB_SEWERAGE,
+        InfrastructureDto.STUB_WATER,
+      ),
+      yearConstruction = 1975,
+      garbageChute = false,
+      unitOnFloor = 4,
+      passengerElevator = 0,
+      serviceElevator = 0,
+      metro = "",
+      timeToMetro = 0,
+      distanceToMetro = 0,
+      photos = mutableSetOf(),
+    )
+  }
+}

@@ -13,5 +13,13 @@ data class HouseMaterialModel(
       "MONOLITHIC",
       "PANEL",
     )
+    val STUB_BRICK = HouseMaterialModel(
+      DirectoryIdModel("test-hm-id"),
+      "BRICK"
+    )
+    val STUB_PANEL = HouseMaterialModel(
+      DirectoryIdModel("test-hm-id"),
+      "PANEL"
+    )
   }
 }

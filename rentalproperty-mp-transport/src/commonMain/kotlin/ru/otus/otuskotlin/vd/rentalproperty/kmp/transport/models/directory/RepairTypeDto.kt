@@ -6,4 +6,11 @@ import kotlinx.serialization.Serializable
 data class RepairTypeDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto
+) : IDirectoryTypeDto {
+  companion object {
+    val STUB_RENOVATION = RepairTypeDto(
+      "test-rt-id",
+      "RENOVATION"
+    )
+  }
+}

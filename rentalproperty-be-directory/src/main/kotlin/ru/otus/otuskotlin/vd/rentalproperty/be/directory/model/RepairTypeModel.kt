@@ -12,5 +12,9 @@ data class RepairTypeModel(
       "DESIGNER_RENOVATION",  //дизайнерский ремонт
       "REDECORATING",         //косметический ремонт
     )
+    val STUB_RENOVATION = RepairTypeModel(
+      DirectoryIdModel("test-rt-id"),
+      "RENOVATION"
+    )
   }
 }
