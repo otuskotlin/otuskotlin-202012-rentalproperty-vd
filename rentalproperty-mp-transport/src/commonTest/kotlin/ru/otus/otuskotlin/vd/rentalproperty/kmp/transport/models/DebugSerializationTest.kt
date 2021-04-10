@@ -1,7 +1,6 @@
 package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models
 
 import kotlinx.serialization.json.Json
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseCreateDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseCreate
@@ -26,9 +25,10 @@ class DebugSerializationTest {
       )
     )
 
-    val serializedString = jsonConfig.encodeToString(Message.serializer(), dto)
+    val serializedString = json.encodeToString(RequestHouseCreate.serializer(), dto)
+//    val serializedString = jsonConfig.encodeToString(Message.serializer(), dto)
     println(serializedString)
-    assertTrue { serializedString.contains("stubCase\":\"SUCCESS") }
+    assertTrue { serializedString.contains(Regex("stubCase\":\\s*\"SUCCESS")) }
     val deserializedDto = json.decodeFromString(RequestHouseCreate.serializer(), serializedString)
     assertEquals(RequestHouseCreate.StubCase.SUCCESS, deserializedDto.debug?.stubCase)
   }

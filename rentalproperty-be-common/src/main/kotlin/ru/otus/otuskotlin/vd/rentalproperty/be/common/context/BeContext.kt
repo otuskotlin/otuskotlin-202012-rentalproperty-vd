@@ -7,6 +7,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatMo
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
 import java.time.Instant
 
 data class BeContext(
@@ -17,6 +19,8 @@ data class BeContext(
   var errors: MutableList<IError> = mutableListOf(),
   var frameworkErrors: MutableList<Throwable> = mutableListOf(),
   var stubCase: StubCase = StubCase.NONE,
+
+  val userSession: IUserSession<*> = EmptyUserSession,
 
   //Flat
   var requestFlatId: FlatIdModel = FlatIdModel.NONE,

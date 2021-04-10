@@ -7,11 +7,15 @@ import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertFlatRoute
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertHouseRoute
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.houseRoute
+import io.ktor.websocket.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertHouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertHouseCrud
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.FlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.HouseCrud
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -21,8 +25,14 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
 
   val houseCrud = HouseCrud()
+  val flatCrud = FlatCrud()
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
+
+  val houseService = HouseService(houseCrud)
+  val flatService = FlatService(flatCrud)
+  val advertHouseService = AdvertHouseService(advertHouseCrud)
+  val advertFlatService = AdvertFlatService(advertFlatCrud)
 
   install(CORS) {
     method(HttpMethod.Options)
@@ -35,6 +45,7 @@ fun Application.module(testing: Boolean = false) {
     anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
   }
 
+  install(WebSockets)
   install(ContentNegotiation) {
     json(
       contentType = ContentType.Application.Json,
@@ -52,9 +63,12 @@ fun Application.module(testing: Boolean = false) {
       resources("static")
     }
 
-    houseRoute(houseCrud)
-    advertFlatRoute(advertFlatCrud)
-    advertHouseRoute(advertHouseCrud)
+    houseRouting(houseService)
+    flatRouting(flatService)
+    advertFlatRouting(advertFlatService)
+    advertHouseRouting(advertHouseService)
+
+    mpWebsocket(houseService, flatService, advertHouseService, advertFlatService)
   }
 }
 
