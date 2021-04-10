@@ -1,13 +1,20 @@
 POST {{server}}/realty/house/list
 Content-Type: application/json
 
-{}
+{
+  "debug": {
+    "stubCase": "SUCCESS"
+  }
+}
 
 ###
 POST {{server}}/realty/house/create
 Content-Type: application/json
 
 {
+  "debug": {
+    "stubCase": "SUCCESS"
+  },
   "createData": {
     "price": 5000000.0,
     "area": 100.0,
@@ -24,7 +31,10 @@ POST {{server}}/realty/house/read
 Content-Type: application/json
 
 {
-  "houseId": "house123"
+  "debug": {
+    "stubCase": "SUCCESS"
+  },
+  "houseId": "test-house-id"
 }
 
 ###
@@ -32,6 +42,9 @@ POST {{server}}/realty/house/update
 Content-Type: application/json
 
 {
+  "debug": {
+    "stubCase": "SUCCESS"
+  },
   "updateData": {
     "id": "house321",
     "price": 13000000.0,
@@ -49,7 +62,10 @@ POST {{server}}/realty/house/delete
 Content-Type: application/json
 
 {
-  "houseId": "house123"
+  "debug": {
+    "stubCase": "SUCCESS"
+  },
+  "houseId": "test-house-id"
 }
 
 ###

@@ -2,7 +2,7 @@ plugins {
   kotlin("multiplatform")
 }
 
-group = "${rootProject.group}.common.kmp"
+group = "${rootProject.group}.kmp.common"
 version = rootProject.version
 
 kotlin {

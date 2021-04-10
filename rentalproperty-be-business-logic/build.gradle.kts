@@ -12,6 +12,7 @@ dependencies {
   implementation(project(":rentalproperty-be-directory"))
   implementation(project(":rentalproperty-mp-common"))
   implementation(project(":rentalproperty-mp-pipelines"))
+  implementation(project(":rentalproperty-mp-pipelines-validation"))
 
   implementation(kotlin("stdlib-jdk8"))
 

@@ -13,5 +13,21 @@ data class InfrastructureModel(
       "SEWERAGE",  //Канализация
       "WATER"
     )
+    val STUB_GAZ = InfrastructureModel(
+      DirectoryIdModel("test-im-id"),
+      "GAZ"
+    )
+    val STUB_ELECTRICITY = InfrastructureModel(
+      DirectoryIdModel("test-im-id"),
+      "ELECTRICITY"
+    )
+    val STUB_SEWERAGE = InfrastructureModel(
+      DirectoryIdModel("test-im-id"),
+      "SEWERAGE"
+    )
+    val STUB_WATER = InfrastructureModel(
+      DirectoryIdModel("test-im-id"),
+      "WATER"
+    )
   }
 }

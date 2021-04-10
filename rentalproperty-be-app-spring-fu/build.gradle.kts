@@ -12,16 +12,20 @@ version = rootProject.version
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 dependencies {
+  val coroutinesVersion: String by project
   val springFuVersion: String by project
   val serializationVersion: String by project
 
+  implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
-  implementation(project(":rentalproperty-be-mappers-mp"))
-  implementation(project(":rentalproperty-mp-transport-mp"))
+  implementation(project(":rentalproperty-be-mappers"))
+  implementation(project(":rentalproperty-mp-common"))
+  implementation(project(":rentalproperty-mp-transport"))
 
   implementation(kotlin("stdlib-jdk8"))
 
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.fu:spring-fu-kofu:$springFuVersion")
   implementation("org.springframework:spring-webmvc")

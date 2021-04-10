@@ -7,10 +7,6 @@ plugins {
 group = "${rootProject.group}.be.ktor"
 version = rootProject.version
 
-application {
-  mainClassName = "io.ktor.server.netty.EngineMain"
-}
-
 dependencies {
   val ktorVersion: String by project
   val logbackVersion: String by project
@@ -18,9 +14,9 @@ dependencies {
   implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
-  implementation(project(":rentalproperty-be-mappers-mp"))
+  implementation(project(":rentalproperty-be-mappers"))
   implementation(project(":rentalproperty-mp-common"))
-  implementation(project(":rentalproperty-mp-transport-mp"))
+  implementation(project(":rentalproperty-mp-transport"))
 
   implementation(kotlin("stdlib-jdk8"))
 

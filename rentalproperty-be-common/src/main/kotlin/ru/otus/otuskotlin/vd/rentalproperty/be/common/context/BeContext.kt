@@ -3,11 +3,10 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.context
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.IError
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilterModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseFilterModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
 import java.time.Instant
 
 data class BeContext(
@@ -19,6 +18,13 @@ data class BeContext(
   var frameworkErrors: MutableList<Throwable> = mutableListOf(),
   var stubCase: StubCase = StubCase.NONE,
 
+  //Flat
+  var requestFlatId: FlatIdModel = FlatIdModel.NONE,
+  var requestFlat: FlatModel = FlatModel.NONE,
+  var flatFilter: FlatFilterModel = FlatFilterModel.NONE,
+  var responseFlat: FlatModel = FlatModel.NONE,
+  var responseFlats: MutableList<FlatModel> = mutableListOf(),
+
   //House
   var requestHouseId: HouseIdModel = HouseIdModel.NONE,
   var requestHouse: HouseModel = HouseModel.NONE,
@@ -26,10 +32,17 @@ data class BeContext(
   var responseHouse: HouseModel = HouseModel.NONE,
   var responseHouses: MutableList<HouseModel> = mutableListOf(),
 
-  //Advert
+  //Advert Flat
+  var requestAdvertFlatId: AdvertIdModel = AdvertIdModel.NONE,
+  var requestAdvertFlat: AdvertFlatModel = AdvertFlatModel.NONE,
+  var advertFlatFilter: AdvertFilterModel = AdvertFilterModel.NONE,
+  var responseAdvertFlat: AdvertFlatModel = AdvertFlatModel.NONE,
+  var responseAdvertFlats: MutableList<AdvertFlatModel> = mutableListOf(),
+
+  //Advert House
   var requestAdvertHouseId: AdvertIdModel = AdvertIdModel.NONE,
   var requestAdvertHouse: AdvertHouseModel = AdvertHouseModel.NONE,
-  var advertFilter: AdvertFilterModel = AdvertFilterModel.NONE,
+  var advertHouseFilter: AdvertFilterModel = AdvertFilterModel.NONE,
   var responseAdvertHouse: AdvertHouseModel = AdvertHouseModel.NONE,
   var responseAdvertHouses: MutableList<AdvertHouseModel> = mutableListOf(),
 )

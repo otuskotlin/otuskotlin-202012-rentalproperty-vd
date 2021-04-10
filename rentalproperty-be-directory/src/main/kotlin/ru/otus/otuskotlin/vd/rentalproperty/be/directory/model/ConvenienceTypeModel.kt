@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 /**
- * Список удобств в квартире или в доме
+ * Список удобств в квартире или доме
  */
 data class ConvenienceTypeModel(
   override val id: DirectoryIdModel = DirectoryIdModel.NONE,
@@ -10,26 +10,29 @@ data class ConvenienceTypeModel(
   companion object {
     val NONE = ConvenienceTypeModel()
     val list = setOf(
-      "AIR_CONDITIONER",
       "CONCIERGE",
-      "DISHWASHER",
-      "FRIDGE",
-      "INTERCOM",
-      "INTERNET",
+      "GAS",
       "KINDERGARTEN",
-      "KITCHEN_STOVE",
       "FURNITURE_IN_KITCHEN",
       "FURNITURE_IN_ROOM",
       "PARK",
       "PARKING",
       "PLAYGROUND",
-      "REFRIGERATOR",
       "SCHOOL",
       "SHOPPING_CENTER",
       "SPORTS_GROUND",
-      "TELEPHONE",
-      "TV",
-      "WASHING_MACHINE"
+    )
+    val STUB_GAS = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "GAS"
+    )
+    val STUB_FURNITURE_IN_KITCHEN = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "FURNITURE_IN_KITCHEN"
+    )
+    val STUB_PARKING = ConvenienceTypeModel(
+      DirectoryIdModel("test-ct-id"),
+      "PARKING"
     )
   }
 }
