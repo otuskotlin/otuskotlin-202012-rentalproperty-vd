@@ -2,8 +2,9 @@ package ru.otus.otuskotlin.vd.rentalproperty.ktor
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertRentHouseRead
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.ResponseAdvertRentHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.common.kmp.RestEndpoints
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.ResponseAdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
 import kotlin.test.Test
@@ -13,10 +14,10 @@ import kotlin.test.fail
 class RouteAdvertHouseIT {
 
   @Test
-  fun testGet() {
+  fun testRead() {
     withTestApplication({ module(testing = true) }) {
-      handleRequest(HttpMethod.Post, "/adverts/houses/get") {
-        val body = RequestAdvertRentHouseRead(
+      handleRequest(HttpMethod.Post, RestEndpoints.advertHouseRead) {
+        val body = RequestAdvertHouseRead(
           requestId = "321",
           advertId = "test-id",
         )
@@ -36,12 +37,12 @@ class RouteAdvertHouseIT {
         println(jsonString)
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString)
-            as? ResponseAdvertRentHouseRead)
+            as? ResponseAdvertHouseRead)
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
         assertEquals("321", res.onRequest)
-        assertEquals("Продаётся квартира", res.advert?.name)
+        assertEquals("Продаётся дом", res.advert?.name)
       }
     }
   }

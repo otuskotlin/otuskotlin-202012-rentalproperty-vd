@@ -7,10 +7,11 @@ data class HouseMaterialModel(
   companion object {
     val NONE = HouseMaterialModel()
     val list = listOf(
-      "SINGLE_HOUSE",
-      "PART_HOUSE",
-      "TOWNHOUSE",
-      "DUPLEX",
+      "BLOCK",
+      "BRICK",
+      "BRICK_MONOLITHIC",
+      "MONOLITHIC",
+      "PANEL",
     )
   }
 }

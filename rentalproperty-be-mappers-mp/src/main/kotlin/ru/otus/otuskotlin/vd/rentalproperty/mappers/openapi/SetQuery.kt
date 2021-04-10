@@ -2,8 +2,8 @@ package ru.otus.otuskotlin.marketplace.mappers.openapi
 
 import ru.otus.otuskotlin.marketplace.transport.kmp.models.common.IRequest
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertRentHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.UserIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
@@ -11,8 +11,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseMaterialMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.PlotStatusModel
 import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.toModel
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertRentHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertRentHouseRead
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.advert.house.RequestAdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseCreate
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.RequestHouseRead
 import java.time.Instant
@@ -21,8 +21,8 @@ fun BeContext.setQuery(request: IRequest) =
   when (request) {
     is RequestHouseRead -> setQuery(request)
     is RequestHouseCreate -> setQuery(request)
-    is RequestAdvertRentHouseRead -> setQuery(request)
-    is RequestAdvertRentHouseCreate -> setQuery(request)
+    is RequestAdvertHouseRead -> setQuery(request)
+    is RequestAdvertHouseCreate -> setQuery(request)
     else -> null
   }
 
@@ -60,15 +60,15 @@ private fun BeContext.setQuery(request: RequestHouseCreate) {
 }
 
 //AdvertRentHouse
-private fun BeContext.setQuery(request: RequestAdvertRentHouseRead) {
-  this.requestAdvertRentHouseId = request.advertId?.let {
+private fun BeContext.setQuery(request: RequestAdvertHouseRead) {
+  this.requestAdvertHouseId = request.advertId?.let {
     AdvertIdModel(it)
   } ?: AdvertIdModel.NONE
 }
 
-private fun BeContext.setQuery(request: RequestAdvertRentHouseCreate) {
+private fun BeContext.setQuery(request: RequestAdvertHouseCreate) {
   request.createData?.let { data ->
-    this.requestAdvertRentHouse = AdvertRentHouseModel(
+    this.requestAdvertHouse = AdvertHouseModel(
       userId = data.userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
       houseId = data.houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
       name = data.name ?: "",

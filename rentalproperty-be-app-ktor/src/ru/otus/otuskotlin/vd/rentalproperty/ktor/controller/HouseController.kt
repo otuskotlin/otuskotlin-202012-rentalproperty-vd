@@ -1,78 +1,45 @@
 package ru.otus.otuskotlin.vd.rentalproperty.ktor.controller
 
-import io.ktor.application.*
-import io.ktor.request.*
-import io.ktor.response.*
 import io.ktor.routing.*
-import ru.otus.otuskotlin.vd.rentalproperty.ktor.service.HouseService
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.Message
-import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.common.ResponseStatusDto
+import ru.otus.otuskotlin.vd.rentalproperty.business.logic.backend.HouseCrud
+import ru.otus.otuskotlin.vd.rentalproperty.common.kmp.RestEndpoints
+import ru.otus.otuskotlin.vd.rentalproperty.mappers.backend.*
 import ru.otus.otuskotlin.vd.rentalproperty.transport.kmp.models.realty.house.*
 
-fun Routing.houseRoute() {
-
-  val houseService = HouseService()
-
-  route("/realty/houses") {
-    post("/get") {
-      try {
-        val query = call.receive<Message>() as RequestHouseRead
-        call.respond(houseService.get(query))
-      } catch (e: Throwable) {
-        call.respond(
-          ResponseHouseRead(
-            status = ResponseStatusDto.BAD_REQUEST
-          )
-        )
-      }
+fun Routing.houseRoute(crud: HouseCrud) {
+  post(RestEndpoints.houseCreate) {
+    handleRoute<RequestHouseCreate, ResponseHouseCreate> { query ->
+      query?.also { setQuery(it) }
+      crud.create(this)
+      respondHouseCreate()
     }
-    post("/create") {
-      try {
-        val query = call.receive<Message>() as RequestHouseCreate
-        call.respond(houseService.create(query))
-      } catch (e: Throwable) {
-        call.respond(
-          ResponseHouseCreate(
-            status = ResponseStatusDto.BAD_REQUEST
-          )
-        )
-      }
+  }
+  post(RestEndpoints.houseRead) {
+    handleRoute<RequestHouseRead, ResponseHouseRead> { query ->
+      query?.also { setQuery(it) }
+      crud.read(this)
+      respondHouseRead()
     }
-    post("/update") {
-      try {
-        val query = call.receive<Message>() as RequestHouseUpdate
-        call.respond(houseService.update(query))
-      } catch (e: Throwable) {
-        call.respond(
-          ResponseHouseUpdate(
-            status = ResponseStatusDto.BAD_REQUEST
-          )
-        )
-      }
+  }
+  post(RestEndpoints.houseUpdate) {
+    handleRoute<RequestHouseUpdate, ResponseHouseUpdate> { query ->
+      query?.also { setQuery(it) }
+      crud.read(this)
+      respondHouseUpdate()
     }
-    post("/delete") {
-      try {
-        val query = call.receive<Message>() as RequestHouseDelete
-        call.respond(houseService.delete(query))
-      } catch (e: Throwable) {
-        call.respond(
-          ResponseHouseDelete(
-            status = ResponseStatusDto.BAD_REQUEST
-          )
-        )
-      }
+  }
+  post(RestEndpoints.houseDelete) {
+    handleRoute<RequestHouseDelete, ResponseHouseDelete> { query ->
+      query?.also { setQuery(it) }
+      crud.read(this)
+      respondHouseDelete()
     }
-    post("/filter") {
-      try {
-        val query = call.receive<Message>() as RequestHouseList
-        call.respond(houseService.filter(query))
-      } catch (e: Throwable) {
-        call.respond(
-          ResponseHouseList(
-            status = ResponseStatusDto.BAD_REQUEST
-          )
-        )
-      }
+  }
+  post(RestEndpoints.houseList) {
+    handleRoute<RequestHouseList, ResponseHouseList> { query ->
+      query?.also { setQuery(it) }
+      crud.read(this)
+      respondHouseList()
     }
   }
 }

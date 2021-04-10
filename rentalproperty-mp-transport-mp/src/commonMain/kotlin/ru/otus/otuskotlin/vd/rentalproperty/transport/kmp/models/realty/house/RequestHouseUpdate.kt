@@ -19,6 +19,13 @@ data class RequestHouseUpdate(
 
   @Serializable
   data class Debug(
-    override val mode: WorkModeDto?
+    override val mode: WorkModeDto? = null,
+    val stubCase: StubCase? = null
   ) : IDebug
+
+  @Serializable
+  enum class StubCase {
+    NONE,
+    SUCCESS
+  }
 }
