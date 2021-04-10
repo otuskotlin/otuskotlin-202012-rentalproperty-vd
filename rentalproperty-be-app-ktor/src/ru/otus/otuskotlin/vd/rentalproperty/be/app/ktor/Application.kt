@@ -7,8 +7,10 @@ import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertFlatRoute
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertHouseRoute
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.houseRoute
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertHouseCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.HouseCrud
 
@@ -19,6 +21,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module(testing: Boolean = false) {
 
   val houseCrud = HouseCrud()
+  val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
 
   install(CORS) {
@@ -50,6 +53,7 @@ fun Application.module(testing: Boolean = false) {
     }
 
     houseRoute(houseCrud)
+    advertFlatRoute(advertFlatCrud)
     advertHouseRoute(advertHouseCrud)
   }
 }

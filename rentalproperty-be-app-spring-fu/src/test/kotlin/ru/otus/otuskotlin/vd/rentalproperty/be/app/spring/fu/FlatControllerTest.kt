@@ -49,7 +49,7 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatCreate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatCreate(createData = FlatCreateDto.STUB_SINGLE_HOUSE)
+        RequestFlatCreate(createData = FlatCreateDto.STUB)
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -59,8 +59,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
@@ -80,8 +80,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
@@ -91,7 +91,7 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatUpdate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatUpdate(updateData = FlatUpdateDto.STUB_SINGLE_HOUSE)
+        RequestFlatUpdate(updateData = FlatUpdateDto.STUB)
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -101,8 +101,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
