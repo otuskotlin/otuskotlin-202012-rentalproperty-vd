@@ -12,7 +12,7 @@ object FlatDeleteStub : IOperation<BeContext> by pipeline({
   startIf { stubCase != StubCase.NONE }
 
   operation {
-    startIf { stubCase == StubCase.HOUSE_DELETE_SUCCESS }
+    startIf { stubCase == StubCase.FLAT_DELETE_SUCCESS }
     execute {
       responseFlat = FlatModel.STUB
       status = BeContextStatus.FINISHING

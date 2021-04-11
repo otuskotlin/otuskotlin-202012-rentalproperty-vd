@@ -3,6 +3,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
+import io.ktor.http.cio.websocket.*
 import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -17,6 +18,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertHouseCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.FlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.HouseCrud
+import java.time.Duration
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -45,7 +47,12 @@ fun Application.module(testing: Boolean = false) {
     anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
   }
 
-  install(WebSockets)
+  install(WebSockets) {
+    pingPeriod = Duration.ofSeconds(60) // Disabled (null) by default
+    timeout = Duration.ofSeconds(15)
+    maxFrameSize = Long.MAX_VALUE // Disabled (max value). The connection will be closed if surpassed this length.
+    masking = false
+  }
   install(ContentNegotiation) {
     json(
       contentType = ContentType.Application.Json,
@@ -68,7 +75,7 @@ fun Application.module(testing: Boolean = false) {
     advertFlatRouting(advertFlatService)
     advertHouseRouting(advertHouseService)
 
-    mpWebsocket(houseService, flatService, advertHouseService, advertFlatService)
+    rpWebSocket(houseService, flatService, advertHouseService, advertFlatService)
   }
 }
 

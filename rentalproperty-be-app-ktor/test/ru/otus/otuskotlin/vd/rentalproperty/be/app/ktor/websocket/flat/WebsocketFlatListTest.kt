@@ -5,6 +5,7 @@ import io.ktor.server.testing.*
 import kotlinx.coroutines.withTimeoutOrNull
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.module
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IResponse
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.RequestFlatList
@@ -26,16 +27,17 @@ internal class WebsocketFlatListTest {
         )
         withTimeoutOrNull(250L) {
           while (true) {
-            val respJson = (incoming.receive() as Frame.Text).readText()
-            println("GOT INIT RESPONSE: $respJson")
+            val responseJson = (incoming.receive() as Frame.Text).readText()
+            println("GOT INIT RESPONSE: $responseJson")
           }
         }
         val requestJson = jsonConfig.encodeToString(Message.serializer(), query)
         outgoing.send(Frame.Text(requestJson))
-        val respJson = (incoming.receive() as Frame.Text).readText()
-        println("RESPONSE: $respJson")
-        val response = jsonConfig.decodeFromString(Message.serializer(), respJson) as ResponseFlatList
+        val responseJson = (incoming.receive() as Frame.Text).readText()
+        println("RESPONSE: $responseJson")
+        val response = jsonConfig.decodeFromString(Message.serializer(), responseJson) as ResponseFlatList
         assertEquals("123", response.onRequest)
+        assertEquals(1, response.flats?.size)
       }
     }
   }
@@ -46,15 +48,15 @@ internal class WebsocketFlatListTest {
       handleWebSocketConversation("/ws") { incoming, outgoing ->
         withTimeoutOrNull(250L) {
           while (true) {
-            val respJson = (incoming.receive() as Frame.Text).readText()
-            println("GOT INIT RESPONSE: $respJson")
+            val responseJson = (incoming.receive() as Frame.Text).readText()
+            println("GOT INIT RESPONSE: $responseJson")
           }
         }
         val requestJson = """{"type":"123"}"""
         outgoing.send(Frame.Text(requestJson))
-        val respJson = (incoming.receive() as Frame.Text).readText()
-        println("RESPONSE: $respJson")
-        val response = jsonConfig.decodeFromString(Message.serializer(), respJson) as ResponseFlatList
+        val responseJson = (incoming.receive() as Frame.Text).readText()
+        println("RESPONSE: $responseJson")
+        val response = jsonConfig.decodeFromString(Message.serializer(), responseJson) as IResponse
         assertEquals(ResponseStatusDto.BAD_REQUEST, response.status)
       }
     }

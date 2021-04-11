@@ -24,7 +24,7 @@ import java.util.*
 private val sessions = mutableMapOf<WebSocketSession, WsUserSession>()
 
 @OptIn(InternalSerializationApi::class)
-fun Routing.mpWebsocket(
+fun Routing.rpWebSocket(
   houseService: HouseService,
   flatService: FlatService,
   advertHouseService: AdvertHouseService,
@@ -47,64 +47,63 @@ fun Routing.mpWebsocket(
         advertHouseService = advertHouseService,
         advertFlatService = advertFlatService,
       )?.also {
-        val respJson = jsonConfig.encodeToString(Message::class.serializer(), it)
-        outgoing.send(Frame.Text(respJson))
+        val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
+        outgoing.send(Frame.Text(responseJson))
       }
     }
 
     for (frame in incoming) {
-      if (frame is Frame.Text) {
-        val ctx = BeContext(
-          responseId = UUID.randomUUID().toString(),
-          timeStarted = Instant.now(),
-          userSession = sessions[this] ?: EmptyUserSession
-        )
-        try {
-          val requestJson = frame.readText()
-          val query = jsonConfig.decodeFromString(Message.serializer(), requestJson)
-          ctx.status = BeContextStatus.RUNNING
-          service(
-            context = ctx,
-            query = query,
-            houseService = houseService,
-            flatService = flatService,
-            advertHouseService = advertHouseService,
-            advertFlatService = advertFlatService,
-          )?.also {
-            val respJson = jsonConfig.encodeToString(Message::class.serializer(), it)
-            outgoing.send(Frame.Text(respJson))
-          }
-        } catch (e: ClosedReceiveChannelException) {
-          service(
-            context = ctx,
-            query = null,
-            houseService = houseService,
-            flatService = flatService,
-            advertHouseService = advertHouseService,
-            advertFlatService = advertFlatService,
+      when (frame) {
+        is Frame.Text -> {
+          val ctx = BeContext(
+            responseId = UUID.randomUUID().toString(),
+            timeStarted = Instant.now(),
+            userSession = sessions[this] ?: EmptyUserSession
           )
-          sessions -= this
-        } catch (e: Throwable) {
-          e.printStackTrace()
-          ctx.status = BeContextStatus.FAILING
-          ctx.errors.add(e.toModel())
-          service(
-            context = ctx,
-            query = null,
-            houseService = houseService,
-            flatService = flatService,
-            advertHouseService = advertHouseService,
-            advertFlatService = advertFlatService,
-          )?.also {
-            val respJson = jsonConfig.encodeToString(Message::class.serializer(), it)
-            outgoing.send(Frame.Text(respJson))
+          try {
+            val requestJson = frame.readText()
+            val query = jsonConfig.decodeFromString(Message.serializer(), requestJson)
+            ctx.status = BeContextStatus.RUNNING
+            service(
+              context = ctx,
+              query = query,
+              houseService = houseService,
+              flatService = flatService,
+              advertHouseService = advertHouseService,
+              advertFlatService = advertFlatService,
+            )?.also {
+              val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
+              outgoing.send(Frame.Text(responseJson))
+            }
+          } catch (e: ClosedReceiveChannelException) {
+            service(
+              context = ctx,
+              query = null,
+              houseService = houseService,
+              flatService = flatService,
+              advertHouseService = advertHouseService,
+              advertFlatService = advertFlatService,
+            )
+            sessions -= this
+          } catch (e: Throwable) {
+            e.printStackTrace()
+            ctx.status = BeContextStatus.FAILING
+            ctx.errors.add(e.toModel())
+            service(
+              context = ctx,
+              query = null,
+              houseService = houseService,
+              flatService = flatService,
+              advertHouseService = advertHouseService,
+              advertFlatService = advertFlatService,
+            )?.also {
+              val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
+              outgoing.send(Frame.Text(responseJson))
+            }
           }
         }
-
-        val responseJson = ""
-//                    if (text.equals("bye", ignoreCase = true)) {
-//                        close(CloseReason(CloseReason.Codes.NORMAL, "Client said BYE"))
-//                    }
+        else -> {
+        }
       }
     }
   }

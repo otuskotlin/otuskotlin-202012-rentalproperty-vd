@@ -5,6 +5,7 @@ import io.ktor.server.testing.*
 import kotlinx.coroutines.withTimeoutOrNull
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.module
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IResponse
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseList
@@ -36,6 +37,7 @@ internal class WebsocketHouseListTest {
         println("RESPONSE: $respJson")
         val response = jsonConfig.decodeFromString(Message.serializer(), respJson) as ResponseHouseList
         assertEquals("123", response.onRequest)
+        assertEquals(1, response.houses?.size)
       }
     }
   }
@@ -54,7 +56,7 @@ internal class WebsocketHouseListTest {
         outgoing.send(Frame.Text(requestJson))
         val respJson = (incoming.receive() as Frame.Text).readText()
         println("RESPONSE: $respJson")
-        val response = jsonConfig.decodeFromString(Message.serializer(), respJson) as ResponseHouseList
+        val response = jsonConfig.decodeFromString(Message.serializer(), respJson) as IResponse
         assertEquals(ResponseStatusDto.BAD_REQUEST, response.status)
       }
     }
