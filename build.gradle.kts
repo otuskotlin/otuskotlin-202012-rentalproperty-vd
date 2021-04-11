@@ -18,7 +18,19 @@ subprojects {
     jcenter()
     mavenCentral()
     maven { url = uri("https://dl.bintray.com/kotlin/kotlin-js-wrappers") }
+    maven { url = uri("https://jitpack.io") }
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://repo.spring.io/milestone") }
+  }
+
+  plugins.withId("org.jetbrains.kotlin.jvm") {
+    tasks {
+      withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+          freeCompilerArgs = listOf("-Xjsr305=strict")
+          jvmTarget = "11"
+        }
+      }
+    }
   }
 }

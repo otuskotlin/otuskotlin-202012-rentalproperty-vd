@@ -11,6 +11,8 @@ dependencies {
   val ktorVersion: String by project
   val logbackVersion: String by project
   val serializationVersion: String by project
+  val ktorKafkaVersion: String by project
+  val kafkaVersion: String by project
 
   implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
@@ -29,6 +31,9 @@ dependencies {
 
   implementation("ch.qos.logback:logback-classic:$logbackVersion")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+
+  implementation("com.github.Datana-company:ktor-kafka:$ktorKafkaVersion")
+  implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
 
   testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }

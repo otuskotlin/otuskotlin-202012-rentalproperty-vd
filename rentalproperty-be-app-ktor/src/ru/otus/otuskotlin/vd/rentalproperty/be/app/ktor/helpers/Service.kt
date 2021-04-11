@@ -17,10 +17,10 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.*
 suspend fun service(
   context: BeContext,
   query: Message?,
-  houseService: HouseService,
   flatService: FlatService,
-  advertHouseService: AdvertHouseService,
+  houseService: HouseService,
   advertFlatService: AdvertFlatService,
+  advertHouseService: AdvertHouseService,
 ): Message? = when (query) {
   is RequestHouseList -> houseService.list(context, query)
   is RequestHouseCreate -> houseService.create(context, query)

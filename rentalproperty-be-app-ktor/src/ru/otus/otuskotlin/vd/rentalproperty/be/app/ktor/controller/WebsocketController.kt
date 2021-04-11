@@ -1,5 +1,6 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller
 
+import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.*
 import io.ktor.websocket.*
@@ -18,17 +19,41 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
+import java.time.Duration
 import java.time.Instant
 import java.util.*
 
 private val sessions = mutableMapOf<WebSocketSession, WsUserSession>()
 
+fun Application.websocketEndpoints(
+  flatService: FlatService,
+  houseService: HouseService,
+  advertFlatService: AdvertFlatService,
+  advertHouseService: AdvertHouseService,
+) {
+  install(WebSockets) {
+    pingPeriod = Duration.ofSeconds(60) // Disabled (null) by default
+    timeout = Duration.ofSeconds(15)
+    maxFrameSize = Long.MAX_VALUE // Disabled (max value). The connection will be closed if surpassed this length.
+    masking = false
+  }
+
+  routing {
+    rpWebSocket(
+      flatService = flatService,
+      houseService = houseService,
+      advertFlatService = advertFlatService,
+      advertHouseService = advertHouseService,
+    )
+  }
+}
+
 @OptIn(InternalSerializationApi::class)
 fun Routing.rpWebSocket(
-  houseService: HouseService,
   flatService: FlatService,
-  advertHouseService: AdvertHouseService,
+  houseService: HouseService,
   advertFlatService: AdvertFlatService,
+  advertHouseService: AdvertHouseService,
 ) {
   webSocket("/ws") { // websocketSession
     sessions[this] = WsUserSession(fwSession = this)
@@ -42,10 +67,10 @@ fun Routing.rpWebSocket(
       service(
         context = ctx,
         query = null,
-        houseService = houseService,
         flatService = flatService,
-        advertHouseService = advertHouseService,
+        houseService = houseService,
         advertFlatService = advertFlatService,
+        advertHouseService = advertHouseService,
       )?.also {
         val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
         outgoing.send(Frame.Text(responseJson))
@@ -67,10 +92,10 @@ fun Routing.rpWebSocket(
             service(
               context = ctx,
               query = query,
-              houseService = houseService,
               flatService = flatService,
-              advertHouseService = advertHouseService,
+              houseService = houseService,
               advertFlatService = advertFlatService,
+              advertHouseService = advertHouseService,
             )?.also {
               val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
               outgoing.send(Frame.Text(responseJson))
@@ -79,10 +104,10 @@ fun Routing.rpWebSocket(
             service(
               context = ctx,
               query = null,
-              houseService = houseService,
               flatService = flatService,
-              advertHouseService = advertHouseService,
+              houseService = houseService,
               advertFlatService = advertFlatService,
+              advertHouseService = advertHouseService,
             )
             sessions -= this
           } catch (e: Throwable) {
@@ -92,10 +117,10 @@ fun Routing.rpWebSocket(
             service(
               context = ctx,
               query = null,
-              houseService = houseService,
               flatService = flatService,
-              advertHouseService = advertHouseService,
+              houseService = houseService,
               advertFlatService = advertFlatService,
+              advertHouseService = advertHouseService,
             )?.also {
               val responseJson = jsonConfig.encodeToString(Message::class.serializer(), it)
               outgoing.send(Frame.Text(responseJson))
