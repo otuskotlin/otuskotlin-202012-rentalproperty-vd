@@ -95,7 +95,7 @@ fun Routing.kafkaController(
             advertFlatService = advertFlatService,
             advertHouseService = advertHouseService,
           )?.also {
-            println("SEND SUCCESS $it")
+            println("SEND SUCCESS to topic '$topicOut': $it")
             kafkaProducer.send(
               ProducerRecord(
                 topicOut,
@@ -116,7 +116,7 @@ fun Routing.kafkaController(
             advertFlatService = advertFlatService,
             advertHouseService = advertHouseService,
           )?.also {
-            println("SEND ERROR $it")
+            println("SEND ERROR to topic '$topicOut':  $it")
             kafkaProducer.send(
               ProducerRecord(
                 topicOut,
