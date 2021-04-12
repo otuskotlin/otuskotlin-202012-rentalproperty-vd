@@ -12,7 +12,7 @@ object FlatFilterStub : IOperation<BeContext> by pipeline({
   startIf { stubCase != StubCase.NONE }
 
   operation {
-    startIf { stubCase == StubCase.HOUSE_LIST_SUCCESS }
+    startIf { stubCase == StubCase.FLAT_LIST_SUCCESS }
     execute {
       responseFlats.add(FlatModel.STUB)
       status = BeContextStatus.FINISHING

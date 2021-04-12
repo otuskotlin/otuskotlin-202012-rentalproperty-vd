@@ -22,15 +22,7 @@ class RequestFlatSerializationTest {
     val dto = RequestFlatCreate(
       requestId = "create-id",
       startTime = "2021-03-08T00:10:24",
-      createData = FlatCreateDto(
-        area = 44.4,
-        areaKitchen = 4.0,
-        rooms = 2,
-        floor = 3,
-        repairType = RepairTypeDto("id", "RENOVATION"),
-        noSmoking = true,
-        description = "Хрущёвка",
-      )
+      createData = FlatCreateDto.STUB
     )
 
     val serializedString = json.encodeToString(
@@ -39,15 +31,9 @@ class RequestFlatSerializationTest {
     )
     println(serializedString)
     assertTrue { serializedString.contains("Хрущёвка") }
-    val deserializedDto = json.decodeFromString(
-      RequestFlatCreate.serializer(),
-      serializedString
-    )
+    val deserializedDto = json.decodeFromString(RequestFlatCreate.serializer(), serializedString)
     assertEquals(
-      RepairTypeDto(
-        "id",
-        "RENOVATION"
-      ),
+      RepairTypeDto.STUB_RENOVATION,
       (deserializedDto as? RequestFlatCreate)?.createData?.repairType
     )
   }
@@ -70,28 +56,14 @@ class RequestFlatSerializationTest {
       RequestFlatCreate(
         requestId = "create-id",
         startTime = "2021-02-13T12:00:00",
-        createData = FlatCreateDto(
-          area = 44.4,
-          areaKitchen = 4.0,
-          rooms = 2,
-          floor = 3,
-          repairType = RepairTypeDto("id", "RENOVATION"),
-          noSmoking = true,
-          description = "Хрущёвка",
-        )
+        createData = FlatCreateDto.STUB
       )
     val serializedString = jsonRequest.encodeToString(dto)
     println(serializedString)
     assertTrue { serializedString.contains("Хрущёвка") }
-    val deserializedDto = jsonRequest.decodeFromString(
-      Message.serializer(),
-      serializedString
-    )
+    val deserializedDto = jsonRequest.decodeFromString(Message.serializer(), serializedString)
     assertEquals(
-      RepairTypeDto(
-        "id",
-        "RENOVATION"
-      ),
+      RepairTypeDto.STUB_RENOVATION,
       (deserializedDto as? RequestFlatCreate)?.createData?.repairType
     )
   }

@@ -5,7 +5,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseCreateDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseCreate
@@ -23,18 +22,7 @@ class RequestHouseSerializationTest {
     val dto = RequestHouseCreate(
       requestId = "create-id",
       startTime = "2021-03-08T00:10:24",
-      createData = HouseCreateDto(
-        material = HouseMaterialDto(
-          "id",
-          "BRICK"
-        ),
-        type = HouseTypeDto(
-          "id",
-          "SINGLE_HOUSE"
-        ),
-        floors = 2,
-        areaPlot = 10.0
-      )
+      createData = HouseCreateDto.STUB_SINGLE_HOUSE
     )
 
     val serializedString = json.encodeToString(
@@ -43,15 +31,9 @@ class RequestHouseSerializationTest {
     )
     println(serializedString)
     assertTrue { serializedString.contains("BRICK") }
-    val deserializedDto = json.decodeFromString(
-      RequestHouseCreate.serializer(),
-      serializedString
-    )
+    val deserializedDto = json.decodeFromString(RequestHouseCreate.serializer(), serializedString)
     assertEquals(
-      HouseTypeDto(
-        "id",
-        "SINGLE_HOUSE"
-      ),
+      HouseTypeDto.STUB_SINGLE_HOUSE,
       (deserializedDto as? RequestHouseCreate)?.createData?.type
     )
   }
@@ -75,31 +57,14 @@ class RequestHouseSerializationTest {
       RequestHouseCreate(
         requestId = "create-id",
         startTime = "2021-02-13T12:00:00",
-        createData = HouseCreateDto(
-          material = HouseMaterialDto(
-            "id",
-            "PANEL"
-          ),
-          type = HouseTypeDto(
-            "id",
-            "PART_HOUSE"
-          ),
-          floors = 2,
-          areaPlot = 4.0
-        )
+        createData = HouseCreateDto.STUB_SINGLE_HOUSE
       )
     val serializedString = jsonRequest.encodeToString(dto)
     println(serializedString)
     assertTrue { serializedString.contains("PANEL") }
-    val deserializedDto = jsonRequest.decodeFromString(
-      Message.serializer(),
-      serializedString
-    )
+    val deserializedDto = jsonRequest.decodeFromString(Message.serializer(), serializedString)
     assertEquals(
-      HouseTypeDto(
-        "id",
-        "PART_HOUSE"
-      ),
+      HouseTypeDto.STUB_SINGLE_HOUSE,
       (deserializedDto as? RequestHouseCreate)?.createData?.type
     )
   }

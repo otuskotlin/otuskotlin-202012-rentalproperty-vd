@@ -33,7 +33,7 @@ data class FlatUpdateDto(
   val photos: MutableSet<MediaFileDto>? = null,
 ) {
   companion object {
-    val STUB_SINGLE_HOUSE = FlatUpdateDto(
+    val STUB = FlatUpdateDto(
       id = "test-flat-id",
       houseId = "test-house-id",
       area = 44.4,

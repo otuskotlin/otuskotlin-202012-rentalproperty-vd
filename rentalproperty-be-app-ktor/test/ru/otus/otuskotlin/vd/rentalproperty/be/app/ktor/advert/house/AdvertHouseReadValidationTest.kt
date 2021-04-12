@@ -1,7 +1,9 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.advert.house
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.module
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.RequestAdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.ResponseAdvertHouseRead
@@ -39,7 +41,7 @@ class AdvertHouseReadValidationTest {
           response.contentType()
         )
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString)
             as? ResponseAdvertHouseRead)

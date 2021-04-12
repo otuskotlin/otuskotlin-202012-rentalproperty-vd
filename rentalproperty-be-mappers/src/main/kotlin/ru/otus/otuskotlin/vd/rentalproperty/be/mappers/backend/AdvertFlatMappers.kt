@@ -29,6 +29,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatCreate) = apply {
     RequestAdvertFlatCreate.StubCase.SUCCESS -> StubCase.ADVERT_CREATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatRead) = apply {
@@ -37,6 +38,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatRead) = apply {
     RequestAdvertFlatRead.StubCase.SUCCESS -> StubCase.ADVERT_READ_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatUpdate) = apply {
@@ -45,6 +47,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatUpdate) = apply {
     RequestAdvertFlatUpdate.StubCase.SUCCESS -> StubCase.ADVERT_UPDATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatDelete) = apply {
@@ -53,6 +56,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatDelete) = apply {
     RequestAdvertFlatDelete.StubCase.SUCCESS -> StubCase.ADVERT_DELETE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatList) = apply {
@@ -65,6 +69,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatList) = apply {
     RequestAdvertFlatList.StubCase.SUCCESS -> StubCase.ADVERT_LIST_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.respondAdvertFlatCreate() = ResponseAdvertFlatCreate(

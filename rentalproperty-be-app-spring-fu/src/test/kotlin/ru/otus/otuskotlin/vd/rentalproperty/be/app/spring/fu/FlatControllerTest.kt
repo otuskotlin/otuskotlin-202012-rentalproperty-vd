@@ -18,7 +18,10 @@ import kotlin.test.assertTrue
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class FlatControllerTest {
-  private val client = WebTestClient.bindToServer().baseUrl("http://localhost:8181").build()
+  private val client = WebTestClient
+    .bindToServer()
+    .baseUrl("http://localhost:8181")
+    .build()
   private lateinit var context: ConfigurableApplicationContext
 
   @BeforeAll
@@ -32,7 +35,13 @@ internal class FlatControllerTest {
       .post()
       .uri(RestEndpoints.flatList)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-      .bodyValue(RequestFlatList())
+      .bodyValue(
+        RequestFlatList(
+          debug = RequestFlatList.Debug(
+            stubCase = RequestFlatList.StubCase.SUCCESS
+          ),
+        )
+      )
       .exchange()
       .expectStatus().is2xxSuccessful
       .expectBody<ResponseFlatList>()
@@ -49,7 +58,12 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatCreate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatCreate(createData = FlatCreateDto.STUB_SINGLE_HOUSE)
+        RequestFlatCreate(
+          createData = FlatCreateDto.STUB,
+          debug = RequestFlatCreate.Debug(
+            stubCase = RequestFlatCreate.StubCase.SUCCESS
+          ),
+        )
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -59,8 +73,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
@@ -70,7 +84,12 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatRead)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatRead(flatId = "test-flat-id")
+        RequestFlatRead(
+          flatId = "test-flat-id",
+          debug = RequestFlatRead.Debug(
+            stubCase = RequestFlatRead.StubCase.SUCCESS
+          ),
+        )
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -80,8 +99,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
@@ -91,7 +110,12 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatUpdate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatUpdate(updateData = FlatUpdateDto.STUB_SINGLE_HOUSE)
+        RequestFlatUpdate(
+          updateData = FlatUpdateDto.STUB,
+          debug = RequestFlatUpdate.Debug(
+            stubCase = RequestFlatUpdate.StubCase.SUCCESS
+          ),
+        )
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -101,8 +125,8 @@ internal class FlatControllerTest {
 
     assertEquals("test-flat-id", res?.flat?.id)
     assertEquals(44.4, res?.flat?.area)
-    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
     assertEquals(3, res?.flat?.floor)
+    assertEquals(ViewFromWindowDto.STUB_PARK, res?.flat?.viewFromWindow)
   }
 
   @Test
@@ -112,7 +136,12 @@ internal class FlatControllerTest {
       .uri(RestEndpoints.flatDelete)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestFlatDelete(flatId = "test-flat-id")
+        RequestFlatDelete(
+          flatId = "test-flat-id",
+          debug = RequestFlatDelete.Debug(
+            stubCase = RequestFlatDelete.StubCase.SUCCESS
+          ),
+        )
       )
       .exchange()
       .expectStatus().is2xxSuccessful

@@ -1,7 +1,9 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.house
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.module
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
@@ -39,7 +41,7 @@ class HouseListValidationTest {
         assertEquals(HttpStatusCode.OK, response.status())
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseList)
           ?: fail("Incorrect response format")
@@ -62,7 +64,7 @@ class HouseListValidationTest {
         assertEquals(HttpStatusCode.OK, response.status())
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseList)
           ?: fail("Incorrect response format")

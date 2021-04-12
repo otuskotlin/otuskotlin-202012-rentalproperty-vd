@@ -1,12 +1,13 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.house
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.module
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseMaterialDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseUpdateDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseUpdate
@@ -24,19 +25,7 @@ class HouseUpdateValidationTest {
       handleRequest(HttpMethod.Post, RestEndpoints.houseUpdate) {
         val body = RequestHouseUpdate(
           requestId = "321",
-          updateData = HouseUpdateDto(
-            id = "some-id",
-            material = HouseMaterialDto(
-              "id",
-              "BRICK"
-            ),
-            type = HouseTypeDto(
-              "id",
-              "SINGLE_HOUSE"
-            ),
-            floors = 2,
-            areaPlot = 10.0
-          ),
+          updateData = HouseUpdateDto.STUB_SINGLE_HOUSE,
           debug = RequestHouseUpdate.Debug(
             mode = WorkModeDto.TEST,
             stubCase = RequestHouseUpdate.StubCase.SUCCESS
@@ -51,15 +40,15 @@ class HouseUpdateValidationTest {
         assertEquals(HttpStatusCode.OK, response.status())
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseUpdate)
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
         assertEquals("321", res.onRequest)
-        assertEquals("some-id", res.house?.id)
-        assertEquals(HouseTypeDto("id", "SINGLE_HOUSE"), res.house?.type)
+        assertEquals("test-house-id", res.house?.id)
+        assertEquals(HouseTypeDto.STUB_SINGLE_HOUSE, res.house?.type)
         assertEquals(2, res.house?.floors)
       }
     }
@@ -83,7 +72,7 @@ class HouseUpdateValidationTest {
         assertEquals(HttpStatusCode.OK, response.status())
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseUpdate)
           ?: fail("Incorrect response format")
@@ -117,7 +106,7 @@ class HouseUpdateValidationTest {
         assertEquals(HttpStatusCode.OK, response.status())
         assertEquals(ContentType.Application.Json.withCharset(Charsets.UTF_8), response.contentType())
         val jsonString = response.content ?: fail("Null response json")
-        println(jsonString)
+        println("RESPONSE JSON: $jsonString")
 
         val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseUpdate)
           ?: fail("Incorrect response format")

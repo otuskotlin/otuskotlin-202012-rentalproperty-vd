@@ -50,6 +50,7 @@ fun BeContext.setQuery(query: RequestFlatCreate) = setQuery(query) {
     RequestFlatCreate.StubCase.SUCCESS -> StubCase.FLAT_CREATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestFlatRead) = apply {
@@ -58,6 +59,7 @@ fun BeContext.setQuery(query: RequestFlatRead) = apply {
     RequestFlatRead.StubCase.SUCCESS -> StubCase.FLAT_READ_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestFlatUpdate) = apply {
@@ -66,6 +68,7 @@ fun BeContext.setQuery(query: RequestFlatUpdate) = apply {
     RequestFlatUpdate.StubCase.SUCCESS -> StubCase.FLAT_UPDATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestFlatDelete) = apply {
@@ -74,6 +77,7 @@ fun BeContext.setQuery(query: RequestFlatDelete) = apply {
     RequestFlatDelete.StubCase.SUCCESS -> StubCase.FLAT_DELETE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestFlatList) = apply {
@@ -86,6 +90,7 @@ fun BeContext.setQuery(query: RequestFlatList) = apply {
     RequestFlatList.StubCase.SUCCESS -> StubCase.FLAT_LIST_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.respondFlatCreate() =

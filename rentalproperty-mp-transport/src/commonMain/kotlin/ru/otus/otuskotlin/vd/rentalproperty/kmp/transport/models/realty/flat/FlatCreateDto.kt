@@ -32,7 +32,7 @@ data class FlatCreateDto(
   val photos: MutableSet<MediaFileDto>? = null,
 ) {
   companion object {
-    val STUB_SINGLE_HOUSE = FlatCreateDto(
+    val STUB = FlatCreateDto(
       houseId = "test-flat-id",
       area = 44.4,
       areaLiving = 28.0,
