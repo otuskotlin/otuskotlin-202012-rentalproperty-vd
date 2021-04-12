@@ -18,7 +18,10 @@ import kotlin.test.assertTrue
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class HouseControllerTest {
-  private val client = WebTestClient.bindToServer().baseUrl("http://localhost:8181").build()
+  private val client = WebTestClient
+    .bindToServer()
+    .baseUrl("http://localhost:8181")
+    .build()
   private lateinit var context: ConfigurableApplicationContext
 
   @BeforeAll
@@ -32,14 +35,20 @@ internal class HouseControllerTest {
       .post()
       .uri(RestEndpoints.houseList)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-      .bodyValue(RequestHouseList())
+      .bodyValue(
+        RequestHouseList(
+          debug = RequestHouseList.Debug(
+            stubCase = RequestHouseList.StubCase.SUCCESS
+          ),
+        )
+      )
       .exchange()
       .expectStatus().is2xxSuccessful
       .expectBody<ResponseHouseList>()
       .returnResult()
       .responseBody
 
-    assertEquals(5, res?.houses?.size)
+    assertEquals(1, res?.houses?.size)
   }
 
   @Test
@@ -50,7 +59,10 @@ internal class HouseControllerTest {
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
         RequestHouseCreate(
-          createData = HouseCreateDto.STUB_SINGLE_HOUSE
+          createData = HouseCreateDto.STUB_SINGLE_HOUSE,
+          debug = RequestHouseCreate.Debug(
+            stubCase = RequestHouseCreate.StubCase.SUCCESS
+          ),
         )
       )
       .exchange()
@@ -76,6 +88,9 @@ internal class HouseControllerTest {
       .bodyValue(
         RequestHouseRead(
           houseId = "test-house-id",
+          debug = RequestHouseRead.Debug(
+            stubCase = RequestHouseRead.StubCase.SUCCESS
+          ),
         )
       )
       .exchange()
@@ -97,7 +112,12 @@ internal class HouseControllerTest {
       .uri(RestEndpoints.houseUpdate)
       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
       .bodyValue(
-        RequestHouseUpdate(updateData = HouseUpdateDto.STUB_MULTI_APARTMENT)
+        RequestHouseUpdate(
+          updateData = HouseUpdateDto.STUB_MULTI_APARTMENT,
+          debug = RequestHouseUpdate.Debug(
+            stubCase = RequestHouseUpdate.StubCase.SUCCESS
+          ),
+        )
       )
       .exchange()
       .expectStatus().is2xxSuccessful
@@ -120,6 +140,9 @@ internal class HouseControllerTest {
       .bodyValue(
         RequestHouseDelete(
           houseId = "test-house-id",
+          debug = RequestHouseDelete.Debug(
+            stubCase = RequestHouseDelete.StubCase.SUCCESS
+          ),
         )
       )
       .exchange()

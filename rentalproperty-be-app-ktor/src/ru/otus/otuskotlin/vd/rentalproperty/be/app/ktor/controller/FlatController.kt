@@ -1,45 +1,35 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller
 
 import io.ktor.routing.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.FlatCrud
-import ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helpers.handleRoute
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.*
 
-fun Routing.flatRoute(crud: FlatCrud) {
+fun Routing.flatRouting(service: FlatService) {
   post(RestEndpoints.flatCreate) {
     handleRoute<RequestFlatCreate, ResponseFlatCreate> { query ->
-      query?.also { setQuery(it) }
-      crud.create(this)
-      respondFlatCreate()
+      service.create(this, query)
     }
   }
   post(RestEndpoints.flatRead) {
     handleRoute<RequestFlatRead, ResponseFlatRead> { query ->
-      query?.also { setQuery(it) }
-      crud.read(this)
-      respondFlatRead()
+      service.read(this, query)
     }
   }
   post(RestEndpoints.flatUpdate) {
     handleRoute<RequestFlatUpdate, ResponseFlatUpdate> { query ->
-      query?.also { setQuery(it) }
-      crud.update(this)
-      respondFlatUpdate()
+      service.update(this, query)
     }
   }
   post(RestEndpoints.flatDelete) {
     handleRoute<RequestFlatDelete, ResponseFlatDelete> { query ->
-      query?.also { setQuery(it) }
-      crud.delete(this)
-      respondFlatDelete()
+      service.delete(this, query)
     }
   }
   post(RestEndpoints.flatList) {
     handleRoute<RequestFlatList, ResponseFlatList> { query ->
-      query?.also { setQuery(it) }
-      crud.list(this)
-      respondFlatList()
+      service.list(this, query)
     }
   }
 }

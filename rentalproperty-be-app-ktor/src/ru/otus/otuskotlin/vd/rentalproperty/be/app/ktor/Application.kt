@@ -7,22 +7,37 @@ import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertFlatRoute
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.advertHouseRoute
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.houseRoute
+import org.apache.kafka.clients.consumer.Consumer
+import org.apache.kafka.clients.producer.Producer
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertHouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertHouseCrud
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.FlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.HouseCrud
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module(
+  testing: Boolean = false,
+  kafkaTestConsumer: Consumer<String, String>? = null,
+  kafkaTestProducer: Producer<String, String>? = null
+) {
 
+  val flatCrud = FlatCrud()
   val houseCrud = HouseCrud()
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
+
+  val flatService = FlatService(flatCrud)
+  val houseService = HouseService(houseCrud)
+  val advertFlatService = AdvertFlatService(advertFlatCrud)
+  val advertHouseService = AdvertHouseService(advertHouseCrud)
 
   install(CORS) {
     method(HttpMethod.Options)
@@ -42,6 +57,28 @@ fun Application.module(testing: Boolean = false) {
     )
   }
 
+  // Подключаем Websocket
+  websocketEndpoints(
+    flatService = flatService,
+    houseService = houseService,
+    advertFlatService = advertFlatService,
+    advertHouseService = advertHouseService,
+  )
+
+  // Подключаем Kafka
+  val brokers = environment.config.propertyOrNull("rentalproperty.kafka.brokers")?.getString()
+  if (brokers != null) {
+    kafkaEndpoints(
+      brokers = brokers,
+      kafkaConsumer = kafkaTestConsumer,
+      kafkaProducer = kafkaTestProducer,
+      flatService = flatService,
+      houseService = houseService,
+      advertFlatService = advertFlatService,
+      advertHouseService = advertHouseService,
+    )
+  }
+
   routing {
     get("/") {
       call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
@@ -52,9 +89,10 @@ fun Application.module(testing: Boolean = false) {
       resources("static")
     }
 
-    houseRoute(houseCrud)
-    advertFlatRoute(advertFlatCrud)
-    advertHouseRoute(advertHouseCrud)
+    houseRouting(houseService)
+    flatRouting(flatService)
+    advertFlatRouting(advertFlatService)
+    advertHouseRouting(advertHouseService)
   }
 }
 
