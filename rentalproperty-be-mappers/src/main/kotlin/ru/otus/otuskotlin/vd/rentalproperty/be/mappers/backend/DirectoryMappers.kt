@@ -29,12 +29,12 @@ internal fun BathroomTypeDto.toModel() = BathroomTypeModel(
 )
 
 //ConvenienceType
-internal fun ConvenienceTypeModel.toTransport() = ConvenienceTypeDto(
+internal fun ConvenienceTypeModel.toTransport() = ConveniencesDto(
   id = id.id.takeIf { it.isNotBlank() },
   name = name
 )
 
-internal fun ConvenienceTypeDto.toModel() = ConvenienceTypeModel(
+internal fun ConveniencesDto.toModel() = ConvenienceTypeModel(
   id = id?.let { DirectoryIdModel(it) }
     ?: DirectoryIdModel.NONE,
   name = name ?: ""

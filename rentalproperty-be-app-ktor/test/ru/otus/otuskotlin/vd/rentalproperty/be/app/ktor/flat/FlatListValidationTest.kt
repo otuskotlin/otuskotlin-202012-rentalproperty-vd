@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.FlatListFilterDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.FlatFilterDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.RequestFlatList
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.ResponseFlatList
 import kotlin.test.Test
@@ -24,7 +24,7 @@ class FlatListValidationTest {
       handleRequest(HttpMethod.Post, RestEndpoints.flatList) {
         val body = RequestFlatList(
           requestId = "321",
-          filterData = FlatListFilterDto(
+          filter = FlatFilterDto(
 
           ),
           debug = RequestFlatList.Debug(

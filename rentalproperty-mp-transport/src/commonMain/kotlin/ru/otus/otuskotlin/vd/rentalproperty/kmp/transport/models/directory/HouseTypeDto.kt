@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class HouseTypeDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto {
+) : IDirectoryDto {
   companion object {
     val STUB_SINGLE_HOUSE = HouseTypeDto(
       "test-ht-id",

@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseListFilterDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseFilterDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseList
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.ResponseHouseList
 import kotlin.test.Test
@@ -24,7 +24,7 @@ class HouseListValidationTest {
       handleRequest(HttpMethod.Post, RestEndpoints.houseList) {
         val body = RequestHouseList(
           requestId = "321",
-          filterData = HouseListFilterDto(
+          filter = HouseFilterDto(
 
           ),
           debug = RequestHouseList.Debug(
