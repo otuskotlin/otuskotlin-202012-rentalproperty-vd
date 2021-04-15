@@ -121,7 +121,7 @@ fun BeContext.respondAdvertHouseList() =
     endTime = Instant.now().toString()
   )
 
-private fun AdvertHouseCreateDto.toModel() = AdvertHouseModel(
+internal fun AdvertHouseCreateDto.toModel() = AdvertHouseModel(
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   houseId = houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
   name = name ?: "",

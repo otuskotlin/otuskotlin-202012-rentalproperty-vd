@@ -118,7 +118,7 @@ fun BeContext.respondAdvertFlatList() = ResponseAdvertFlatList(
   endTime = Instant.now().toString()
 )
 
-private fun AdvertFlatCreateDto.toModel() = AdvertFlatModel(
+internal fun AdvertFlatCreateDto.toModel() = AdvertFlatModel(
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   flatId = flatId?.let { FlatIdModel(it) } ?: FlatIdModel.NONE,
   name = name ?: "",

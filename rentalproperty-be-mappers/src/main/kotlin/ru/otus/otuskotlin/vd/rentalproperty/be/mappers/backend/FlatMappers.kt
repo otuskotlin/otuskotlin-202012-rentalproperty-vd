@@ -144,7 +144,7 @@ fun BeContext.respondFlatList() =
     endTime = Instant.now().toString()
   )
 
-private fun FlatCreateDto.toModel() = FlatModel(
+internal fun FlatCreateDto.toModel() = FlatModel(
   houseId = houseId?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
   area = area ?: 0.0,

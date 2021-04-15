@@ -137,7 +137,7 @@ fun BeContext.respondHouseList() =
     endTime = Instant.now().toString()
   )
 
-private fun HouseCreateDto.toModel() = HouseModel(
+internal fun HouseCreateDto.toModel() = HouseModel(
   area = area ?: 0.0,
   address = address ?: "",
   material = material?.toModel() ?: HouseMaterialModel.NONE,
