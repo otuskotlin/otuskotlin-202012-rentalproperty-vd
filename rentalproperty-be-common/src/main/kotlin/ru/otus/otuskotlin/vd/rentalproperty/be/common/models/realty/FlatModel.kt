@@ -46,7 +46,7 @@ data class FlatModel(
   val viewFromWindow: ViewFromWindowModel = ViewFromWindowModel.NONE,
   /** удобства: "CONCIERGE",  "KINDERGARTEN",
    *    "FURNITURE_IN_KITCHEN", "PARK", "PARKING", "SPORTS_GROUND", ... */
-  val conveniences: MutableSet<ConvenienceTypeModel> = mutableSetOf(),
+  val conveniences: MutableSet<ConvenienceModel> = mutableSetOf(),
   /** техника: "AIR_CONDITIONER",  "DISHWASHER",  "FRIDGE",
    *    "INTERCOM", "INTERNET", "KITCHEN_STOVE", "TELEPHONE", ... */
   val appliances: MutableSet<AppliancesModel> = mutableSetOf(),
@@ -86,9 +86,9 @@ data class FlatModel(
       repairType = RepairTypeModel.STUB_RENOVATION,
       viewFromWindow = ViewFromWindowModel.STUB_PARK,
       conveniences = mutableSetOf(
-        ConvenienceTypeModel.STUB_GAS,
-        ConvenienceTypeModel.STUB_FURNITURE_IN_KITCHEN,
-        ConvenienceTypeModel.STUB_PARKING,
+        ConvenienceModel.STUB_GAS,
+        ConvenienceModel.STUB_FURNITURE_IN_KITCHEN,
+        ConvenienceModel.STUB_PARKING,
       ),
       appliances = mutableSetOf(
         AppliancesModel.STUB_AIR_CONDITIONER,

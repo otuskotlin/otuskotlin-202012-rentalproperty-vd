@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.ConvenienceTypeModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.ConvenienceModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.RepairTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.ViewFromWindowModel
 
@@ -20,7 +20,7 @@ class RoomModel(
   val noChildren: Boolean = false,
   val description: String = "",
   val viewFromWindow: ViewFromWindowModel = ViewFromWindowModel.NONE,
-  val conveniences: MutableSet<ConvenienceTypeModel> = mutableSetOf(),
+  val conveniences: MutableSet<ConvenienceModel> = mutableSetOf(),
   val photos: MutableSet<MediaFileModel> = mutableSetOf(),
 ) {
   companion object {

@@ -1,5 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
+import media.MediaFileDto
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
 
 internal fun MediaFileModel.toTransport() = MediaFileDto(

@@ -10,8 +10,8 @@ internal fun AppliancesModel.toTransport() = AppliancesDto(
 )
 
 internal fun AppliancesDto.toModel() = AppliancesModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -23,20 +23,20 @@ internal fun BathroomTypeModel.toTransport() =
   )
 
 internal fun BathroomTypeDto.toModel() = BathroomTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
-//ConvenienceType
-internal fun ConvenienceTypeModel.toTransport() = ConveniencesDto(
+//Convenience
+internal fun ConvenienceModel.toTransport() = ConveniencesDto(
   id = id.id.takeIf { it.isNotBlank() },
   name = name
 )
 
-internal fun ConveniencesDto.toModel() = ConvenienceTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+internal fun ConveniencesDto.toModel() = ConvenienceModel(
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -47,8 +47,8 @@ internal fun HouseMaterialModel.toTransport() = HouseMaterialDto(
 )
 
 internal fun HouseMaterialDto.toModel() = HouseMaterialModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -59,8 +59,8 @@ internal fun HouseTypeModel.toTransport() = HouseTypeDto(
 )
 
 internal fun HouseTypeDto.toModel() = HouseTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -71,8 +71,8 @@ internal fun InfrastructureModel.toTransport() = InfrastructureDto(
 )
 
 internal fun InfrastructureDto.toModel() = InfrastructureModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -83,8 +83,8 @@ internal fun PlotStatusModel.toTransport() = PlotStatusDto(
 )
 
 internal fun PlotStatusDto.toModel() = PlotStatusModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -95,8 +95,8 @@ internal fun RealtyTypeModel.toTransport() = RealtyTypeDto(
 )
 
 internal fun RealtyTypeDto.toModel() = RealtyTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -107,8 +107,8 @@ internal fun RepairTypeModel.toTransport() = RepairTypeDto(
 )
 
 internal fun RepairTypeDto.toModel() = RepairTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -119,7 +119,7 @@ internal fun ViewFromWindowModel.toTransport() = ViewFromWindowDto(
 )
 
 internal fun ViewFromWindowDto.toModel() = ViewFromWindowModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) }
+    ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )

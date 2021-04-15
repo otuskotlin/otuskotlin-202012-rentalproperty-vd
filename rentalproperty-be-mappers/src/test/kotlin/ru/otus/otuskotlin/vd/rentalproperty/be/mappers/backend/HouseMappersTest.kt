@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.mappers.openapi.setQuery
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
@@ -45,7 +45,7 @@ internal class HouseMappersTest {
 
     context.setQuery(requestHouse)
 
-    assertEquals(HouseTypeModel(DirectoryIdModel("id"), "SINGLE_HOUSE"), context.requestHouse.type)
+    assertEquals(HouseTypeModel(DirectoryItemIdModel("id"), "SINGLE_HOUSE"), context.requestHouse.type)
     assertEquals(2, context.requestHouse.floors)
   }
 }

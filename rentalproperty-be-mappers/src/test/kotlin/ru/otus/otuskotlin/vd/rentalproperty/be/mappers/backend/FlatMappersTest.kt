@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.RepairTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.mappers.openapi.setQuery
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
@@ -49,7 +49,7 @@ internal class FlatMappersTest {
     assertEquals(3, context.requestFlat.floor)
     assertEquals(
       RepairTypeModel(
-        DirectoryIdModel("id"), "RENOVATION"
+        DirectoryItemIdModel("id"), "RENOVATION"
       ),
       context.requestFlat.repairType
     )

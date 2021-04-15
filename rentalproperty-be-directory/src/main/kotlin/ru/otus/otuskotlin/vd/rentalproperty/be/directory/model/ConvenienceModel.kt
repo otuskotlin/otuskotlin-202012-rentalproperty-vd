@@ -3,12 +3,12 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 /**
  * Список удобств в квартире или доме
  */
-data class ConvenienceTypeModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+data class ConvenienceModel(
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
-    val NONE = ConvenienceTypeModel()
+    val NONE = ConvenienceModel()
     val list = setOf(
       "CONCIERGE",
       "GAS",
@@ -22,16 +22,16 @@ data class ConvenienceTypeModel(
       "SHOPPING_CENTER",
       "SPORTS_GROUND",
     )
-    val STUB_GAS = ConvenienceTypeModel(
-      DirectoryIdModel("test-ct-id"),
+    val STUB_GAS = ConvenienceModel(
+      DirectoryItemIdModel("test-ct-id"),
       "GAS"
     )
-    val STUB_FURNITURE_IN_KITCHEN = ConvenienceTypeModel(
-      DirectoryIdModel("test-ct-id"),
+    val STUB_FURNITURE_IN_KITCHEN = ConvenienceModel(
+      DirectoryItemIdModel("test-ct-id"),
       "FURNITURE_IN_KITCHEN"
     )
-    val STUB_PARKING = ConvenienceTypeModel(
-      DirectoryIdModel("test-ct-id"),
+    val STUB_PARKING = ConvenienceModel(
+      DirectoryItemIdModel("test-ct-id"),
       "PARKING"
     )
   }
