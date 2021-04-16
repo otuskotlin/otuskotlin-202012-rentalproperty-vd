@@ -10,14 +10,8 @@ import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertHouseService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.HouseService
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertHouseCrud
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.FlatCrud
-import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.HouseCrud
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -29,11 +23,13 @@ fun Application.module(
   kafkaTestProducer: Producer<String, String>? = null
 ) {
 
+  val directoryCrud = DirectoryCrud()
   val flatCrud = FlatCrud()
   val houseCrud = HouseCrud()
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
 
+  val directoryService = DirectoryService(directoryCrud)
   val flatService = FlatService(flatCrud)
   val houseService = HouseService(houseCrud)
   val advertFlatService = AdvertFlatService(advertFlatCrud)
@@ -89,8 +85,9 @@ fun Application.module(
       resources("static")
     }
 
-    houseRouting(houseService)
+    directoryRouting(directoryService)
     flatRouting(flatService)
+    houseRouting(houseService)
     advertFlatRouting(advertFlatService)
     advertHouseRouting(advertHouseService)
   }

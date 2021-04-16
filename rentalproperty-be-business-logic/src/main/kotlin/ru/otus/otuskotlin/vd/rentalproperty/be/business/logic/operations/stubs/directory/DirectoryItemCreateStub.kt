@@ -1,0 +1,21 @@
+package ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.stubs.directory
+
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.IOperation
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.operation
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.pipeline
+
+object DirectoryItemCreateStub : IOperation<BeContext> by pipeline({
+  startIf { stubCase != StubCase.NONE }
+
+  operation {
+    startIf { stubCase == StubCase.DIRECTORY_CREATE_SUCCESS }
+    execute {
+      responseDirectoryItem = DirectoryItemModel.STUB
+      status = BeContextStatus.FINISHING
+    }
+  }
+})

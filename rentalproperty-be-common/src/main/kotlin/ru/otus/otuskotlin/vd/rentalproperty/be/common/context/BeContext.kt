@@ -11,6 +11,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSess
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemModel
 import java.time.Instant
 
@@ -55,8 +56,8 @@ data class BeContext(
 
   //Directory
   var requestDirectoryItemId: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
-  var requestDirectoryItem: IDirectoryItemModel? = null,
+  var requestDirectoryItem: DirectoryItemModel = DirectoryItemModel.NONE,
   var directoryFilter: DirectoryFilterModel = DirectoryFilterModel.NONE,
-  var responseDirectoryItem: IDirectoryItemModel? = null,
+  var responseDirectoryItem: DirectoryItemModel = DirectoryItemModel.NONE,
   var responseDirectoryItems: MutableList<IDirectoryItemModel> = mutableListOf(),
 )
