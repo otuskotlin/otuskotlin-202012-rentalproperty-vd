@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.house
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.directory
 
 import io.ktor.http.*
 import io.ktor.server.testing.*
@@ -8,27 +8,26 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseCreateDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseCreate
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.ResponseHouseCreate
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.AppliancesDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.RequestDirectoryItemDelete
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.ResponseDirectoryItemDelete
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-class HouseCreateValidationTest {
+class DirectoryItemDeleteValidationTest {
 
   @Test
-  fun `non-empty create must success`() {
+  fun `non-empty delete must success`() {
     withTestApplication({ module(testing = true) }) {
-      handleRequest(HttpMethod.Post, RestEndpoints.houseCreate) {
-        val body = RequestHouseCreate(
+      handleRequest(HttpMethod.Post, RestEndpoints.directoryDelete) {
+        val body = RequestDirectoryItemDelete(
           requestId = "request-id",
-          createData = HouseCreateDto.STUB_SINGLE_HOUSE,
-          debug = RequestHouseCreate.Debug(
+          directoryItem = AppliancesDto.STUB_AIR_CONDITIONER,
+          debug = RequestDirectoryItemDelete.Debug(
             mode = WorkModeDto.TEST,
-            stubCase = RequestHouseCreate.StubCase.SUCCESS
+            stubCase = RequestDirectoryItemDelete.StubCase.SUCCESS
           )
         )
 
@@ -42,24 +41,22 @@ class HouseCreateValidationTest {
         val jsonString = response.content ?: fail("Null response json")
         println("RESPONSE JSON: $jsonString")
 
-        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseCreate)
+        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseDirectoryItemDelete)
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
         assertEquals("request-id", res.onRequest)
-        assertEquals(HouseTypeDto.STUB_SINGLE_HOUSE, res.house?.type)
-        assertEquals(2, res.house?.floors)
+        assertEquals(AppliancesDto.STUB_AIR_CONDITIONER.name, res.directoryItem?.name)
       }
     }
   }
 
   @Test
-  fun `empty title or description must fail`() {
+  fun `empty directory id must fail`() {
     withTestApplication({ module(testing = true) }) {
-      handleRequest(HttpMethod.Post, RestEndpoints.houseCreate) {
-        val body = RequestHouseCreate(
+      handleRequest(HttpMethod.Post, RestEndpoints.directoryDelete) {
+        val body = RequestDirectoryItemDelete(
           requestId = "request-id",
-          createData = HouseCreateDto()
         )
 
         val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
@@ -71,21 +68,15 @@ class HouseCreateValidationTest {
         val jsonString = response.content ?: fail("Null response json")
         println("RESPONSE JSON: $jsonString")
 
-        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseCreate)
+        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseDirectoryItemDelete)
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
         assertEquals("request-id", res.onRequest)
-        assertTrue {
+        assertTrue("errors: ${res.errors}") {
           res.errors?.firstOrNull {
-            it.message?.contains("title") == true
-                && it.message?.contains("empty") == true
-          } != null
-        }
-        assertTrue {
-          res.errors?.firstOrNull {
-            it.message?.contains("description") == true
-                && it.message?.contains("empty") == true
+            it.message?.toLowerCase()?.contains("id") == true
+                && it.message?.toLowerCase()?.contains("empty") == true
           } != null
         }
       }
@@ -95,7 +86,7 @@ class HouseCreateValidationTest {
   @Test
   fun `bad json must fail`() {
     withTestApplication({ module(testing = true) }) {
-      handleRequest(HttpMethod.Post, RestEndpoints.houseCreate) {
+      handleRequest(HttpMethod.Post, RestEndpoints.directoryDelete) {
         val bodyString = "{"
         setBody(bodyString)
         addHeader("Content-Type", "application/json")
@@ -105,7 +96,7 @@ class HouseCreateValidationTest {
         val jsonString = response.content ?: fail("Null response json")
         println("RESPONSE JSON: $jsonString")
 
-        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseHouseCreate)
+        val res = (jsonConfig.decodeFromString(Message.serializer(), jsonString) as? ResponseDirectoryItemDelete)
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)

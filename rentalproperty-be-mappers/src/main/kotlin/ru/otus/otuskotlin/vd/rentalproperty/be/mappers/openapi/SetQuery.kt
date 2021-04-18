@@ -5,14 +5,14 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend.toModel
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.flat.RequestAdvertFlatCreate
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.flat.RequestAdvertFlatRead
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.RequestAdvertHouseCreate
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.RequestAdvertHouseRead
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.RequestDirectoryItemCreate
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.RequestDirectoryItemRead
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.RequestFlatCreate
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.RequestFlatRead
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseCreate
@@ -90,15 +90,25 @@ private fun BeContext.setQuery(request: RequestAdvertHouseCreate) {
 
 //Directory
 private fun BeContext.setQuery(request: RequestDirectoryItemRead) {
-  this.requestDirectoryItemId = request.directoryItemId?.let {
-    DirectoryItemIdModel(it)
-  } ?: DirectoryItemIdModel.NONE
+  request.directoryItem?.id?.let {
+    this.requestDirectoryItemId = DirectoryItemIdModel(it)
+  }
 }
 
 private fun BeContext.setQuery(request: RequestDirectoryItemCreate) {
-  when (request.directoryName) {
-    "appliances" -> request.directoryItem?.let { data ->
-      this.requestDirectoryItem = data.toModel()
+  request.directoryItem?.let { data ->
+    this.requestDirectoryItem = when (data) {
+      is AppliancesDto -> data.toModel()
+      is BathroomTypeDto -> data.toModel()
+      is ConveniencesDto -> data.toModel()
+      is HouseMaterialDto -> data.toModel()
+      is HouseTypeDto -> data.toModel()
+      is InfrastructureDto -> data.toModel()
+      is PlotStatusDto -> data.toModel()
+      is RealtyTypeDto -> data.toModel()
+      is RepairTypeDto -> data.toModel()
+      is ViewFromWindowDto -> data.toModel()
+      else -> DirectoryItemModel.NONE
     }
   }
 }

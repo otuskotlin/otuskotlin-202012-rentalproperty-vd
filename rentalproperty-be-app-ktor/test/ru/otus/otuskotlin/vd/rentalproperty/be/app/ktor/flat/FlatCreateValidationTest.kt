@@ -24,7 +24,7 @@ class FlatCreateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatCreate) {
         val body = RequestFlatCreate(
-          requestId = "321",
+          requestId = "request-id",
           createData = FlatCreateDto.STUB,
           debug = RequestFlatCreate.Debug(
             mode = WorkModeDto.TEST,
@@ -46,7 +46,7 @@ class FlatCreateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(2, res.flat?.rooms)
         assertEquals(3, res.flat?.floor)
         assertEquals(ViewFromWindowDto.STUB_PARK, res.flat?.viewFromWindow)
@@ -59,7 +59,7 @@ class FlatCreateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatCreate) {
         val body = RequestFlatCreate(
-          requestId = "321",
+          requestId = "request-id",
           createData = FlatCreateDto()
         )
 
@@ -76,7 +76,7 @@ class FlatCreateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertTrue {
           res.errors?.firstOrNull {
             it.message?.contains("title") == true

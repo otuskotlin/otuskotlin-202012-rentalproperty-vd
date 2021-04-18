@@ -23,7 +23,7 @@ class FlatReadValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatRead) {
         val body = RequestFlatRead(
-          requestId = "321",
+          requestId = "request-id",
           flatId = "test-flat-id",
           debug = RequestFlatRead.Debug(
             mode = WorkModeDto.TEST,
@@ -48,7 +48,7 @@ class FlatReadValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(2, res.flat?.rooms)
         assertEquals(3, res.flat?.floor)
         assertEquals(ViewFromWindowDto.STUB_PARK, res.flat?.viewFromWindow)
@@ -61,7 +61,7 @@ class FlatReadValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatRead) {
         val body = RequestFlatRead(
-          requestId = "321",
+          requestId = "request-id",
           flatId = "",
         )
 
@@ -78,7 +78,7 @@ class FlatReadValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
       }
     }
   }

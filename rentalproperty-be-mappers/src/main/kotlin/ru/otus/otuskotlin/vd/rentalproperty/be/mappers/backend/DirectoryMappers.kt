@@ -12,7 +12,7 @@ fun BeContext.respondDirectoryItemList() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
-    directoryItems = responseDirectoryItems.takeIf { it.isNotEmpty() }?.filter { it != AppliancesModel.NONE }
+    directoryItems = responseDirectoryItems.takeIf { it.isNotEmpty() }?.filter { it != DirectoryItemModel.NONE }
       ?.map { it.toTransport() },
   )
 
@@ -56,12 +56,12 @@ fun BeContext.respondDirectoryItemDelete() =
     directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
   )
 
-internal fun IDirectoryItemModel.toTransport() = DirectoryDto(
+internal fun IDirectoryItemModel.toTransport() = DirectoryItemDto(
   id = id.id.takeIf { it.isNotBlank() },
   name = name
 )
 
-internal fun DirectoryDto.toModel() = DirectoryItemModel(
+internal fun IDirectoryDto.toModel() = DirectoryItemModel(
   id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )

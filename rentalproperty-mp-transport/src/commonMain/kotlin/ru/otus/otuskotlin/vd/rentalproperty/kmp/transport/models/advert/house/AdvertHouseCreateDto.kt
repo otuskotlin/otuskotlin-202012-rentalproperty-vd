@@ -10,4 +10,14 @@ data class AdvertHouseCreateDto(
   val description: String? = null,
   val price: Double? = null,
   val published: String? = null,
-)
+) {
+  companion object {
+    val STUB = AdvertHouseCreateDto(
+      userId = "test-user-id",
+      houseId = "test-house-id",
+      name = "Продаётся дом",
+      description = "Хороший дом",
+      price = 1_500_000.0,
+    )
+  }
+}

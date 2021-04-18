@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.AdvertFlatCrud
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext

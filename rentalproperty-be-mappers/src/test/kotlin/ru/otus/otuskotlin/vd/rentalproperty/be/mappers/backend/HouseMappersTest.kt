@@ -1,12 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
-import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.HouseTypeModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.mappers.openapi.setQuery
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseMaterialDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.HouseTypeDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseCreateDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseCreate
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseRead
@@ -31,21 +28,13 @@ internal class HouseMappersTest {
   fun requestCreateMappingTest() {
     val requestHouse: IRequest =
       RequestHouseCreate(
-        createData = HouseCreateDto(
-          material = HouseMaterialDto(
-            "id",
-            "BRICK"
-          ),
-          type = HouseTypeDto("id", "SINGLE_HOUSE"),
-          floors = 2,
-          areaPlot = 10.0,
-        )
+        createData = HouseCreateDto.STUB_SINGLE_HOUSE
       )
     val context = BeContext()
 
     context.setQuery(requestHouse)
 
-    assertEquals(HouseTypeModel(DirectoryItemIdModel("id"), "SINGLE_HOUSE"), context.requestHouse.type)
-    assertEquals(2, context.requestHouse.floors)
+    assertEquals(HouseTypeModel.STUB_SINGLE_HOUSE, context.requestHouse.type)
+    assertEquals(HouseCreateDto.STUB_SINGLE_HOUSE.floors, context.requestHouse.floors)
   }
 }

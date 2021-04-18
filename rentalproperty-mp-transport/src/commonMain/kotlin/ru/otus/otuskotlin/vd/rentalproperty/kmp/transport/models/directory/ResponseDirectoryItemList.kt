@@ -16,7 +16,6 @@ data class ResponseDirectoryItemList(
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
-  val directoryName: String? = null,
   val directoryItems: List<IDirectoryDto>? = null,
 ) : IResponse, Message() {
 

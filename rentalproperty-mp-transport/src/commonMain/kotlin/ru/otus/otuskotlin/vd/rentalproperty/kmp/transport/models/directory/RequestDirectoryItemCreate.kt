@@ -17,8 +17,7 @@ data class RequestDirectoryItemCreate(
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val directoryName: String? = null,
-  val directoryItem: DirectoryDto? = null,
+  val directoryItem: IDirectoryDto? = null,
 ) : IRequest, Message() {
 
   @Serializable

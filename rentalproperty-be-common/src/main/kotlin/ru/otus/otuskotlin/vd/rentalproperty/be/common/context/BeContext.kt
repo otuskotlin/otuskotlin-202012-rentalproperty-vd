@@ -56,8 +56,8 @@ data class BeContext(
 
   //Directory
   var requestDirectoryItemId: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
-  var requestDirectoryItem: DirectoryItemModel = DirectoryItemModel.NONE,
+  var requestDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
   var directoryFilter: DirectoryFilterModel = DirectoryFilterModel.NONE,
-  var responseDirectoryItem: DirectoryItemModel = DirectoryItemModel.NONE,
+  var responseDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
   var responseDirectoryItems: MutableList<IDirectoryItemModel> = mutableListOf(),
 )

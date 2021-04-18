@@ -24,4 +24,10 @@ object RestEndpoints {
   const val advertHouseRead = "/adverts/houses/read"
   const val advertHouseUpdate = "/adverts/houses/update"
   const val advertHouseDelete = "/adverts/houses/delete"
+
+  const val directoryList = "/directories/list"
+  const val directoryCreate = "/directories/create"
+  const val directoryRead = "/directories/read"
+  const val directoryUpdate = "/directories/update"
+  const val directoryDelete = "/directories/delete"
 }

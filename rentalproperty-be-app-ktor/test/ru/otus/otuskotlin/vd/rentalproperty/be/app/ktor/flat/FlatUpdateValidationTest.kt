@@ -24,7 +24,7 @@ class FlatUpdateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatUpdate) {
         val body = RequestFlatUpdate(
-          requestId = "321",
+          requestId = "request-id",
           updateData = FlatUpdateDto.STUB,
           debug = RequestFlatUpdate.Debug(
             mode = WorkModeDto.TEST,
@@ -46,7 +46,7 @@ class FlatUpdateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals("test-flat-id", res.flat?.id)
         assertEquals(2, res.flat?.rooms)
         assertEquals(3, res.flat?.floor)
@@ -60,7 +60,7 @@ class FlatUpdateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatUpdate) {
         val body = RequestFlatUpdate(
-          requestId = "321",
+          requestId = "request-id",
           updateData = FlatUpdateDto()
         )
 
@@ -77,7 +77,7 @@ class FlatUpdateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertTrue {
           res.errors?.firstOrNull {
             it.message?.contains("title") == true

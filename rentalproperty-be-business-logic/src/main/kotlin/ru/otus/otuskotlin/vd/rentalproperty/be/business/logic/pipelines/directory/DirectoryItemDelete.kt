@@ -19,8 +19,8 @@ object DirectoryItemDelete : IOperation<BeContext> by pipeline({
       on { requestDirectoryItemId.id }
       validator(
         ValidatorStringNonEmpty(
-          field = "flat-id",
-          message = "DirectoryItem ID requested must not be empty"
+          field = "dir-id",
+          message = "Directory item ID requested must not be empty"
         )
       )
     }

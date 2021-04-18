@@ -6,18 +6,18 @@ import kotlinx.serialization.Serializable
 data class AppliancesDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryDto {
+) : IDirectoryDto, DirectoryDto() {
   companion object {
     val STUB_AIR_CONDITIONER = AppliancesDto(
-      "test-ct-id",
+      "test-ap-id",
       "AIR_CONDITIONER"
     )
     val STUB_KITCHEN_STOVE = AppliancesDto(
-      "test-ct-id",
+      "test-ap-id",
       "KITCHEN_STOVE"
     )
     val STUB_INTERNET = AppliancesDto(
-      "test-ct-id",
+      "test-ap-id",
       "INTERNET"
     )
   }

@@ -10,7 +10,7 @@ import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)

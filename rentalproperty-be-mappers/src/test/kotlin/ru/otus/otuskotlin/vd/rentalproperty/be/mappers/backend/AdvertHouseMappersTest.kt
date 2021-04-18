@@ -28,18 +28,13 @@ internal class AdvertHouseMappersTest {
   fun requestCreateMappingTest() {
     val requestHouse: IRequest =
       RequestAdvertHouseCreate(
-        createData = AdvertHouseCreateDto(
-          userId = "test-user-id",
-          name = "Продаётся дом",
-          description = "Хороший дом",
-          price = 1_500_000.0,
-        )
+        createData = AdvertHouseCreateDto.STUB
       )
     val context = BeContext()
 
     context.setQuery(requestHouse)
 
-    assertEquals("Продаётся дом", context.requestAdvertHouse.name)
-    assertEquals(1_500_000.0, context.requestAdvertHouse.price)
+    assertEquals(AdvertHouseCreateDto.STUB.name, context.requestAdvertHouse.name)
+    assertEquals(AdvertHouseCreateDto.STUB.price, context.requestAdvertHouse.price)
   }
 }
