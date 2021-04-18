@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class ConveniencesDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryDto {
+) : IDirectoryDto, DirectoryDto() {
   companion object {
     val STUB_GAS = ConveniencesDto(
       "test-ct-id",

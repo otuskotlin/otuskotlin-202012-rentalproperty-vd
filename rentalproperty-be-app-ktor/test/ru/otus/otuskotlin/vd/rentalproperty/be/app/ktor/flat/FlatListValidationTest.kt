@@ -23,7 +23,7 @@ class FlatListValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatList) {
         val body = RequestFlatList(
-          requestId = "321",
+          requestId = "request-id",
           filter = FlatFilterDto(
 
           ),
@@ -47,7 +47,7 @@ class FlatListValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(3, res.flats?.firstOrNull()?.floor)
       }
     }

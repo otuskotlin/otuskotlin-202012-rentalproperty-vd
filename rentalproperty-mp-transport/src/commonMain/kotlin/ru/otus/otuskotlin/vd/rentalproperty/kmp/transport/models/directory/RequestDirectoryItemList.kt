@@ -17,7 +17,6 @@ data class RequestDirectoryItemList(
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val directoryName: String? = null,
   val filter: DirectoryFilterDto? = null,
 ) : IRequest, Message() {
 

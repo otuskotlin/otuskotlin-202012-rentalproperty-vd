@@ -11,12 +11,12 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import ru.datana.smart.common.ktor.kafka.KtorKafkaConsumer
 import ru.datana.smart.common.ktor.kafka.kafka
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helpers.service
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper.service
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertHouseService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.HouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertFlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertHouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.FlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.toModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus

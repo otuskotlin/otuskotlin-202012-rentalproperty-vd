@@ -23,7 +23,7 @@ class HouseListValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseList) {
         val body = RequestHouseList(
-          requestId = "321",
+          requestId = "request-id",
           filter = HouseFilterDto(
 
           ),
@@ -47,7 +47,7 @@ class HouseListValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(2, res.houses?.firstOrNull()?.floors)
       }
     }

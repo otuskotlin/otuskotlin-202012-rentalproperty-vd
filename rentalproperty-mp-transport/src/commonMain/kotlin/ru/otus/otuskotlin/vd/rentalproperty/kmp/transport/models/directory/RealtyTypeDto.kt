@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 data class RealtyTypeDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryDto
+) : IDirectoryDto, DirectoryDto()

@@ -13,7 +13,6 @@ data class ResponseDirectoryItemDelete(
   override val errors: List<ErrorDto>? = null,
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
-  val directoryName: String? = null,
   val directoryItem: IDirectoryDto? = null,
   val deleted: Boolean? = null,
 ) : IResponse, Message() {

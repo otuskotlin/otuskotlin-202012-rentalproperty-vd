@@ -21,7 +21,7 @@ class AdvertHouseReadValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.advertHouseRead) {
         val body = RequestAdvertHouseRead(
-          requestId = "321",
+          requestId = "request-id",
           advertId = "test-advert-id",
           debug = RequestAdvertHouseRead.Debug(
             mode = WorkModeDto.TEST,
@@ -48,7 +48,7 @@ class AdvertHouseReadValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals("Продаётся дом", res.advert?.name)
       }
     }

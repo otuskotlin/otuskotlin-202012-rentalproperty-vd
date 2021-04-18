@@ -22,7 +22,7 @@ class HouseDeleteValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseDelete) {
         val body = RequestHouseDelete(
-          requestId = "321",
+          requestId = "request-id",
           houseId = "test-house-id",
           debug = RequestHouseDelete.Debug(
             mode = WorkModeDto.TEST,
@@ -44,7 +44,7 @@ class HouseDeleteValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals("test-house-id", res.house?.id)
         assertEquals(2, res.house?.floors)
       }
@@ -56,7 +56,7 @@ class HouseDeleteValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseDelete) {
         val body = RequestHouseDelete(
-          requestId = "321",
+          requestId = "request-id",
         )
 
         val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
@@ -72,7 +72,7 @@ class HouseDeleteValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertTrue("errors: ${res.errors}") {
           res.errors?.firstOrNull {
             it.message?.toLowerCase()?.contains("id") == true

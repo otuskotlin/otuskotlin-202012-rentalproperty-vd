@@ -22,7 +22,7 @@ class HouseReadValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseRead) {
         val body = RequestHouseRead(
-          requestId = "321",
+          requestId = "request-id",
           houseId = "test-house-id",
           debug = RequestHouseRead.Debug(
             mode = WorkModeDto.TEST,
@@ -47,7 +47,7 @@ class HouseReadValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals("test-address", res.house?.address)
         assertEquals("SINGLE_HOUSE", res.house?.type?.name)
       }
@@ -59,7 +59,7 @@ class HouseReadValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseRead) {
         val body = RequestHouseRead(
-          requestId = "321",
+          requestId = "request-id",
           houseId = "",
         )
 
@@ -76,7 +76,7 @@ class HouseReadValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
       }
     }
   }

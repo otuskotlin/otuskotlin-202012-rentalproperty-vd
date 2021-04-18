@@ -6,4 +6,5 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IFilterI
 @Serializable
 data class DirectoryFilterDto(
   override val text: String? = null,
+  val directoryItem: IDirectoryDto? = null,
 ) : IFilterItem

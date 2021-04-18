@@ -7,13 +7,28 @@ import kotlinx.serialization.modules.subclass
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.flat.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.*
 
 val jsonConfig: Json by lazy {
   Json {
+    //ignoreUnknownKeys=true
     prettyPrint = true
     serializersModule = SerializersModule {
+      polymorphic(IDirectoryDto::class) {
+        subclass(DirectoryItemDto::class)
+        subclass(AppliancesDto::class)
+        subclass(BathroomTypeDto::class)
+        subclass(ConveniencesDto::class)
+        subclass(HouseMaterialDto::class)
+        subclass(HouseTypeDto::class)
+        subclass(InfrastructureDto::class)
+        subclass(PlotStatusDto::class)
+        subclass(RealtyTypeDto::class)
+        subclass(RepairTypeDto::class)
+        subclass(ViewFromWindowDto::class)
+      }
       polymorphic(Message::class) {
         subclass(RequestFlatCreate::class)
         subclass(RequestFlatRead::class)
@@ -58,6 +73,17 @@ val jsonConfig: Json by lazy {
         subclass(ResponseAdvertHouseDelete::class)
         subclass(ResponseAdvertHouseUpdate::class)
         subclass(ResponseAdvertHouseList::class)
+
+        subclass(RequestDirectoryItemCreate::class)
+        subclass(RequestDirectoryItemRead::class)
+        subclass(RequestDirectoryItemDelete::class)
+        subclass(RequestDirectoryItemUpdate::class)
+        subclass(RequestDirectoryItemList::class)
+        subclass(ResponseDirectoryItemCreate::class)
+        subclass(ResponseDirectoryItemRead::class)
+        subclass(ResponseDirectoryItemDelete::class)
+        subclass(ResponseDirectoryItemUpdate::class)
+        subclass(ResponseDirectoryItemList::class)
       }
     }
     classDiscriminator = "type"
