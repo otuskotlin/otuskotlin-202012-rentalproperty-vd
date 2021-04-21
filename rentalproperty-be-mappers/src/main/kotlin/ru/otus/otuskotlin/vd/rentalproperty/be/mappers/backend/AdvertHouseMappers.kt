@@ -27,6 +27,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseCreate) = apply {
     RequestAdvertHouseCreate.StubCase.SUCCESS -> StubCase.ADVERT_CREATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseRead) = apply {
@@ -35,6 +36,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseRead) = apply {
     RequestAdvertHouseRead.StubCase.SUCCESS -> StubCase.ADVERT_READ_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseUpdate) = apply {
@@ -43,6 +45,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseUpdate) = apply {
     RequestAdvertHouseUpdate.StubCase.SUCCESS -> StubCase.ADVERT_UPDATE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseDelete) = apply {
@@ -51,6 +54,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseDelete) = apply {
     RequestAdvertHouseDelete.StubCase.SUCCESS -> StubCase.ADVERT_DELETE_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseList) = apply {
@@ -63,6 +67,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseList) = apply {
     RequestAdvertHouseList.StubCase.SUCCESS -> StubCase.ADVERT_LIST_SUCCESS
     else -> StubCase.NONE
   }
+  onRequest = query.requestId ?: ""
 }
 
 fun BeContext.respondAdvertHouseCreate() =
