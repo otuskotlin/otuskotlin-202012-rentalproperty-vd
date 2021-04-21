@@ -1,21 +1,63 @@
+Все запросы POST с телом в формате JSON
+Все ответы с телом в формате JSON
 
-Пользователь / Профиль пользователя
-  POST    /users
-    - create
-    - read
-    - update
-    - delete
+*** FLAT ***
+Операции по недвижимости пользователя / Личный кабинет собственника
+create  Добавить квартиру
+read    Получить данные по конкретной квартире
+update  Изменить данные по квартире
+delete  Удалить квартиру
+list    Получить список квартир собственника, в т.ч. по фильтру
 
-!!! Вынести в отдельный модуль / микросервис
-Справочники (списки)
-  GET /directories/
-    - материал дома
-    - инфраструктура
-    - тип недвижимости
-    - тип дома
-    - удобства
-    - возможные виды из окна квартиры
-    - виды ремонта квартиры
+URI /realty/flat
+       Цель       Запрос              Ответ
+     /list       RequestFlatList     ResponseFlatList
+     /create     RequestFlatCreate   ResponseFlatCreate
+     /read       RequestFlatRead     ResponseFlatRead
+     /update     RequestFlatUpdate   ResponseFlatUpdate
+     /delete     RequestFlatDelete   ResponseFlatDelete
+************
+
+*** ADVERT FLAT ***
+Операции по объявлениям пользователя / Личный кабинет арендодателя
+create  Создать новое объявление
+read    Получить конкретное объявление
+update  Редактировать объявление
+delete  Удалить объявление
+list    Получить список объявлений арендодателя, в т.ч. по фильтру
+update  Опубликовать объявление (изменение призанака публикации объявления)
+update  Снять объявление с публикации (изменение призанака публикации объявления)
+
+URI /advert/flat
+       Цель       Запрос                    Ответ
+     /list       RequestAdvertFlatList     ResponseAdvertFlatList
+     /create     RequestAdvertFlatCreate   ResponseAdvertFlatCreate
+     /read       RequestAdvertFlatRead     ResponseAdvertFlatRead
+     /update     RequestAdvertFlatUpdate   ResponseAdvertFlatUpdate
+     /delete     RequestAdvertFlatDelete   ResponseAdvertFlatDelete
+************
+
+*** DIRECTORY ***
+Справочники (списки, каталоги)
+URI  /directories/
+       Цель       Запрос                    Ответ
+     /list       RequestDirectoryItemList     ResponseDirectoryItemList
+     /create     RequestDirectoryItemCreate   ResponseDirectoryItemCreate
+     /read       RequestDirectoryItemRead     ResponseDirectoryItemRead
+     /update     RequestDirectoryItemUpdate   ResponseDirectoryItemUpdate
+     /delete     RequestDirectoryItemDelete   ResponseDirectoryItemDelete
+
+    /appliances         - бытовая техника
+    /convenience        - удобства
+    /infrastructure     - инфраструктура
+    /material/house     - материал дома
+    /view-from-window   - возможные виды из окна квартиры
+    /type
+      /bathroom         - тип ванной комнаты
+      /house            - тип дома
+      /realty           - тип недвижимости
+      /repair           - виды ремонта квартиры
+
 
 Основная страница / Демонстрация квартир / Список доступных квартир / Фильтр квартир
   Фильтр квартир
@@ -25,29 +67,11 @@
   POST     /flats/info
     - read
 
-Операции по объявлениям пользователя / Личный кабинет арендодателя
-  Создать новое объявление
-  Редактировать объявление
-  POST    /adverts
-     - create
-     - read
-     - update
-     - delete
-  Опубликовать объявление
-  Снять объявление с публикации
-  POST    /adverts/publication
-     - create
-     - delete
-
-Операции по недвижимости пользователя / Личный кабинет собственника
-  Получить список квартир собственника, в т.ч. по фильтру
-  Добавить квартиру
-  Изменить данные по квартире
-  Удалить квартиру
-  POST    /users/flats
-     - create
-     - read
-     - update
-     - delete
-
 Уведомления / подписки / рассылки
+
+Пользователь / Профиль пользователя
+  POST    /users
+    - create
+    - read
+    - update
+    - delete

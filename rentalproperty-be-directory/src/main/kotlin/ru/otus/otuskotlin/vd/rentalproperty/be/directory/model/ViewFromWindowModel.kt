@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class ViewFromWindowModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = ViewFromWindowModel()
     val list = setOf(
@@ -14,7 +14,7 @@ data class ViewFromWindowModel(
       "YARD"  //двор
     )
     val STUB_PARK = ViewFromWindowModel(
-      DirectoryIdModel("test-vfw-id"),
+      DirectoryItemIdModel("test-vfw-id"),
       "PARK"
     )
   }

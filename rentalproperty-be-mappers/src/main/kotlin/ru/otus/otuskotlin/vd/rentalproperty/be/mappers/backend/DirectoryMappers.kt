@@ -1,7 +1,70 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
+import java.time.Instant
+
+fun BeContext.respondDirectoryItemList() =
+  ResponseDirectoryItemList(
+    responseId = responseId,
+    onRequest = onRequest,
+    endTime = Instant.now().toString(),
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    status = status.toTransport(),
+    directoryItems = responseDirectoryItems.takeIf { it.isNotEmpty() }?.filter { it != DirectoryItemModel.NONE }
+      ?.map { it.toTransport() },
+  )
+
+fun BeContext.respondDirectoryItemCreate() =
+  ResponseDirectoryItemCreate(
+    responseId = responseId,
+    onRequest = onRequest,
+    endTime = Instant.now().toString(),
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    status = status.toTransport(),
+    directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
+  )
+
+fun BeContext.respondDirectoryItemRead() =
+  ResponseDirectoryItemRead(
+    responseId = responseId,
+    onRequest = onRequest,
+    endTime = Instant.now().toString(),
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    status = status.toTransport(),
+    directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
+  )
+
+fun BeContext.respondDirectoryItemUpdate() =
+  ResponseDirectoryItemUpdate(
+    responseId = responseId,
+    onRequest = onRequest,
+    endTime = Instant.now().toString(),
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    status = status.toTransport(),
+    directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
+  )
+
+fun BeContext.respondDirectoryItemDelete() =
+  ResponseDirectoryItemDelete(
+    responseId = responseId,
+    onRequest = onRequest,
+    endTime = Instant.now().toString(),
+    errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
+    status = status.toTransport(),
+    directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
+  )
+
+internal fun IDirectoryItemModel.toTransport() = DirectoryItemDto(
+  id = id.id.takeIf { it.isNotBlank() },
+  name = name
+)
+
+internal fun IDirectoryDto.toModel() = DirectoryItemModel(
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+  name = name ?: ""
+)
 
 //Appliances
 internal fun AppliancesModel.toTransport() = AppliancesDto(
@@ -10,8 +73,7 @@ internal fun AppliancesModel.toTransport() = AppliancesDto(
 )
 
 internal fun AppliancesDto.toModel() = AppliancesModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -23,20 +85,18 @@ internal fun BathroomTypeModel.toTransport() =
   )
 
 internal fun BathroomTypeDto.toModel() = BathroomTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
-//ConvenienceType
-internal fun ConvenienceTypeModel.toTransport() = ConvenienceTypeDto(
+//Convenience
+internal fun ConvenienceModel.toTransport() = ConveniencesDto(
   id = id.id.takeIf { it.isNotBlank() },
   name = name
 )
 
-internal fun ConvenienceTypeDto.toModel() = ConvenienceTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+internal fun ConveniencesDto.toModel() = ConvenienceModel(
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -47,8 +107,7 @@ internal fun HouseMaterialModel.toTransport() = HouseMaterialDto(
 )
 
 internal fun HouseMaterialDto.toModel() = HouseMaterialModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -59,8 +118,7 @@ internal fun HouseTypeModel.toTransport() = HouseTypeDto(
 )
 
 internal fun HouseTypeDto.toModel() = HouseTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -71,8 +129,7 @@ internal fun InfrastructureModel.toTransport() = InfrastructureDto(
 )
 
 internal fun InfrastructureDto.toModel() = InfrastructureModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -83,8 +140,7 @@ internal fun PlotStatusModel.toTransport() = PlotStatusDto(
 )
 
 internal fun PlotStatusDto.toModel() = PlotStatusModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -95,8 +151,7 @@ internal fun RealtyTypeModel.toTransport() = RealtyTypeDto(
 )
 
 internal fun RealtyTypeDto.toModel() = RealtyTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -107,8 +162,7 @@ internal fun RepairTypeModel.toTransport() = RepairTypeDto(
 )
 
 internal fun RepairTypeDto.toModel() = RepairTypeModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )
 
@@ -119,7 +173,6 @@ internal fun ViewFromWindowModel.toTransport() = ViewFromWindowDto(
 )
 
 internal fun ViewFromWindowDto.toModel() = ViewFromWindowModel(
-  id = id?.let { DirectoryIdModel(it) }
-    ?: DirectoryIdModel.NONE,
+  id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
   name = name ?: ""
 )

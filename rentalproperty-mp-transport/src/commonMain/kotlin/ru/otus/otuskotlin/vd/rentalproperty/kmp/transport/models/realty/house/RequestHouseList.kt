@@ -14,7 +14,7 @@ data class RequestHouseList(
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val filterData: HouseListFilterDto? = null,
+  val filter: HouseFilterDto? = null,
 ) : IRequest, Message() {
 
   @Serializable

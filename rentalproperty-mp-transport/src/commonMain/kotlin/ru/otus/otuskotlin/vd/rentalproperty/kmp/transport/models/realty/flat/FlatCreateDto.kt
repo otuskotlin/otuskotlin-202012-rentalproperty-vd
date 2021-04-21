@@ -21,7 +21,7 @@ data class FlatCreateDto(
   val loggia: Int? = null,
   val repairType: RepairTypeDto? = null,
   val viewFromWindow: ViewFromWindowDto? = null,
-  val conveniences: MutableSet<ConvenienceTypeDto>? = null,
+  val conveniences: MutableSet<ConveniencesDto>? = null,
   val appliances: MutableSet<AppliancesDto>? = null,
   val residents: Int? = null,
   val noSmoking: Boolean? = null,
@@ -49,9 +49,9 @@ data class FlatCreateDto(
       repairType = RepairTypeDto.STUB_RENOVATION,
       viewFromWindow = ViewFromWindowDto.STUB_PARK,
       conveniences = mutableSetOf(
-        ConvenienceTypeDto.STUB_GAS,
-        ConvenienceTypeDto.STUB_FURNITURE_IN_KITCHEN,
-        ConvenienceTypeDto.STUB_PARKING,
+        ConveniencesDto.STUB_GAS,
+        ConveniencesDto.STUB_FURNITURE_IN_KITCHEN,
+        ConveniencesDto.STUB_PARKING,
       ),
       appliances = mutableSetOf(
         AppliancesDto.STUB_AIR_CONDITIONER,

@@ -14,7 +14,7 @@ data class RequestFlatList(
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val filterData: FlatListFilterDto? = null,
+  val filter: FlatFilterDto? = null,
 ) : IRequest, Message() {
 
   @Serializable

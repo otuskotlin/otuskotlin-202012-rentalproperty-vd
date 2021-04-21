@@ -1,8 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller
 
 import io.ktor.routing.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helpers.handleRoute
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper.handleRoute
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertFlatService
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.flat.*
 

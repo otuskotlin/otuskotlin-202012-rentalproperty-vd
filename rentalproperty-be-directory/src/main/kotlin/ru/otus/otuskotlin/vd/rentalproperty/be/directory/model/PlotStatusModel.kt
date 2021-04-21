@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class PlotStatusModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = PlotStatusModel()
     val list = setOf(
@@ -12,7 +12,7 @@ data class PlotStatusModel(
       "FARM"
     )
     val STUB_IRP = PlotStatusModel(
-      DirectoryIdModel("test-ps-id"),
+      DirectoryItemIdModel("test-ps-id"),
       "IRP"
     )
   }

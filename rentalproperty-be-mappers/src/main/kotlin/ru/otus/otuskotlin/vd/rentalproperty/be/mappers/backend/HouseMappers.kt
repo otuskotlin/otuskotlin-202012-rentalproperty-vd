@@ -74,7 +74,7 @@ fun BeContext.setQuery(query: RequestHouseDelete) = apply {
 }
 
 fun BeContext.setQuery(query: RequestHouseList) = apply {
-  houseFilter = query.filterData?.let {
+  houseFilter = query.filter?.let {
     HouseFilterModel(
       text = it.text ?: ""
     )
@@ -137,7 +137,7 @@ fun BeContext.respondHouseList() =
     endTime = Instant.now().toString()
   )
 
-private fun HouseCreateDto.toModel() = HouseModel(
+internal fun HouseCreateDto.toModel() = HouseModel(
   area = area ?: 0.0,
   address = address ?: "",
   material = material?.toModel() ?: HouseMaterialModel.NONE,

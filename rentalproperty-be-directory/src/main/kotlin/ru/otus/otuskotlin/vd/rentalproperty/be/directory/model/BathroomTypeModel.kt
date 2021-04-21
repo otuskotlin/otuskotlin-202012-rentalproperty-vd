@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class BathroomTypeModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = BathroomTypeModel()
     val list = setOf(
@@ -11,7 +11,7 @@ data class BathroomTypeModel(
       "SEPARATED",  //раздельный
     )
     val STUB_COMBINED = BathroomTypeModel(
-      DirectoryIdModel("test-brt-id"),
+      DirectoryItemIdModel("test-brt-id"),
       "COMBINED"
     )
   }

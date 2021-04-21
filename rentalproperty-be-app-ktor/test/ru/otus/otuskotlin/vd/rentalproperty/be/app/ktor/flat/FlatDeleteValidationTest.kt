@@ -22,7 +22,7 @@ class FlatDeleteValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatDelete) {
         val body = RequestFlatDelete(
-          requestId = "321",
+          requestId = "request-id",
           flatId = "test-flat-id",
           debug = RequestFlatDelete.Debug(
             mode = WorkModeDto.TEST,
@@ -44,7 +44,7 @@ class FlatDeleteValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals("test-flat-id", res.flat?.id)
         assertEquals(3, res.flat?.floor)
       }
@@ -56,7 +56,7 @@ class FlatDeleteValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatDelete) {
         val body = RequestFlatDelete(
-          requestId = "321",
+          requestId = "request-id",
         )
 
         val bodyString = jsonConfig.encodeToString(Message.serializer(), body)
@@ -72,7 +72,7 @@ class FlatDeleteValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertTrue("errors: ${res.errors}") {
           res.errors?.firstOrNull {
             it.message?.toLowerCase()?.contains("id") == true

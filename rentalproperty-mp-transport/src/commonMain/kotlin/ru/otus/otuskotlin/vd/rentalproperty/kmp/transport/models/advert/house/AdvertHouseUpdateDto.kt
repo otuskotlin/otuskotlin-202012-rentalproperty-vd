@@ -11,4 +11,15 @@ data class AdvertHouseUpdateDto(
   val description: String? = null,
   val price: Double? = null,
   val published: String? = null,
-)
+) {
+  companion object {
+    val STUB = AdvertHouseUpdateDto(
+      id = "test-advert-id",
+      userId = "test-user-id",
+      houseId = "test-house-id",
+      name = "Продаётся дом",
+      description = "Хороший дом",
+      price = 1_500_000.0,
+    )
+  }
+}

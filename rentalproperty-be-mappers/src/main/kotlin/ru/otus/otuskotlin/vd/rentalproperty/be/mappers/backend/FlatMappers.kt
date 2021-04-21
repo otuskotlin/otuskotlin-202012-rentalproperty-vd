@@ -81,7 +81,7 @@ fun BeContext.setQuery(query: RequestFlatDelete) = apply {
 }
 
 fun BeContext.setQuery(query: RequestFlatList) = apply {
-  flatFilter = query.filterData?.let {
+  flatFilter = query.filter?.let {
     FlatFilterModel(
       text = it.text ?: ""
     )
@@ -144,7 +144,7 @@ fun BeContext.respondFlatList() =
     endTime = Instant.now().toString()
   )
 
-private fun FlatCreateDto.toModel() = FlatModel(
+internal fun FlatCreateDto.toModel() = FlatModel(
   houseId = houseId?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
   area = area ?: 0.0,

@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.FlatListFilterDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.FlatFilterDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.RequestFlatList
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat.ResponseFlatList
 import kotlin.test.Test
@@ -23,8 +23,8 @@ class FlatListValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.flatList) {
         val body = RequestFlatList(
-          requestId = "321",
-          filterData = FlatListFilterDto(
+          requestId = "request-id",
+          filter = FlatFilterDto(
 
           ),
           debug = RequestFlatList.Debug(
@@ -47,7 +47,7 @@ class FlatListValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(3, res.flats?.firstOrNull()?.floor)
       }
     }

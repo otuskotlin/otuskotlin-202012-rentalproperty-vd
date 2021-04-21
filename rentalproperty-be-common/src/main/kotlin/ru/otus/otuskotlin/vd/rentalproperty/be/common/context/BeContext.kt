@@ -9,6 +9,10 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemModel
 import java.time.Instant
 
 data class BeContext(
@@ -49,4 +53,11 @@ data class BeContext(
   var advertHouseFilter: AdvertFilterModel = AdvertFilterModel.NONE,
   var responseAdvertHouse: AdvertHouseModel = AdvertHouseModel.NONE,
   var responseAdvertHouses: MutableList<AdvertHouseModel> = mutableListOf(),
+
+  //Directory
+  var requestDirectoryItemId: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
+  var requestDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
+  var directoryFilter: DirectoryFilterModel = DirectoryFilterModel.NONE,
+  var responseDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
+  var responseDirectoryItems: MutableList<IDirectoryItemModel> = mutableListOf(),
 )

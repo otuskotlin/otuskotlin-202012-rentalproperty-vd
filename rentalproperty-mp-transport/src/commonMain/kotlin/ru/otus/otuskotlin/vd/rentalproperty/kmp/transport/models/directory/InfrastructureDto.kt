@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class InfrastructureDto(
   override val id: String? = null,
   override val name: String? = null
-) : IDirectoryTypeDto {
+) : IDirectoryDto, DirectoryDto() {
   companion object {
     val STUB_GAZ = InfrastructureDto(
       "test-i-id",

@@ -1,11 +1,11 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helpers
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper
 
 import io.ktor.http.cio.websocket.*
 import kotlinx.coroutines.isActive
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertFlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.AdvertHouseService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.FlatService
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.services.HouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertFlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertHouseService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.FlatService
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.HouseService
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.flat.*

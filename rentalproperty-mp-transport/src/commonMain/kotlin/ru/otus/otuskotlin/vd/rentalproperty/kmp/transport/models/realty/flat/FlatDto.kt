@@ -24,7 +24,7 @@ data class FlatDto(
   val loggia: Int? = null,
   val repairType: RepairTypeDto? = null,
   val viewFromWindow: ViewFromWindowDto? = null,
-  val conveniences: Set<ConvenienceTypeDto>? = null,
+  val conveniences: Set<ConveniencesDto>? = null,
   val appliances: Set<AppliancesDto>? = null,
   val residents: Int? = null,
   val noSmoking: Boolean? = null,

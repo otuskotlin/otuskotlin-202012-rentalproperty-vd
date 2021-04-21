@@ -1,9 +1,9 @@
-package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house
+package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.flat
 
 import kotlinx.serialization.Serializable
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IFilterItem
 
 @Serializable
-data class HouseListFilterDto(
+data class FlatFilterDto(
   override val text: String? = null,
 ) : IFilterItem

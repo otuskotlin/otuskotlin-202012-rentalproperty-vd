@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helpers
+package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper
 
 import io.ktor.application.*
 import io.ktor.http.*
