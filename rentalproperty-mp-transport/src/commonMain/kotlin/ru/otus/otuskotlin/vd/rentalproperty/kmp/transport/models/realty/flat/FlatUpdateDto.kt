@@ -8,6 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 data class FlatUpdateDto(
   val id: String? = null,
   val houseId: String? = null,
+  val number: String? = null,
   val area: Double? = null,
   val areaLiving: Double? = null,
   val areaKitchen: Double? = null,
@@ -67,6 +68,26 @@ data class FlatUpdateDto(
       noParties = true,
       description = "Хрущёвка",
       photos = mutableSetOf(),
+    )
+    val STUB2 = FlatUpdateDto(
+      id = "test-flat-id-2",
+      houseId = "test-house-id",
+      number = "22",
+      area = 52.0,
+      rooms = 3,
+      floor = 2,
+      balcony = 1,
+      description = "Улучшенка",
+    )
+    val STUB3 = FlatUpdateDto(
+      id = "test-flat-id-3",
+      houseId = "test-house-id",
+      number = "33",
+      area = 73.0,
+      rooms = 4,
+      floor = 7,
+      balcony = 2,
+      description = "Распашонка",
     )
   }
 }

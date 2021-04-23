@@ -12,16 +12,24 @@ import org.apache.kafka.clients.producer.Producer
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
+import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
+import kotlin.time.toDuration
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
+@OptIn(ExperimentalTime::class)
 @Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
 fun Application.module(
   testing: Boolean = false,
   kafkaTestConsumer: Consumer<String, String>? = null,
-  kafkaTestProducer: Producer<String, String>? = null
+  kafkaTestProducer: Producer<String, String>? = null,
+  testFlatRepo: IFlatRepository? = null,
 ) {
+
+  val demandRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
   val directoryCrud = DirectoryCrud()
   val flatCrud = FlatCrud()

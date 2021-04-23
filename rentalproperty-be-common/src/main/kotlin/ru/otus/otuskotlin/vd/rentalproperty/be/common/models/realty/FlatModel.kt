@@ -103,5 +103,25 @@ data class FlatModel(
       description = "Хрущёвка",
       photos = mutableSetOf(),
     )
+    val STUB2 = FlatModel(
+      id = FlatIdModel("test-flat-id-2"),
+      houseId = HouseIdModel("test-house-id"),
+      number = "22",
+      area = 52.0,
+      rooms = 3,
+      floor = 2,
+      balcony = 1,
+      description = "Улучшенка",
+    )
+    val STUB3 = FlatModel(
+      id = FlatIdModel("test-flat-id-3"),
+      houseId = HouseIdModel("test-house-id"),
+      number = "33",
+      area = 73.0,
+      rooms = 4,
+      floor = 7,
+      balcony = 2,
+      description = "Распашонка",
+    )
   }
 }

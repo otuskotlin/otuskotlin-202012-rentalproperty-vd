@@ -18,6 +18,7 @@ dependencies {
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
   implementation(project(":rentalproperty-be-mappers"))
+  implementation(project(":rentalproperty-be-repository-inmemory"))
   implementation(project(":rentalproperty-mp-common"))
   implementation(project(":rentalproperty-mp-transport"))
 
