@@ -8,7 +8,6 @@ interface IFlatRepository {
   suspend fun create(context: BeContext): FlatModel
   suspend fun update(context: BeContext): FlatModel
   suspend fun delete(context: BeContext): FlatModel
-
   suspend fun list(context: BeContext): Collection<FlatModel>
 
   companion object {

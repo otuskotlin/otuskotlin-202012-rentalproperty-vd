@@ -13,5 +13,9 @@ object QuerySetWorkMode : IOperation<BeContext> by operation({
       WorkMode.TEST -> flatRepoTest
       WorkMode.PROD -> flatRepoProd
     }
+    directoryRepo = when (workMode) {
+      WorkMode.TEST -> directoryRepoTest
+      WorkMode.PROD -> directoryRepoProd
+    }
   }
 })

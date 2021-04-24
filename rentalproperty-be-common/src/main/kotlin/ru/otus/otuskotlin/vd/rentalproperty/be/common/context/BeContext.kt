@@ -9,6 +9,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseM
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
@@ -22,8 +23,10 @@ data class BeContext(
   var responseId: String = "",
   var onRequest: String = "",
   var status: BeContextStatus = BeContextStatus.NONE,
+
   var errors: MutableList<IError> = mutableListOf(),
   var frameworkErrors: MutableList<Throwable> = mutableListOf(),
+
   var stubCase: StubCase = StubCase.NONE,
   var workMode: WorkMode = WorkMode.DEFAULT,
   var pageCount: Int = Int.MIN_VALUE,
@@ -65,7 +68,13 @@ data class BeContext(
   var responseDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
   var responseDirectoryItems: MutableList<IDirectoryItemModel> = mutableListOf(),
 
+  //Repository Flat
   var flatRepoTest: IFlatRepository = IFlatRepository.NONE,
   var flatRepoProd: IFlatRepository = IFlatRepository.NONE,
   var flatRepo: IFlatRepository = IFlatRepository.NONE,
+
+  //Repository Directory
+  var directoryRepoTest: IDirectoryRepository = IDirectoryRepository.NONE,
+  var directoryRepoProd: IDirectoryRepository = IDirectoryRepository.NONE,
+  var directoryRepo: IDirectoryRepository = IDirectoryRepository.NONE,
 )

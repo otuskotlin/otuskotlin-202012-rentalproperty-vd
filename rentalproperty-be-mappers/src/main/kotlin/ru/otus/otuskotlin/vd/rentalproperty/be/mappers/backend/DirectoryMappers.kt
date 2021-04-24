@@ -18,6 +18,7 @@ fun BeContext.respondDirectoryItemList() =
     ),
     directoryItems = responseDirectoryItems.takeIf { it.isNotEmpty() }?.filter { it != DirectoryItemModel.NONE }
       ?.map { it.toTransport() },
+    pageCount = pageCount,
   )
 
 fun BeContext.respondDirectoryItemCreate() =

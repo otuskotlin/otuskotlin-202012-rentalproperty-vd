@@ -16,6 +16,38 @@ data class DirectoryInMemoryDto(
       id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
       name = name ?: "",
     )
+    TypeDirectory.Convenience.name -> ConvenienceModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.HouseMaterial.name -> HouseMaterialModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.HouseType.name -> HouseTypeModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.Infrastructure.name -> InfrastructureModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.PlotStatus.name -> PlotStatusModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.RealtyType.name -> RealtyTypeModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.RepairType.name -> RepairTypeModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
+    TypeDirectory.ViewFromWindow.name -> ViewFromWindowModel(
+      id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemIdModel.NONE,
+      name = name ?: "",
+    )
     else -> DirectoryItemModel()
   }
 

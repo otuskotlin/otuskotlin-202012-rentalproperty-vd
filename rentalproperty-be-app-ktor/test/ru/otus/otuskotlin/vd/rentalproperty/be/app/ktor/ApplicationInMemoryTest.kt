@@ -170,9 +170,9 @@ internal class ApplicationInMemoryTest {
           requestId = "request-id",
           filter = FlatFilterDto(
             text = "нка",
+            includeDescription = true,
             offset = 0,
             count = 10,
-            includeDescription = true,
           ),
           debug = RequestFlatList.Debug(mode = WorkModeDto.TEST)
         )

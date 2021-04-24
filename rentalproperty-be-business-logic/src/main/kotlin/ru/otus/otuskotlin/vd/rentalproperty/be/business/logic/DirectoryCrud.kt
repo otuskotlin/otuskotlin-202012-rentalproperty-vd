@@ -2,8 +2,11 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.business.logic
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.pipelines.directory.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 
-class DirectoryCrud {
+class DirectoryCrud(
+  private val directoryRepoTest: IDirectoryRepository = IDirectoryRepository.NONE,
+) {
   suspend fun list(context: BeContext) {
     DirectoryItemFilter.execute(context.apply(this::configureContext))
   }
@@ -25,6 +28,6 @@ class DirectoryCrud {
   }
 
   private fun configureContext(context: BeContext) {
-
+    context.directoryRepoTest = directoryRepoTest
   }
 }

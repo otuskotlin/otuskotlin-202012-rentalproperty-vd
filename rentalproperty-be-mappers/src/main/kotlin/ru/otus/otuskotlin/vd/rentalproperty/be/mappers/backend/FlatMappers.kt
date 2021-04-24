@@ -169,7 +169,8 @@ fun BeContext.respondFlatList() =
     endTime = Instant.now().toString(),
     debug = ResponseFlatList.Debug(
       mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
-    )
+    ),
+    pageCount = pageCount,
   )
 
 internal fun FlatCreateDto.toModel() = FlatModel(
