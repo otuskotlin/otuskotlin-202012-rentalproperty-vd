@@ -7,6 +7,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 @Serializable
 data class FlatCreateDto(
   val houseId: String? = null,
+  val number: String? = null,
   val area: Double? = null,
   val areaLiving: Double? = null,
   val areaKitchen: Double? = null,
@@ -65,6 +66,24 @@ data class FlatCreateDto(
       noParties = true,
       description = "Хрущёвка",
       photos = mutableSetOf(),
+    )
+    val STUB2 = FlatCreateDto(
+      houseId = "test-house-id",
+      number = "22",
+      area = 52.0,
+      rooms = 3,
+      floor = 2,
+      balcony = 1,
+      description = "Улучшенка",
+    )
+    val STUB3 = FlatCreateDto(
+      houseId = "test-house-id",
+      number = "33",
+      area = 73.0,
+      rooms = 4,
+      floor = 7,
+      balcony = 2,
+      description = "Распашонка",
     )
   }
 }

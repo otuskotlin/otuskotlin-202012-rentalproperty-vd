@@ -10,6 +10,7 @@ data class FlatDto(
   val id: String? = null,
   val permissions: Set<ItemPermission>? = null,
   val houseId: String? = null,
+  val number: String? = null,
   val area: Double? = null,
   val areaLiving: Double? = null,
   val areaKitchen: Double? = null,
