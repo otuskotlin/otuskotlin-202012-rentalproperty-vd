@@ -1,6 +1,3 @@
-val cache2kVersion: String by project
-val coroutinesVersion: String by project
-
 plugins {
   kotlin("jvm")
 }
@@ -9,6 +6,9 @@ group = rootProject.group
 version = rootProject.version
 
 dependencies {
+  val cache2kVersion: String by project
+  val coroutinesVersion: String by project
+
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
 
