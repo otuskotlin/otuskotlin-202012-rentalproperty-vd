@@ -11,6 +11,7 @@ pluginManagement {
 
     kotlin("jvm") version kotlinVersion
     kotlin("js") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
 
