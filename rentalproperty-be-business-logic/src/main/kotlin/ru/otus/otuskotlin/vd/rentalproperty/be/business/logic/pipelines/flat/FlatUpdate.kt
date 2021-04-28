@@ -7,7 +7,6 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.stubs.f
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.Error
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.validation.validators.ValidatorIntInRange
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.validation.validators.ValidatorStringNonEmpty
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.IOperation
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.operation
@@ -33,15 +32,15 @@ object FlatUpdate : IOperation<BeContext> by pipeline({
         )
       )
     }
-    validate<Double?> {
-      on { requestFlat.area }
-      validator(
-        ValidatorIntInRange(
-          field = "area",
-          min = 1.0,
-        )
-      )
-    }
+//    validate<Double?> {
+//      on { requestFlat.area }
+//      validator(
+//        ValidatorIntInRange(
+//          field = "area",
+//          min = 1.0,
+//        )
+//      )
+//    }
   }
 
   // Обновление данных в репозитарии, ответ сохраняется в контексте

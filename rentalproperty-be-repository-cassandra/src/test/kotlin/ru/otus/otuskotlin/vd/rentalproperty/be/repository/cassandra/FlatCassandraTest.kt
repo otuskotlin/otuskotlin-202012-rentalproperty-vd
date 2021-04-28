@@ -59,13 +59,14 @@ internal class FlatCassandraTest {
       val context = BeContext(
         flatFilter = FlatFilterModel(
           text = "нка",
-          offset = 1,
-          count = 2,
+          offset = 0,
+          count = 10,
         )
       )
       val response = repo.list(context)
+      println(response)
       assertEquals(response, context.responseFlats)
-      assertEquals(2, context.pageCount)
+      assertEquals(1, context.pageCount)
       assertEquals(2, response.size)
     }
   }
@@ -107,21 +108,25 @@ internal class FlatCassandraTest {
       val flat = FlatModel(
         id = FlatIdModel("test-flat-id"),
         beds = 5,
-        description = "update description"
+        bathrooms = 5,
+        //description = "update description"
       )
       val context = BeContext(
         requestFlat = flat
       )
       val result = repo.update(context)
+      println(result)
       assertEquals(result, context.responseFlat)
       assertEquals(FlatModel.STUB.area, result.area)
       assertEquals(5, result.beds)
-      assertEquals("update description", result.description)
+      assertEquals(5, result.bathrooms)
+      //assertEquals("update description", result.description)
       val context2 = BeContext(requestFlatId = FlatIdModel("test-flat-id"))
       repo.read(context2)
       assertEquals(FlatModel.STUB.area, context2.responseFlat.area)
       assertEquals(5, context2.responseFlat.beds)
-      assertEquals("update description", context2.responseFlat.description)
+      assertEquals(5, context2.responseFlat.bathrooms)
+      //assertEquals("update description", context2.responseFlat.description)
     }
   }
 

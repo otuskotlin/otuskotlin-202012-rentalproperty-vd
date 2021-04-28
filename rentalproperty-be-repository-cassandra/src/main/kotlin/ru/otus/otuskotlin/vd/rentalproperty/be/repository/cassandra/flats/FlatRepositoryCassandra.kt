@@ -104,10 +104,10 @@ class FlatRepositoryCassandra(
     return withTimeout(timeout.toMillis()) {
       val lockKey = daoById.readAsync(id.id).await()?.lockVersion ?: throw RepoNotFoundException(id.id)
       val dtoById = FlatByIdCassandraDto.of(context.requestFlat)
-      val dtoByTitle = FlatByDescriptionCassandraDto.of(context.requestFlat)
+      val dtoByDescription = FlatByDescriptionCassandraDto.of(context.requestFlat)
       val isUpdated = daoById.updateAsync(dtoById, lockKey).await()
       if (!isUpdated) throw RepoModifyException(id.id)
-      daoByDescription.createAsync(dtoByTitle).await()
+      if (dtoByDescription.description != null) daoByDescription.createAsync(dtoByDescription).await()
       val model = daoById.readAsync(id.id).await()?.toModel() ?: throw RepoNotFoundException(id.id)
       context.responseFlat = model
       model
@@ -180,6 +180,7 @@ class FlatRepositoryCassandra(
         .withColumn(FlatByIdCassandraDto.CEILING_HEIGHT, DataTypes.DOUBLE)
         .withColumn(FlatByIdCassandraDto.BEDROOMS, DataTypes.INT)
         .withColumn(FlatByIdCassandraDto.BEDS, DataTypes.INT)
+        .withColumn(FlatByIdCassandraDto.BATHROOMS, DataTypes.INT)
         .withColumn(
           FlatByIdCassandraDto.BATHROOM_TYPE,
           SchemaBuilder.udt(DirectoryCassandraDto.TYPE_NAME, true)
