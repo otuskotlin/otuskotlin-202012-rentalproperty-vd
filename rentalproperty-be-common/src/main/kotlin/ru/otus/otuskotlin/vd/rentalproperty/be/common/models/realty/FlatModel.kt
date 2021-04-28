@@ -28,7 +28,7 @@ data class FlatModel(
   /** количество кроватей */
   val beds: Int = 0,
   /** количество ванных комнат */
-  val bathroom: Int = 0,
+  val bathrooms: Int = 0,
   /** тип ванной комнаты:
    *    "COMBINED" совмещённый, "SEPARATED" раздельный */
   val bathroomType: BathroomTypeModel = BathroomTypeModel.NONE,
@@ -79,7 +79,7 @@ data class FlatModel(
       ceilingHeight = 2.5,
       bedrooms = 1,
       beds = 1,
-      bathroom = 1,
+      bathrooms = 1,
       bathroomType = BathroomTypeModel.STUB_COMBINED,
       balcony = 0,
       loggia = 0,
@@ -115,7 +115,7 @@ data class FlatModel(
       ceilingHeight = 2.5,
       bedrooms = 2,
       beds = 2,
-      bathroom = 1,
+      bathrooms = 1,
       bathroomType = BathroomTypeModel.STUB_COMBINED,
       balcony = 1,
       loggia = 0,
@@ -149,7 +149,7 @@ data class FlatModel(
       ceilingHeight = 3.0,
       bedrooms = 3,
       beds = 3,
-      bathroom = 1,
+      bathrooms = 1,
       bathroomType = BathroomTypeModel.STUB_COMBINED,
       balcony = 2,
       loggia = 0,

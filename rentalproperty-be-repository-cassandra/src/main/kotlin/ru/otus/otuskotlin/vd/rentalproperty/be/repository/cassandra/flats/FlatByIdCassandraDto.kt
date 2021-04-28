@@ -37,7 +37,7 @@ data class FlatByIdCassandraDto(
   @CqlName(BEDS)
   val beds: Int? = null,
   @CqlName(BATHROOMS)
-  val bathroom: Int? = null,
+  val bathrooms: Int? = null,
   @CqlName(BATHROOM_TYPE)
   val bathroomType: DirectoryCassandraDto? = null,
   @CqlName(BALCONY)
@@ -82,7 +82,7 @@ data class FlatByIdCassandraDto(
     residents = residents ?: FlatModel.NONE.residents,
     bedrooms = bedrooms ?: FlatModel.NONE.bedrooms,
     beds = beds ?: FlatModel.NONE.beds,
-    bathroom = bathroom ?: FlatModel.NONE.bathroom,
+    bathrooms = bathrooms ?: FlatModel.NONE.bathrooms,
     bathroomType = (bathroomType?.toModel()) as BathroomTypeModel,
     balcony = balcony ?: FlatModel.NONE.balcony,
     loggia = loggia ?: FlatModel.NONE.loggia,
@@ -145,7 +145,7 @@ data class FlatByIdCassandraDto(
       ceilingHeight = model.ceilingHeight.takeIf { it != FlatModel.NONE.ceilingHeight },
       bedrooms = model.bedrooms.takeIf { it != FlatModel.NONE.bedrooms },
       beds = model.beds.takeIf { it != FlatModel.NONE.beds },
-      bathroom = model.bathroom.takeIf { it != FlatModel.NONE.bathroom },
+      bathrooms = model.bathrooms.takeIf { it != FlatModel.NONE.bathrooms },
       bathroomType = model.bathroomType.takeIf { it != FlatModel.NONE.bathroomType }
         ?.let { DirectoryCassandraDto.of(it) },
       balcony = model.balcony.takeIf { it != FlatModel.NONE.balcony },

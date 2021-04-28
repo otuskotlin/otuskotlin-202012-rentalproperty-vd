@@ -19,7 +19,7 @@ data class FlatDto(
   val ceilingHeight: Double? = null,
   val bedrooms: Int? = null,
   val beds: Int? = null,
-  val bathroom: Int? = null,
+  val bathrooms: Int? = null,
   val bathroomType: BathroomTypeDto? = null,
   val balcony: Int? = null,
   val loggia: Int? = null,
