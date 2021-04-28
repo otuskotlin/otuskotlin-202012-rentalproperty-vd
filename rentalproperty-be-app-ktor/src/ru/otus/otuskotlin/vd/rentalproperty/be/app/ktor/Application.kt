@@ -9,11 +9,13 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.CassandraConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
 import kotlin.time.DurationUnit
@@ -31,12 +33,33 @@ fun Application.module(
   testFlatRepo: IFlatRepository? = null,
   testDirectoryRepo: IDirectoryRepository? = null,
 ) {
+  val cassandraConfig by lazy {
+    CassandraConfig(environment)
+  }
+
+  val repoProdName by lazy {
+    environment.config.property("rentalproperty.repository.prod").getString().trim().toLowerCase()
+  }
+
+  val flatRepoProd = when (repoProdName) {
+    "cassandra" -> FlatRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IFlatRepository.NONE
+  }
 
   val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
-  val directoryCrud = DirectoryCrud(directoryRepoTest)
-  val flatCrud = FlatCrud(flatRepoTest)
+  val directoryCrud = DirectoryCrud(directoryRepoTest = directoryRepoTest)
+  val flatCrud = FlatCrud(
+    flatRepoTest = flatRepoTest,
+    flatRepoProd = flatRepoProd
+  )
   val houseCrud = HouseCrud()
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
