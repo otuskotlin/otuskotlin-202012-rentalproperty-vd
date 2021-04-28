@@ -8,10 +8,10 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import java.time.Instant
 
 @Entity
-data class FlatByTitleCassandraDto(
+data class FlatByDescriptionCassandraDto(
   @PartitionKey(0)
-  @CqlName(TITLE)
-  val title: String? = null,
+  @CqlName(DESCRIPTION)
+  val description: String? = null,
   @ClusteringColumn(0)
   @CqlName(TIMESTAMP)
   val timestamp: Instant? = null,
@@ -19,23 +19,23 @@ data class FlatByTitleCassandraDto(
   @CqlName(ID)
   val id: String? = null,
   @ClusteringColumn(2)
-  @CqlName(TITLE_INDEX)
-  val titleIndex: String? = null,
+  @CqlName(DESCRIPTION_INDEX)
+  val descriptionIndex: String? = null,
 ) {
 
   companion object {
-    const val DEMANDS_TITLE_TABLE_NAME = "flats_by_title"
+    const val TABLE_NAME = "flats_by_description"
     const val ID = "id"
-    const val TITLE = "title"
-    const val TITLE_INDEX = "title_index"
+    const val DESCRIPTION = "description"
+    const val DESCRIPTION_INDEX = "description_index"
     const val TIMESTAMP = "timestamp"
 
     fun of(model: FlatModel) = of(model, model.id.id)
 
-    fun of(model: FlatModel, id: String) = FlatByTitleCassandraDto(
+    fun of(model: FlatModel, id: String) = FlatByDescriptionCassandraDto(
       id = id.takeIf { it != FlatModel.NONE.id.id },
-      title = model.title.takeIf { it != FlatModel.NONE.title },
-      titleIndex = model.title.takeIf { it != FlatModel.NONE.title },
+      description = model.description.takeIf { it != FlatModel.NONE.description },
+      descriptionIndex = model.description.takeIf { it != FlatModel.NONE.description },
       timestamp = Instant.now()
     )
   }

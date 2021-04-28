@@ -6,105 +6,88 @@ import com.datastax.oss.driver.api.querybuilder.SchemaBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.common.dto.DirectoryCassandraDto
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.common.dto.MediaFileCassandraDto
 import java.io.Closeable
 import java.net.InetAddress
 import java.net.InetSocketAddress
 import kotlin.coroutines.CoroutineContext
 
 abstract class RepositoryCassandra(
-    protected open val keyspaceName: String,
-    protected open val hosts: String = "",
-    protected open val port: Int = 9042,
-    protected open val user: String = "cassandra",
-    protected open val pass: String = "cassandra",
-    protected open val replicationFactor: Int = 1,
-    protected open val testing: Boolean = false,
+  protected open val keyspaceName: String,
+  protected open val hosts: String = "",
+  protected open val port: Int = 9042,
+  protected open val user: String = "cassandra",
+  protected open val pass: String = "cassandra",
+  protected open val replicationFactor: Int = 1,
+  protected open val testing: Boolean = false,
 ) : CoroutineScope, Closeable {
-    private val job = Job()
+  private val job = Job()
 
-    /**
-     * Создание сессии, кейспейса, регистрация типов и создание таблицы
-     */
-    protected val session by lazy {
-        val builder = CqlSession.builder()
-            .addContactPoints(parseAddresses(hosts, port))
-            .withLocalDatacenter("datacenter1")
-            .withAuthCredentials(user, pass)
-        builder.build().apply {
-            if (testing)
-                createKeyspace() // создание кейспейса
-        }
-        builder.withKeyspace(keyspaceName).build().apply {
-            if (testing) {
-//                    createKeyspace()
-                createTypeProducer() // регистрация udt
-                createTables()
-                createIndexes()
-            }
-        }
+  /**
+   * Создание сессии, кейспейса, регистрация типов и создание таблицы
+   */
+  protected val session by lazy {
+    val builder = CqlSession.builder()
+      .addContactPoints(parseAddresses(hosts, port))
+      .withLocalDatacenter("datacenter1")
+      .withAuthCredentials(user, pass)
+    builder.build().apply {
+      if (testing)
+        createKeyspace() // создание кейспейса
     }
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
-    override fun close() {
-        job.cancel()
+    builder.withKeyspace(keyspaceName).build().apply {
+      if (testing) {
+        //createKeyspace()
+        createTypeProducer() // регистрация udt
+        createTables()
+        createIndexes()
+      }
     }
+  }
 
-    protected open fun CqlSession.createKeyspace() =
-        execute(
-            SchemaBuilder.createKeyspace(keyspaceName)
-                .ifNotExists()
-                .withSimpleStrategy(replicationFactor)
-                .build()
-        )
+  override val coroutineContext: CoroutineContext
+    get() = Dispatchers.Main + job
 
-    protected open fun CqlSession.createTypeProducer() {
-        execute(
-            SchemaBuilder.createType(UnitTypeCassandraDto.TYPE_NAME)
-                .ifNotExists()
-                .withField(UnitTypeCassandraDto.ID, DataTypes.TEXT)
-                .withField(UnitTypeCassandraDto.NAME, DataTypes.TEXT)
-                .withField(UnitTypeCassandraDto.DESCRIPTION, DataTypes.TEXT)
-                .withField(UnitTypeCassandraDto.IS_BASE, DataTypes.BOOLEAN)
-                .withField(UnitTypeCassandraDto.SYMBOL, DataTypes.TEXT)
-                .withField(UnitTypeCassandraDto.SYMBOLS, DataTypes.setOf(DataTypes.TEXT))
-                .withField(UnitTypeCassandraDto.SYNONYMS, DataTypes.setOf(DataTypes.TEXT))
-                .build()
-        )
-        execute(
-            SchemaBuilder.createType(TechParamCassandraDto.TYPE_NAME)
-                .ifNotExists()
-                .withField(TechParamCassandraDto.ID, DataTypes.TEXT)
-                .withField(TechParamCassandraDto.NAME, DataTypes.TEXT)
-                .withField(TechParamCassandraDto.DESCRIPTION, DataTypes.TEXT)
-                .withField(TechParamCassandraDto.PRIORITY, DataTypes.DOUBLE)
-                .withField(
-                    TechParamCassandraDto.UNITS,
-                    DataTypes.setOf(SchemaBuilder.udt(UnitTypeCassandraDto.TYPE_NAME, true))
-                )
-                .build()
-        )
-        execute(
-            SchemaBuilder.createType(TechDetCassandraDto.TYPE_NAME)
-                .ifNotExists()
-                .withField(TechDetCassandraDto.ID, DataTypes.TEXT)
-                .withField(TechDetCassandraDto.VALUE, DataTypes.TEXT)
-                .withField(TechDetCassandraDto.PARAM, SchemaBuilder.udt(TechParamCassandraDto.TYPE_NAME, true))
-                .withField(TechDetCassandraDto.COMPARABLE_VALUE, DataTypes.DOUBLE)
-                .withField(TechDetCassandraDto.UNIT_TYPE, SchemaBuilder.udt(UnitTypeCassandraDto.TYPE_NAME, true))
-                .build()
-        )
-    }
+  override fun close() {
+    job.cancel()
+  }
 
-    private fun parseAddresses(hosts: String, port: Int): Collection<InetSocketAddress> = hosts
-        .split(Regex("""\s*,\s*"""))
-        .map { InetSocketAddress(InetAddress.getByName(it), port) }
+  protected open fun CqlSession.createKeyspace() =
+    execute(
+      SchemaBuilder.createKeyspace(keyspaceName)
+        .ifNotExists()
+        .withSimpleStrategy(replicationFactor)
+        .build()
+    )
 
+  protected open fun CqlSession.createTypeProducer() {
+    execute(
+      SchemaBuilder.createType(DirectoryCassandraDto.TYPE_NAME)
+        .ifNotExists()
+        .withField(DirectoryCassandraDto.ID, DataTypes.TEXT)
+        .withField(DirectoryCassandraDto.NAME, DataTypes.TEXT)
+        .withField(DirectoryCassandraDto.TYPE, DataTypes.TEXT)
+        .build()
+    )
+    execute(
+      SchemaBuilder.createType(MediaFileCassandraDto.TYPE_NAME)
+        .ifNotExists()
+        .withField(MediaFileCassandraDto.ID, DataTypes.TEXT)
+        .withField(MediaFileCassandraDto.TITLE, DataTypes.TEXT)
+        .withField(MediaFileCassandraDto.URL, DataTypes.TEXT)
+        .withField(MediaFileCassandraDto.FILENAME, DataTypes.DOUBLE)
+        .build()
+    )
+  }
 
-    abstract fun CqlSession.createTables()
+  private fun parseAddresses(hosts: String, port: Int): Collection<InetSocketAddress> = hosts
+    .split(Regex("""\s*,\s*"""))
+    .map { InetSocketAddress(InetAddress.getByName(it), port) }
 
-    abstract fun CqlSession.createIndexes()
+  abstract fun CqlSession.createTables()
 
-    abstract fun init(): RepositoryCassandra
+  abstract fun CqlSession.createIndexes()
+
+  abstract fun init(): RepositoryCassandra
 }

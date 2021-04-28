@@ -17,7 +17,7 @@ data class FlatByIdCassandraDto(
   @CqlName(ID)
   val id: String? = null,
   @CqlName(HOUSE_ID)
-  val houseId: HouseIdModel? = HouseIdModel.NONE,
+  val houseId: String? = null,
   @CqlName(NUMBER)
   val number: String? = null,
   @CqlName(AREA)
@@ -71,7 +71,7 @@ data class FlatByIdCassandraDto(
 ) {
   fun toModel() = FlatModel(
     id = id?.let { FlatIdModel(it) } ?: FlatModel.NONE.id,
-    houseId = houseId?.let { HouseIdModel(it.id) } ?: FlatModel.NONE.houseId,
+    houseId = houseId?.let { HouseIdModel(it) } ?: FlatModel.NONE.houseId,
     number = number ?: FlatModel.NONE.number,
     area = area ?: FlatModel.NONE.area,
     areaLiving = areaLiving ?: FlatModel.NONE.areaLiving,
@@ -102,7 +102,7 @@ data class FlatByIdCassandraDto(
   )
 
   companion object {
-    const val FLATS_TABLE_NAME = "flats_by_id"
+    const val TABLE_NAME = "flats_by_id"
     const val ID = "id"
     const val HOUSE_ID = "house_id"
     const val NUMBER = "number"
@@ -135,7 +135,7 @@ data class FlatByIdCassandraDto(
 
     fun of(model: FlatModel, id: String) = FlatByIdCassandraDto(
       id = id.takeIf { it != FlatModel.NONE.id.id },
-      houseId = model.houseId.takeIf { it != FlatModel.NONE.houseId },
+      houseId = model.houseId.id.takeIf { it != FlatModel.NONE.houseId.id },
       number = model.number.takeIf { it != FlatModel.NONE.number },
       area = model.area.takeIf { it != FlatModel.NONE.area },
       areaLiving = model.areaLiving.takeIf { it != FlatModel.NONE.areaLiving },

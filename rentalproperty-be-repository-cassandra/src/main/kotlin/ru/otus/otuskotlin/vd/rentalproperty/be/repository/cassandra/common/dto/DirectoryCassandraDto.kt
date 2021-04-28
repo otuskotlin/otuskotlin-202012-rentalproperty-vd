@@ -45,8 +45,7 @@ data class DirectoryCassandraDto(
     TypeDirectory.RealtyType.name -> RealtyTypeModel(
       id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemModel.NONE.id,
       name = name ?: DirectoryItemModel.NONE.name,
-
-      )
+    )
     TypeDirectory.RepairType.name -> RepairTypeModel(
       id = id?.let { DirectoryItemIdModel(it) } ?: DirectoryItemModel.NONE.id,
       name = name ?: DirectoryItemModel.NONE.name,

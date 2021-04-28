@@ -29,20 +29,16 @@ interface FlatByIdCassandraDao {
 }
 
 @Dao
-interface FlatByTitleCassandraDao {
+interface FlatByDescriptionCassandraDao {
   @Insert
   @StatementAttributes(consistencyLevel = "ONE")
-  fun createAsync(dto: FlatByTitleCassandraDto): ListenableFuture<Unit>
+  fun createAsync(dto: FlatByDescriptionCassandraDto): ListenableFuture<Unit>
 
   @Select(
-    customWhereClause = "${FlatByTitleCassandraDto.TITLE_INDEX} LIKE :filter",
+    customWhereClause = "${FlatByDescriptionCassandraDto.DESCRIPTION_INDEX} LIKE :filter",
   )
-  fun filterByTitleAsync(filter: String): ListenableFuture<Collection<FlatByTitleCassandraDto>>
-//
-//    @Query("SELECT ${FlatByTitleCassandraDto.ID} FROM ${FlatByTitleCassandraDto.DEMANDS_TITLE_TABLE_NAME}" +
-//            "WHERE ${FlatByTitleCassandraDto.TITLE} LIKE :filter ORDER BY ${FlatByTitleCassandraDto.TIMESTAMP} DESC")
-//    fun filterByTitleAsync(filter: String): ListenableFuture<Collection<String>>
+  fun filterByDescriptionAsync(filter: String): ListenableFuture<Collection<FlatByDescriptionCassandraDto>>
 
   @Delete
-  fun deleteAsync(dto: FlatByTitleCassandraDto): ListenableFuture<Unit>
+  fun deleteAsync(dto: FlatByDescriptionCassandraDto): ListenableFuture<Unit>
 }
