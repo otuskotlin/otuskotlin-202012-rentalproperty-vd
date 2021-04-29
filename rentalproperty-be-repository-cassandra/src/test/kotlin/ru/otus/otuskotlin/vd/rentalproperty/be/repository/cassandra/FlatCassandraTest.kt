@@ -39,9 +39,10 @@ internal class FlatCassandraTest {
         port = container.getMappedPort(PORT),
         testing = true,
         initObjects = listOf(
-          FlatModel.STUB,
-          FlatModel.STUB2,
-          FlatModel.STUB3
+          FlatModel.STUB.copy(),
+          FlatModel.STUB2.copy(),
+          FlatModel.STUB3.copy(),
+          FlatModel.STUB.copy(id = FlatIdModel("test-flat-id-4")),
         )
       ).init()
     }
@@ -87,7 +88,7 @@ internal class FlatCassandraTest {
   @Test
   fun flatCreateTest() {
     runBlocking {
-      val flat = FlatModel.STUB
+      val flat = FlatModel.STUB.copy(id = FlatIdModel("test-flat-id-5"))
       val context = BeContext(
         requestFlat = flat
       )
@@ -105,7 +106,7 @@ internal class FlatCassandraTest {
   @Test
   fun flatUpdateTest() {
     runBlocking {
-      val flat = FlatModel(
+      val flat = FlatModel.STUB.copy(
         id = FlatIdModel("test-flat-id"),
         beds = 5,
         bathrooms = 5,
@@ -134,11 +135,11 @@ internal class FlatCassandraTest {
   fun flatDeleteTest() {
     runBlocking {
       val context = BeContext(
-        requestFlatId = FlatModel.STUB2.id
+        requestFlatId = FlatIdModel("test-flat-id-4")
       )
       val model = repo.delete(context)
       assertEquals(model, context.responseFlat)
-      assertEquals(FlatModel.STUB2.description, model.description)
+      assertEquals(FlatModel.STUB.description, model.description)
     }
   }
 }
