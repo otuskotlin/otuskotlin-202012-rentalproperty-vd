@@ -15,6 +15,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.directory.DirectoryRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
@@ -41,6 +42,17 @@ fun Application.module(
     environment.config.property("rentalproperty.repository.prod").getString().trim().toLowerCase()
   }
 
+  val directoryRepoProd = when (repoProdName) {
+    "cassandra" -> DirectoryRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IDirectoryRepository.NONE
+  }
+
   val flatRepoProd = when (repoProdName) {
     "cassandra" -> FlatRepositoryCassandra(
       keyspaceName = cassandraConfig.keyspace,
@@ -55,7 +67,10 @@ fun Application.module(
   val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
-  val directoryCrud = DirectoryCrud(directoryRepoTest = directoryRepoTest)
+  val directoryCrud = DirectoryCrud(
+    directoryRepoTest = directoryRepoTest,
+    directoryRepoProd = directoryRepoProd,
+  )
   val flatCrud = FlatCrud(
     flatRepoTest = flatRepoTest,
     flatRepoProd = flatRepoProd

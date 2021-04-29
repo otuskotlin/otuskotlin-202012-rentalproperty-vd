@@ -6,6 +6,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRep
 
 class DirectoryCrud(
   private val directoryRepoTest: IDirectoryRepository = IDirectoryRepository.NONE,
+  private val directoryRepoProd: IDirectoryRepository = IDirectoryRepository.NONE,
 ) {
   suspend fun list(context: BeContext) {
     DirectoryItemFilter.execute(context.apply(this::configureContext))
@@ -29,5 +30,6 @@ class DirectoryCrud(
 
   private fun configureContext(context: BeContext) {
     context.directoryRepoTest = directoryRepoTest
+    context.directoryRepoProd = directoryRepoProd
   }
 }
