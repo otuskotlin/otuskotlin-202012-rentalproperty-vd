@@ -15,8 +15,10 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IHouseRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.directory.DirectoryRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRepositoryCassandra
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.house.HouseRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
 import kotlin.time.DurationUnit
@@ -31,8 +33,9 @@ fun Application.module(
   testing: Boolean = false,
   kafkaTestConsumer: Consumer<String, String>? = null,
   kafkaTestProducer: Producer<String, String>? = null,
-  testFlatRepo: IFlatRepository? = null,
   testDirectoryRepo: IDirectoryRepository? = null,
+  testFlatRepo: IFlatRepository? = null,
+  testHouseRepo: IHouseRepository? = null,
 ) {
   val cassandraConfig by lazy {
     CassandraConfig(environment)
@@ -64,8 +67,20 @@ fun Application.module(
     else -> IFlatRepository.NONE
   }
 
-  val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val houseRepoProd = when (repoProdName) {
+    "cassandra" -> HouseRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IHouseRepository.NONE
+  }
+
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val houseRepoTest = testHouseRepo ?: IHouseRepository.NONE// HouseRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
   val directoryCrud = DirectoryCrud(
     directoryRepoTest = directoryRepoTest,
@@ -75,7 +90,10 @@ fun Application.module(
     flatRepoTest = flatRepoTest,
     flatRepoProd = flatRepoProd
   )
-  val houseCrud = HouseCrud()
+  val houseCrud = HouseCrud(
+    houseRepoTest = houseRepoTest,
+    houseRepoProd = houseRepoProd
+  )
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
 

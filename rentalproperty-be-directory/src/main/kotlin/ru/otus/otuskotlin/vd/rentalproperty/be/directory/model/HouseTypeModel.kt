@@ -18,7 +18,7 @@ data class HouseTypeModel(
       "SINGLE_HOUSE"
     )
     val STUB_MULTI_APARTMENT = HouseTypeModel(
-      DirectoryItemIdModel("test-ht-id-1"),
+      DirectoryItemIdModel("test-ht-id-2"),
       "MULTI_APARTMENT"
     )
   }

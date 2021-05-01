@@ -8,10 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatMo
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
@@ -72,6 +69,11 @@ data class BeContext(
   var flatRepoTest: IFlatRepository = IFlatRepository.NONE,
   var flatRepoProd: IFlatRepository = IFlatRepository.NONE,
   var flatRepo: IFlatRepository = IFlatRepository.NONE,
+
+  //Repository House
+  var houseRepoTest: IHouseRepository = IHouseRepository.NONE,
+  var houseRepoProd: IHouseRepository = IHouseRepository.NONE,
+  var houseRepo: IHouseRepository = IHouseRepository.NONE,
 
   //Repository Directory
   var directoryRepoTest: IDirectoryRepository = IDirectoryRepository.NONE,

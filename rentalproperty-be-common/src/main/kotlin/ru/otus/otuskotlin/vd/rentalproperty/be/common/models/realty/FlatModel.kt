@@ -68,8 +68,8 @@ data class FlatModel(
   companion object {
     val NONE = FlatModel()
     val STUB = FlatModel(
-      id = FlatIdModel("test-flat-id"),
-      houseId = HouseIdModel("test-house-id"),
+      id = FlatIdModel("test-flat-id-1"),
+      houseId = HouseIdModel("test-house-id-1"),
       number = "95",
       area = 44.4,
       areaLiving = 28.0,
@@ -105,7 +105,7 @@ data class FlatModel(
     )
     val STUB2 = FlatModel(
       id = FlatIdModel("test-flat-id-2"),
-      houseId = HouseIdModel("test-house-id"),
+      houseId = HouseIdModel("test-house-id-2"),
       number = "22",
       area = 52.0,
       areaLiving = 39.0,
@@ -139,7 +139,7 @@ data class FlatModel(
     )
     val STUB3 = FlatModel(
       id = FlatIdModel("test-flat-id-3"),
-      houseId = HouseIdModel("test-house-id"),
+      houseId = HouseIdModel("test-house-id-3"),
       number = "33",
       area = 73.0,
       areaLiving = 56.0,

@@ -73,12 +73,12 @@ internal class FlatCassandraTest {
   fun flatReadTest() {
     runBlocking {
       val context = BeContext(
-        requestFlatId = FlatIdModel("test-flat-id")
+        requestFlatId = FlatIdModel("test-flat-id-1")
       )
-      val model = repo.read(context)
-      assertEquals(model, context.responseFlat)
-      assertEquals(FlatModel.STUB.area, model.area)
-      assertEquals(FlatModel.STUB.description, model.description)
+      val result = repo.read(context)
+      assertEquals(result, context.responseFlat)
+      assertEquals(FlatModel.STUB.area, result.area)
+      assertEquals(FlatModel.STUB.description, result.description)
     }
   }
 
@@ -107,7 +107,6 @@ internal class FlatCassandraTest {
         id = FlatIdModel("test-flat-id"),
         beds = 5,
         bathrooms = 5,
-        //description = "update description"
       )
       val context = BeContext(
         requestFlat = flat
@@ -115,16 +114,14 @@ internal class FlatCassandraTest {
       val result = repo.update(context)
       println(result)
       assertEquals(result, context.responseFlat)
-      assertEquals(FlatModel.STUB.area, result.area)
-      assertEquals(5, result.beds)
-      assertEquals(5, result.bathrooms)
-      //assertEquals("update description", result.description)
-      val context2 = BeContext(requestFlatId = FlatIdModel("test-flat-id"))
+      assertEquals(flat.area, result.area)
+      assertEquals(flat.beds, result.beds)
+      assertEquals(flat.bathrooms, result.bathrooms)
+      val context2 = BeContext(requestFlatId = flat.id)
       repo.read(context2)
-      assertEquals(FlatModel.STUB.area, context2.responseFlat.area)
-      assertEquals(5, context2.responseFlat.beds)
-      assertEquals(5, context2.responseFlat.bathrooms)
-      //assertEquals("update description", context2.responseFlat.description)
+      assertEquals(flat.area, context2.responseFlat.area)
+      assertEquals(flat.beds, context2.responseFlat.beds)
+      assertEquals(flat.bathrooms, context2.responseFlat.bathrooms)
     }
   }
 
@@ -134,9 +131,9 @@ internal class FlatCassandraTest {
       val context = BeContext(
         requestFlatId = FlatIdModel("test-flat-id-4")
       )
-      val model = repo.delete(context)
-      assertEquals(model, context.responseFlat)
-      assertEquals(FlatModel.STUB.description, model.description)
+      val result = repo.delete(context)
+      assertEquals(result, context.responseFlat)
+      assertEquals(FlatModel.STUB.description, result.description)
     }
   }
 }
