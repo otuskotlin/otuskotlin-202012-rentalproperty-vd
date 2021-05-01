@@ -10,7 +10,7 @@ import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
-internal class BaseTest {
+internal class FlatInMemoryTest {
 
   @OptIn(ExperimentalTime::class)
   @Test
@@ -25,17 +25,17 @@ internal class BaseTest {
     )
 
     runBlocking {
-      val createdFlat = repo.create(context)
-      assertEquals(flat.number, createdFlat.number)
-      assertEquals(flat.area, createdFlat.area)
-      assertEquals(flat.description, createdFlat.description)
+      val createdResult = repo.create(context)
+      assertEquals(flat.number, createdResult.number)
+      assertEquals(flat.area, createdResult.area)
+      assertEquals(flat.description, createdResult.description)
 
-      context.requestFlatId = createdFlat.id
-      val readFlat = repo.read(context)
-      assertEquals(createdFlat.id, readFlat.id)
-      assertEquals(flat.number, createdFlat.number)
-      assertEquals(flat.area, createdFlat.area)
-      assertEquals(flat.description, createdFlat.description)
+      context.requestFlatId = createdResult.id
+      val readResult = repo.read(context)
+      assertEquals(createdResult.id, readResult.id)
+      assertEquals(flat.number, readResult.number)
+      assertEquals(flat.area, readResult.area)
+      assertEquals(flat.description, readResult.description)
     }
   }
 }
