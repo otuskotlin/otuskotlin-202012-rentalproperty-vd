@@ -21,6 +21,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRe
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.house.HouseRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.HouseRepoInMemory
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
@@ -80,7 +81,7 @@ fun Application.module(
 
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
   val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
-  val houseRepoTest = testHouseRepo ?: IHouseRepository.NONE// HouseRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val houseRepoTest = testHouseRepo ?: HouseRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
   val directoryCrud = DirectoryCrud(
     directoryRepoTest = directoryRepoTest,
