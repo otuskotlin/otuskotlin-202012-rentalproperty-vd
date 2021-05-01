@@ -3,7 +3,6 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra
 import kotlinx.coroutines.runBlocking
 import org.junit.AfterClass
 import org.junit.BeforeClass
-import org.testcontainers.containers.GenericContainer
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
@@ -12,8 +11,6 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRe
 import java.time.Duration
 import kotlin.test.Test
 import kotlin.test.assertEquals
-
-class CassandraContainer : GenericContainer<CassandraContainer>("cassandra")
 
 internal class FlatCassandraTest {
 

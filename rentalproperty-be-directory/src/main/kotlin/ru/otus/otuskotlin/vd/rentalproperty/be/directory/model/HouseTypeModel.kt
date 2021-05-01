@@ -14,11 +14,11 @@ data class HouseTypeModel(
       "TOWNHOUSE",
     )
     val STUB_SINGLE_HOUSE = HouseTypeModel(
-      DirectoryItemIdModel("test-ht-id"),
+      DirectoryItemIdModel("test-ht-id-1"),
       "SINGLE_HOUSE"
     )
     val STUB_MULTI_APARTMENT = HouseTypeModel(
-      DirectoryItemIdModel("test-ht-id"),
+      DirectoryItemIdModel("test-ht-id-1"),
       "MULTI_APARTMENT"
     )
   }

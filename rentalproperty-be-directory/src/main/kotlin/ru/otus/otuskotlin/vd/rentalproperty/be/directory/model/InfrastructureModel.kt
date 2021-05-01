@@ -14,19 +14,19 @@ data class InfrastructureModel(
       "WATER"
     )
     val STUB_GAZ = InfrastructureModel(
-      DirectoryItemIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-1"),
       "GAZ"
     )
     val STUB_ELECTRICITY = InfrastructureModel(
-      DirectoryItemIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-2"),
       "ELECTRICITY"
     )
     val STUB_SEWERAGE = InfrastructureModel(
-      DirectoryItemIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-3"),
       "SEWERAGE"
     )
     val STUB_WATER = InfrastructureModel(
-      DirectoryItemIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-4"),
       "WATER"
     )
   }

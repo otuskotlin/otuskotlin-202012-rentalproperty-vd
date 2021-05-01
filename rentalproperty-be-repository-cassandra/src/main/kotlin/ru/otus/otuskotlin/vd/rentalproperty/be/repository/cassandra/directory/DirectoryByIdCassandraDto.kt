@@ -4,6 +4,7 @@ import com.datastax.oss.driver.api.mapper.annotations.CqlName
 import com.datastax.oss.driver.api.mapper.annotations.Entity
 import com.datastax.oss.driver.api.mapper.annotations.PartitionKey
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.*
+import java.util.*
 
 @Entity
 data class DirectoryByIdCassandraDto(
@@ -71,7 +72,7 @@ data class DirectoryByIdCassandraDto(
     fun of(model: IDirectoryItemModel) = of(model, model.id.id)
 
     fun of(model: IDirectoryItemModel, id: String) = DirectoryByIdCassandraDto(
-      id = model.id.takeIf { it != DirectoryItemModel.NONE.id }?.id,
+      id = id.takeIf { it != DirectoryItemModel.NONE.id.id },
       name = model.name.takeIf { it != DirectoryItemModel.NONE.name },
       type = when (model) {
         is AppliancesModel -> TypeDirectory.Appliances.name
@@ -85,7 +86,8 @@ data class DirectoryByIdCassandraDto(
         is RepairTypeModel -> TypeDirectory.RepairType.name
         is ViewFromWindowModel -> TypeDirectory.ViewFromWindow.name
         else -> TypeDirectory.NONE.name
-      }
+      },
+      lockVersion = UUID.randomUUID().toString(),
     )
   }
 
