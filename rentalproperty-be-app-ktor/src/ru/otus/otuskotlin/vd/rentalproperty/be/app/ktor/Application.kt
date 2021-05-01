@@ -9,11 +9,16 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.CassandraConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IHouseRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.directory.DirectoryRepositoryCassandra
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.flats.FlatRepositoryCassandra
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.house.HouseRepositoryCassandra
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
 import kotlin.time.DurationUnit
@@ -28,16 +33,67 @@ fun Application.module(
   testing: Boolean = false,
   kafkaTestConsumer: Consumer<String, String>? = null,
   kafkaTestProducer: Producer<String, String>? = null,
-  testFlatRepo: IFlatRepository? = null,
   testDirectoryRepo: IDirectoryRepository? = null,
+  testFlatRepo: IFlatRepository? = null,
+  testHouseRepo: IHouseRepository? = null,
 ) {
+  val cassandraConfig by lazy {
+    CassandraConfig(environment)
+  }
 
-  val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val repoProdName by lazy {
+    environment.config.property("rentalproperty.repository.prod").getString().trim().toLowerCase()
+  }
+
+  val directoryRepoProd = when (repoProdName) {
+    "cassandra" -> DirectoryRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IDirectoryRepository.NONE
+  }
+
+  val flatRepoProd = when (repoProdName) {
+    "cassandra" -> FlatRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IFlatRepository.NONE
+  }
+
+  val houseRepoProd = when (repoProdName) {
+    "cassandra" -> HouseRepositoryCassandra(
+      keyspaceName = cassandraConfig.keyspace,
+      hosts = cassandraConfig.hosts,
+      port = cassandraConfig.port,
+      user = cassandraConfig.user,
+      pass = cassandraConfig.pass,
+    )
+    else -> IHouseRepository.NONE
+  }
+
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val flatRepoTest = testFlatRepo ?: FlatRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
+  val houseRepoTest = testHouseRepo ?: IHouseRepository.NONE// HouseRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
 
-  val directoryCrud = DirectoryCrud(directoryRepoTest)
-  val flatCrud = FlatCrud(flatRepoTest)
-  val houseCrud = HouseCrud()
+  val directoryCrud = DirectoryCrud(
+    directoryRepoTest = directoryRepoTest,
+    directoryRepoProd = directoryRepoProd,
+  )
+  val flatCrud = FlatCrud(
+    flatRepoTest = flatRepoTest,
+    flatRepoProd = flatRepoProd
+  )
+  val houseCrud = HouseCrud(
+    houseRepoTest = houseRepoTest,
+    houseRepoProd = houseRepoProd
+  )
   val advertFlatCrud = AdvertFlatCrud()
   val advertHouseCrud = AdvertHouseCrud()
 

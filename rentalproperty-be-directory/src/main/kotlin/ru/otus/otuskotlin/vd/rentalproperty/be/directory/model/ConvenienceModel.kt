@@ -23,15 +23,15 @@ data class ConvenienceModel(
       "SPORTS_GROUND",
     )
     val STUB_GAS = ConvenienceModel(
-      DirectoryItemIdModel("test-ct-id"),
+      DirectoryItemIdModel("test-ct-id-1"),
       "GAS"
     )
     val STUB_FURNITURE_IN_KITCHEN = ConvenienceModel(
-      DirectoryItemIdModel("test-ct-id"),
+      DirectoryItemIdModel("test-ct-id-2"),
       "FURNITURE_IN_KITCHEN"
     )
     val STUB_PARKING = ConvenienceModel(
-      DirectoryItemIdModel("test-ct-id"),
+      DirectoryItemIdModel("test-ct-id-3"),
       "PARKING"
     )
   }

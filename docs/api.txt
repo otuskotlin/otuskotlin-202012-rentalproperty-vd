@@ -53,7 +53,7 @@ URI  /directories/
     /material/house     - материал дома
     /view-from-window   - возможные виды из окна квартиры
     /type
-      /bathroom         - тип ванной комнаты
+      /bathrooms         - тип ванной комнаты
       /house            - тип дома
       /realty           - тип недвижимости
       /repair           - виды ремонта квартиры

@@ -51,7 +51,7 @@ data class HouseModel(
   companion object {
     val NONE = HouseModel()
     val STUB_SINGLE_HOUSE = HouseModel(
-      id = HouseIdModel("test-advert-id"),
+      id = HouseIdModel("test-house-id-1"),
       address = "test-address",
       area = 160.4,
       material = HouseMaterialModel.STUB_BRICK,
@@ -77,7 +77,7 @@ data class HouseModel(
       photos = mutableSetOf(),
     )
     val STUB_MULTI_APARTMENT = HouseModel(
-      id = HouseIdModel("test-house-id"),
+      id = HouseIdModel("test-house-id-2"),
       address = "test-address",
       area = 0.0,
       material = HouseMaterialModel.STUB_BRICK,
@@ -85,7 +85,7 @@ data class HouseModel(
       series = "",
       floors = 5,
       areaPlot = 0.0,
-      plotStatus = PlotStatusModel.NONE,
+      plotStatus = PlotStatusModel.STUB_IRP,
       infrastructure = mutableSetOf(
         InfrastructureModel.STUB_GAZ,
         InfrastructureModel.STUB_ELECTRICITY,

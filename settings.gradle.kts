@@ -11,6 +11,7 @@ pluginManagement {
 
     kotlin("jvm") version kotlinVersion
     kotlin("js") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
     kotlin("multiplatform") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
 
@@ -32,6 +33,7 @@ include("rentalproperty-be-business-logic")
 include("rentalproperty-be-common")
 include("rentalproperty-be-directory")
 include("rentalproperty-be-mappers")
+include("rentalproperty-be-repository-cassandra")
 include("rentalproperty-be-repository-inmemory")
 include("rentalproperty-be-transport-openapi")
 include("rentalproperty-mp-common")
