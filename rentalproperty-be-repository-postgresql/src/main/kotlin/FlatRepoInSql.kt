@@ -8,6 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
 import schema.FlatDto
 import schema.FlatsTable
+import java.sql.Connection
 
 class FlatRepoInSql(
   url: String = "jdbc:postgresql://localhost:5432/rentalproperty",
@@ -25,7 +26,9 @@ class FlatRepoInSql(
       user = user,
       password = password
     )
-    transaction { SchemaUtils.create(FlatsTable) }
+    transaction {
+      SchemaUtils.create(FlatsTable)
+    }
     _db
   }
 
@@ -38,11 +41,27 @@ class FlatRepoInSql(
   }
 
   override suspend fun list(context: BeContext): Collection<FlatModel> {
-    val textFilter = context.flatFilter.text
-//        if (textFilter.length < 3) throw RepoIndexException(textFilter)
-    return transaction(db) {
+    val filter = context.flatFilter
+    return transaction(
+      transactionIsolation = Connection.TRANSACTION_SERIALIZABLE,
+      repetitionAttempts = 3,
+      db = db
+    ) {
       if (printLogs) addLogger(StdOutSqlLogger)
-      context.responseFlats = FlatDto.all().map { it.toModel() }.toMutableList()
+      val found =
+        if (filter.text.isNotBlank()) {
+          FlatDto.find {
+            (FlatsTable.number like "%${filter.text}%") or (FlatsTable.description like "%${filter.text}%")
+          }
+        } else {
+          FlatDto.all()
+        }
+      context.pageCount = found.count().toInt()
+      found
+        .limit(filter.count.takeIf { it > 0 } ?: 20,
+          filter.offset.toLong().takeIf { it > 0 } ?: 0)
+        .toList()
+      context.responseFlats = found.map { it.toModel() }.toMutableList()
       context.responseFlats
     }
   }
@@ -53,18 +72,42 @@ class FlatRepoInSql(
     val model = context.requestFlat
     return transaction(db) {
       if (printLogs) addLogger(StdOutSqlLogger)
-      val flatNew = FlatDto.new(model.id.asUUID().takeIf { setId }) {
-        avatar = model.avatar
-        title = model.title
-        description = model.description
-      }
+      val flatNew = FlatDto.new(if (setId) model.id.asUUID() else null) { model }
+//        houseId = model.houseId.id
+//        number = model.number
+//        area = model.area
+//        areaLiving = model.areaLiving
+//        areaKitchen = model.areaKitchen
+//        rooms = model.rooms
+//        floor = model.floor
+//        ceilingHeight = model.ceilingHeight
+//        bedrooms = model.bedrooms
+//        beds = model.beds
+//        bathroom = model.bathroom
+//        //bathroomType = DirectoryDto.of(model.bathroomType)
+//        balcony = model.balcony
+//        loggia = model.loggia
+//        //repairType = DirectoryDto.of(model.repairType)
+//        //viewFromWindow = DirectoryDto.of(model.viewFromWindow)
+//        //conveniences = DirectoryDto.of(model.conveniences)
+//        //appliances = DirectoryDto.of(model.appliances)
+//        residents = model.residents
+//        noSmoking = model.noSmoking
+//        noAnimals = model.noAnimals
+//        noChildren = model.noChildren
+//        noParties = model.noParties
+//        description = model.description
+//        //photos = MediaFileDto.of(model.photos)
+//      }
       val flatNewId = flatNew.id
-      model.tagIds.forEach {
-        FlatTagDto.new {
-          this.tagId = it
-          this.flat = flatNew
-        }
-      }
+      //TODO need find DirectoryItem
+      //DirectoryDto[model.bathroomType.id]
+      //DirectoryRepoInSql.readById(model.bathroomType.id)
+//      model.conveniences.forEach {
+//        DirectoryDto.new {
+//          model.conveniences
+//        }
+//      }
       FlatDto[flatNewId].toModel()
     }
   }
@@ -80,22 +123,24 @@ class FlatRepoInSql(
   }
 
   override suspend fun update(context: BeContext): FlatModel {
-    if (context.requestFlat.id == FlatIdModel.NONE) throw RepoWrongIdException(context.requestFlat.id.id)
+    if (context.requestFlat.id == FlatIdModel.NONE)
+      throw RepoWrongIdException(context.requestFlat.id.id)
     val model = context.requestFlat
     val flatId = model.id.asUUID()
     return transaction(db) {
       if (printLogs) addLogger(StdOutSqlLogger)
       val flatToUpdate = FlatDto[flatId]
+      //??? -> save to db
       flatToUpdate
         .apply { of(model) }
         .toModel()
-      FlatsTagsTable.deleteWhere { FlatsTagsTable.flat eq flatId }
-      model.tagIds.forEach {
-        FlatTagDto.new {
-          this.tagId = it
-          this.flat = flatToUpdate
-        }
-      }
+      //TODO need find DirectoryItem
+//      DirectoriesTable.deleteWhere { DirectoriesTable.id eq flatId }
+//      model.conveniences.forEach {
+//        DirectoryDto.new {
+//          model.conveniences
+//        }
+//      }
       context.responseFlat = FlatDto[flatId].toModel()
       context.responseFlat
     }
@@ -108,6 +153,8 @@ class FlatRepoInSql(
       if (printLogs) addLogger(StdOutSqlLogger)
       val old = FlatDto[id.asUUID()]
       old.delete()
+      //TODO cascade delete ???
+      //DirectoriesTable.deleteWhere { DirectoriesTable.id eq old.id }
       context.responseFlat = old.toModel()
       context.responseFlat
     }

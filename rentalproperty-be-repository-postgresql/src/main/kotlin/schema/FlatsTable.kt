@@ -3,7 +3,7 @@ package schema
 import org.jetbrains.exposed.dao.id.UUIDTable
 
 object FlatsTable : UUIDTable("flats") {
-  val houseId = varchar("house_id", 256)
+  val houseId = varchar("house_id", 36)
   val number = varchar("number", 30)
   val area = double("area")
   val areaLiving = double("area_living")
@@ -14,24 +14,26 @@ object FlatsTable : UUIDTable("flats") {
   val bedrooms = integer("bedrooms")
   val beds = integer("beds")
   val bathroom = integer("bathroom")
-  val bathroomType = reference("bathroom_type_id", DirectoriesTable)
+
+  //TODO one-to-many
+  //val bathroomType = reference("bathroom_type_id", DirectoriesTable)
   val balcony = integer("balcony")
   val loggia = integer("loggia")
-  val repairType = reference("repair_type_id", DirectoriesTable)
-  val viewFromWindow = reference("view_from_window_id", DirectoriesTable)
 
   //TODO one-to-many
-  val conveniences = reference("convenience_id", DirectoriesTable)
-
+  //val repairType = reference("repair_type_id", DirectoriesTable)
   //TODO one-to-many
-  val appliances = reference("appliance_id", DirectoriesTable)
+  //val viewFromWindow = reference("view_from_window_id", DirectoriesTable)
+  //TODO many-to-many
+  //val conveniences = reference("convenience_id", DirectoriesTable)
+  //TODO many-to-many
+  //val appliances = reference("appliance_id", DirectoriesTable)
   val residents = integer("residents")
   val noSmoking = bool("noSmoking")
   val noAnimals = bool("noAnimals")
   val noChildren = bool("noChildren")
   val noParties = bool("noParties")
   val description = text("description")
-
-  //TODO one-to-many
-  val photos = reference("photo_id", MediaFilesTable)
+  //TODO many-to-many
+  //val photos = reference("photo_id", MediaFilesTable)
 }

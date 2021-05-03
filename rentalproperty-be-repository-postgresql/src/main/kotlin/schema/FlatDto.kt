@@ -64,7 +64,7 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     noChildren = noChildren,
     noParties = noParties,
     description = description,
-    photos = photos.limit(10).map { it.toModel() }.toMutableSet(),
+    photos = photos.limit(100).map { it.toModel() }.toMutableSet(),
   )
 
   fun of(model: FlatModel) {
@@ -79,15 +79,20 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     bedrooms = model.bedrooms
     beds = model.beds
     bathroom = model.bathroom
-    bathroomType = DirectoryDto.of(model.bathroomType)
+    //bathroomType = DirectoryDto.of(model.bathroomType)
     balcony = model.balcony
     loggia = model.loggia
-    number = model.number
-    number = model.number
-    number = model.number
-    number = model.number
-    number = model.number
+    //repairType = DirectoryDto.of(model.repairType)
+    //viewFromWindow = DirectoryDto.of(model.viewFromWindow)
+    //conveniences = DirectoryDto.of(model.conveniences)
+    //appliances = DirectoryDto.of(model.appliances)
+    residents = model.residents
+    noSmoking = model.noSmoking
+    noAnimals = model.noAnimals
+    noChildren = model.noChildren
+    noParties = model.noParties
     description = model.description
+    //photos = MediaFileDto.of(model.photos)
   }
 
   companion object : UUIDEntityClass<FlatDto>(FlatsTable) {
