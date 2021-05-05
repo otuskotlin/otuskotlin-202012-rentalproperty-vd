@@ -1,3 +1,5 @@
+package ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql
+
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -9,7 +11,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemModel
-import schema.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql.schema.*
 import java.sql.Connection
 import java.util.*
 

@@ -1,4 +1,4 @@
-package schema
+package ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql.schema
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 
@@ -13,7 +13,7 @@ object FlatsTable : UUIDTable("flats") {
   val ceilingHeight = double("ceiling_height")
   val bedrooms = integer("bedrooms")
   val beds = integer("beds")
-  val bathroom = integer("bathroom")
+  val bathrooms = integer("bathroom")
 
   //one-to-many
   val bathroomType = reference("bathroom_type_id", DirectoriesTable).nullable()

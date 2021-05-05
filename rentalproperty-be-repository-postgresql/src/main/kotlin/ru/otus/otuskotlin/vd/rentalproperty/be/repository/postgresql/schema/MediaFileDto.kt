@@ -1,4 +1,4 @@
-package schema
+package ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql.schema
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass

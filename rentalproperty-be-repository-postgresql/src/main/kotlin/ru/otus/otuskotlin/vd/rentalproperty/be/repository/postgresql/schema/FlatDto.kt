@@ -1,4 +1,4 @@
-package schema
+package ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql.schema
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
@@ -20,7 +20,7 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
   var ceilingHeight by FlatsTable.ceilingHeight
   var bedrooms by FlatsTable.bedrooms
   var beds by FlatsTable.beds
-  var bathroom by FlatsTable.bathroom
+  var bathrooms by FlatsTable.bathrooms
   var bathroomType by DirectoryDto optionalReferencedOn FlatsTable.bathroomType
   var balcony by FlatsTable.balcony
   var loggia by FlatsTable.loggia
@@ -49,7 +49,7 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     residents = residents,
     bedrooms = bedrooms,
     beds = beds,
-    bathroom = bathroom,
+    bathrooms = bathrooms,
     bathroomType = (bathroomType?.toModel()) as BathroomTypeModel,
     balcony = balcony,
     loggia = loggia,
@@ -78,7 +78,7 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     ceilingHeight = model.ceilingHeight
     bedrooms = model.bedrooms
     beds = model.beds
-    bathroom = model.bathroom
+    bathrooms = model.bathrooms
     //bathroomType = DirectoryDto.of(model.bathroomType)
     balcony = model.balcony
     loggia = model.loggia
