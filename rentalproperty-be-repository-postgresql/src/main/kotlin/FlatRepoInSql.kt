@@ -2,13 +2,16 @@ import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.exceptions.RepoNotFoundException
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.exceptions.RepoWrongIdException
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
-import schema.FlatDto
-import schema.FlatsTable
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemModel
+import schema.*
 import java.sql.Connection
+import java.util.*
 
 class FlatRepoInSql(
   url: String = "jdbc:postgresql://localhost:5432/rentalproperty",
@@ -72,45 +75,58 @@ class FlatRepoInSql(
     val model = context.requestFlat
     return transaction(db) {
       if (printLogs) addLogger(StdOutSqlLogger)
-      val flatNew = FlatDto.new(if (setId) model.id.asUUID() else null) { model }
-//        houseId = model.houseId.id
-//        number = model.number
-//        area = model.area
-//        areaLiving = model.areaLiving
-//        areaKitchen = model.areaKitchen
-//        rooms = model.rooms
-//        floor = model.floor
-//        ceilingHeight = model.ceilingHeight
-//        bedrooms = model.bedrooms
-//        beds = model.beds
-//        bathroom = model.bathroom
-//        //bathroomType = DirectoryDto.of(model.bathroomType)
-//        balcony = model.balcony
-//        loggia = model.loggia
-//        //repairType = DirectoryDto.of(model.repairType)
-//        //viewFromWindow = DirectoryDto.of(model.viewFromWindow)
-//        //conveniences = DirectoryDto.of(model.conveniences)
-//        //appliances = DirectoryDto.of(model.appliances)
-//        residents = model.residents
-//        noSmoking = model.noSmoking
-//        noAnimals = model.noAnimals
-//        noChildren = model.noChildren
-//        noParties = model.noParties
-//        description = model.description
-//        //photos = MediaFileDto.of(model.photos)
-//      }
-      val flatNewId = flatNew.id
-      //TODO need find DirectoryItem
+      val flatNew = FlatDto.new(
+        if (setId) model.id.asUUID() else null
+      ) {
+        of(model).apply {
+          bathroomType = getDirectoryDto(model.bathroomType.id.asUUID())
+          repairType = getDirectoryDto(model.repairType.id.asUUID())
+          viewFromWindow = getDirectoryDto(model.viewFromWindow.id.asUUID())
+          conveniences = getListDirectoryDto(model.conveniences)
+          appliances = getListDirectoryDto(model.appliances)
+          photos = getListMediaFileDto(model.photos)
+        }
+      }
+      flatNew.toModel()
+      //val flatNewId = flatNew.id
       //DirectoryDto[model.bathroomType.id]
       //DirectoryRepoInSql.readById(model.bathroomType.id)
-//      model.conveniences.forEach {
-//        DirectoryDto.new {
-//          model.conveniences
-//        }
-//      }
-      FlatDto[flatNewId].toModel()
+      //      model.conveniences.forEach {
+      //        DirectoryDto.new {
+      //          model.conveniences
+      //        }
+      //      }
+      //FlatDto[flatNewId].toModel()
     }
   }
+
+  private fun getDirectoryDto(id: UUID): DirectoryDto {
+    if (id.equals(""))
+      throw RepoWrongIdException(id.toString())
+    else {
+      val item = DirectoryDto.findById(id)
+      if (item == null) {
+        throw RepoNotFoundException(id.toString())
+      } else {
+        return item
+      }
+    }
+  }
+
+  private fun getListDirectoryDto(items: Set<IDirectoryItemModel>): SizedIterable<DirectoryDto> {
+    val foundItems = DirectoryDto.find {
+      (DirectoriesTable.id.inList(items.map { it.id.asUUID() }.toList()))
+    }
+    if (foundItems.empty())
+      throw RepoNotFoundException(items.map { it.id }.toList().toString())
+    else
+      return foundItems
+  }
+
+  private fun getListMediaFileDto(items: Set<MediaFileModel>): SizedIterable<MediaFileDto> =
+    MediaFileDto.find {
+      (MediaFilesTable.id.inList(items.map { it.id.asUUID() }.toList()))
+    }
 
   override suspend fun read(context: BeContext): FlatModel {
     val id = context.requestFlatId
@@ -132,9 +148,17 @@ class FlatRepoInSql(
       val flatToUpdate = FlatDto[flatId]
       //??? -> save to db
       flatToUpdate
-        .apply { of(model) }
+        .apply {
+          of(model).apply {
+            bathroomType = getDirectoryDto(model.bathroomType.id.asUUID())
+            repairType = getDirectoryDto(model.repairType.id.asUUID())
+            viewFromWindow = getDirectoryDto(model.viewFromWindow.id.asUUID())
+            conveniences = getListDirectoryDto(model.conveniences)
+            appliances = getListDirectoryDto(model.appliances)
+            photos = getListMediaFileDto(model.photos)
+          }
+        }
         .toModel()
-      //TODO need find DirectoryItem
 //      DirectoriesTable.deleteWhere { DirectoriesTable.id eq flatId }
 //      model.conveniences.forEach {
 //        DirectoryDto.new {

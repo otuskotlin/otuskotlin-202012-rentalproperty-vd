@@ -21,20 +21,20 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
   var bedrooms by FlatsTable.bedrooms
   var beds by FlatsTable.beds
   var bathroom by FlatsTable.bathroom
-  var bathroomType by DirectoryDto referencedOn DirectoriesTable.id
+  var bathroomType by DirectoryDto optionalReferencedOn FlatsTable.bathroomType
   var balcony by FlatsTable.balcony
   var loggia by FlatsTable.loggia
-  var repairType by DirectoryDto referencedOn DirectoriesTable.id
-  var viewFromWindow by DirectoryDto referencedOn DirectoriesTable.id
-  val conveniences by DirectoryDto referrersOn DirectoriesTable.id
-  val appliances by DirectoryDto referrersOn DirectoriesTable.id
+  var repairType by DirectoryDto optionalReferencedOn FlatsTable.repairType
+  var viewFromWindow by DirectoryDto optionalReferencedOn FlatsTable.viewFromWindow
+  var conveniences by DirectoryDto via FlatsConveniencesTable
+  var appliances by DirectoryDto via FlatsАppliancesTable
   var residents by FlatsTable.residents
   var noSmoking by FlatsTable.noSmoking
   var noAnimals by FlatsTable.noAnimals
   var noChildren by FlatsTable.noChildren
   var noParties by FlatsTable.noParties
   var description by FlatsTable.description
-  val photos by MediaFileDto referrersOn MediaFilesTable.id
+  var photos by MediaFileDto via FlatsMediaFilesTable
 
   fun toModel() = FlatModel(
     id = FlatIdModel(id.value.toString()),
@@ -50,11 +50,11 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     bedrooms = bedrooms,
     beds = beds,
     bathroom = bathroom,
-    bathroomType = (bathroomType.toModel()) as BathroomTypeModel,
+    bathroomType = (bathroomType?.toModel()) as BathroomTypeModel,
     balcony = balcony,
     loggia = loggia,
-    repairType = (repairType.toModel()) as RepairTypeModel,
-    viewFromWindow = (viewFromWindow.toModel()) as ViewFromWindowModel,
+    repairType = (repairType?.toModel()) as RepairTypeModel,
+    viewFromWindow = (viewFromWindow?.toModel()) as ViewFromWindowModel,
     conveniences = conveniences.limit(100)
       .map { (it.toModel()) as ConvenienceModel }.toMutableSet(),
     appliances = appliances.limit(100)
@@ -95,6 +95,5 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     //photos = MediaFileDto.of(model.photos)
   }
 
-  companion object : UUIDEntityClass<FlatDto>(FlatsTable) {
-  }
+  companion object : UUIDEntityClass<FlatDto>(FlatsTable)
 }

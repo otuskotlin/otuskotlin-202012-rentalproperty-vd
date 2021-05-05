@@ -71,8 +71,7 @@ class DirectoryDto(id: EntityID<UUID>) : UUIDEntity(id) {
     }
   }
 
-  companion object : UUIDEntityClass<DirectoryDto>(DirectoriesTable) {
-  }
+  companion object : UUIDEntityClass<DirectoryDto>(DirectoriesTable)
 
   enum class TypeDirectory {
     NONE,

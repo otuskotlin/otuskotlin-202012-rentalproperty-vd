@@ -15,18 +15,20 @@ object FlatsTable : UUIDTable("flats") {
   val beds = integer("beds")
   val bathroom = integer("bathroom")
 
-  //TODO one-to-many
-  //val bathroomType = reference("bathroom_type_id", DirectoriesTable)
+  //one-to-many
+  val bathroomType = reference("bathroom_type_id", DirectoriesTable).nullable()
   val balcony = integer("balcony")
   val loggia = integer("loggia")
 
-  //TODO one-to-many
-  //val repairType = reference("repair_type_id", DirectoriesTable)
-  //TODO one-to-many
-  //val viewFromWindow = reference("view_from_window_id", DirectoriesTable)
-  //TODO many-to-many
+  //one-to-many
+  val repairType = reference("repair_type_id", DirectoriesTable).nullable()
+
+  //one-to-many
+  val viewFromWindow = reference("view_from_window_id", DirectoriesTable).nullable()
+
+  //many-to-many
   //val conveniences = reference("convenience_id", DirectoriesTable)
-  //TODO many-to-many
+  //many-to-many
   //val appliances = reference("appliance_id", DirectoriesTable)
   val residents = integer("residents")
   val noSmoking = bool("noSmoking")
@@ -34,6 +36,6 @@ object FlatsTable : UUIDTable("flats") {
   val noChildren = bool("noChildren")
   val noParties = bool("noParties")
   val description = text("description")
-  //TODO many-to-many
+  //many-to-many
   //val photos = reference("photo_id", MediaFilesTable)
 }
