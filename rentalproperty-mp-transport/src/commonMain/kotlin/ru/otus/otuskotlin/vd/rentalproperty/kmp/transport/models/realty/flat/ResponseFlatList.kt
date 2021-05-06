@@ -14,6 +14,7 @@ data class ResponseFlatList(
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
   val flats: List<FlatDto>? = null,
+  val pageCount: Int? = null,
 ) : IResponse, Message() {
 
   @Serializable

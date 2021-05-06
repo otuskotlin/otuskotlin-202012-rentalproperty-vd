@@ -17,6 +17,7 @@ data class ResponseDirectoryItemList(
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
   val directoryItems: List<IDirectoryDto>? = null,
+  val pageCount: Int? = null,
 ) : IResponse, Message() {
 
   @Serializable

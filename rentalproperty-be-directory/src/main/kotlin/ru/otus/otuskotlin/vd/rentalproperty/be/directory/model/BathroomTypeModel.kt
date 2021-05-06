@@ -11,7 +11,7 @@ data class BathroomTypeModel(
       "SEPARATED",  //раздельный
     )
     val STUB_COMBINED = BathroomTypeModel(
-      DirectoryItemIdModel("test-brt-id"),
+      DirectoryItemIdModel("test-brt-id-1"),
       "COMBINED"
     )
   }

@@ -28,7 +28,7 @@ data class FlatModel(
   /** количество кроватей */
   val beds: Int = 0,
   /** количество ванных комнат */
-  val bathroom: Int = 0,
+  val bathrooms: Int = 0,
   /** тип ванной комнаты:
    *    "COMBINED" совмещённый, "SEPARATED" раздельный */
   val bathroomType: BathroomTypeModel = BathroomTypeModel.NONE,
@@ -68,8 +68,8 @@ data class FlatModel(
   companion object {
     val NONE = FlatModel()
     val STUB = FlatModel(
-      id = FlatIdModel("test-flat-id"),
-      houseId = HouseIdModel("test-house-id"),
+      id = FlatIdModel("test-flat-id-1"),
+      houseId = HouseIdModel("test-house-id-1"),
       number = "95",
       area = 44.4,
       areaLiving = 28.0,
@@ -79,7 +79,7 @@ data class FlatModel(
       ceilingHeight = 2.5,
       bedrooms = 1,
       beds = 1,
-      bathroom = 1,
+      bathrooms = 1,
       bathroomType = BathroomTypeModel.STUB_COMBINED,
       balcony = 0,
       loggia = 0,
@@ -101,6 +101,72 @@ data class FlatModel(
       noChildren = false,
       noParties = true,
       description = "Хрущёвка",
+      photos = mutableSetOf(),
+    )
+    val STUB2 = FlatModel(
+      id = FlatIdModel("test-flat-id-2"),
+      houseId = HouseIdModel("test-house-id-2"),
+      number = "22",
+      area = 52.0,
+      areaLiving = 39.0,
+      areaKitchen = 7.0,
+      rooms = 3,
+      floor = 2,
+      ceilingHeight = 2.5,
+      bedrooms = 2,
+      beds = 2,
+      bathrooms = 1,
+      bathroomType = BathroomTypeModel.STUB_COMBINED,
+      balcony = 1,
+      loggia = 0,
+      repairType = RepairTypeModel.STUB_RENOVATION,
+      viewFromWindow = ViewFromWindowModel.STUB_PARK,
+      conveniences = mutableSetOf(
+        ConvenienceModel.STUB_FURNITURE_IN_KITCHEN,
+        ConvenienceModel.STUB_PARKING,
+      ),
+      appliances = mutableSetOf(
+        AppliancesModel.STUB_KITCHEN_STOVE,
+        AppliancesModel.STUB_INTERNET,
+      ),
+      residents = 4,
+      noSmoking = false,
+      noAnimals = false,
+      noChildren = false,
+      noParties = false,
+      description = "Улучшенка",
+      photos = mutableSetOf(),
+    )
+    val STUB3 = FlatModel(
+      id = FlatIdModel("test-flat-id-3"),
+      houseId = HouseIdModel("test-house-id-3"),
+      number = "33",
+      area = 73.0,
+      areaLiving = 56.0,
+      areaKitchen = 8.0,
+      rooms = 4,
+      floor = 7,
+      ceilingHeight = 3.0,
+      bedrooms = 3,
+      beds = 3,
+      bathrooms = 1,
+      bathroomType = BathroomTypeModel.STUB_COMBINED,
+      balcony = 2,
+      loggia = 0,
+      repairType = RepairTypeModel.STUB_RENOVATION,
+      viewFromWindow = ViewFromWindowModel.STUB_PARK,
+      conveniences = mutableSetOf(
+        ConvenienceModel.STUB_FURNITURE_IN_KITCHEN,
+      ),
+      appliances = mutableSetOf(
+        AppliancesModel.STUB_KITCHEN_STOVE,
+      ),
+      residents = 4,
+      noSmoking = false,
+      noAnimals = false,
+      noChildren = false,
+      noParties = false,
+      description = "Распашонка",
       photos = mutableSetOf(),
     )
   }

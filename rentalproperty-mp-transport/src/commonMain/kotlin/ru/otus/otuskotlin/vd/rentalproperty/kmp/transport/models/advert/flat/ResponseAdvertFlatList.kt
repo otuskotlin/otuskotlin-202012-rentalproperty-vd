@@ -14,6 +14,7 @@ data class ResponseAdvertFlatList(
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
   val adverts: List<AdvertFlatDto>? = null,
+  val pageCount: Int? = null,
 ) : IResponse, Message() {
 
   @Serializable
