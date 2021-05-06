@@ -2,8 +2,12 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.business.logic
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.pipelines.house.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IHouseRepository
 
-class HouseCrud {
+class HouseCrud(
+  private val houseRepoTest: IHouseRepository = IHouseRepository.NONE,
+  private val houseRepoProd: IHouseRepository = IHouseRepository.NONE,
+) {
   suspend fun list(context: BeContext) {
     HouseFilter.execute(context.apply(this::configureContext))
   }
@@ -25,6 +29,7 @@ class HouseCrud {
   }
 
   private fun configureContext(context: BeContext) {
-
+    context.houseRepoTest = houseRepoTest
+    context.houseRepoProd = houseRepoProd
   }
 }

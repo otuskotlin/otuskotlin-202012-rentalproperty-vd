@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class RealtyTypeModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = RealtyTypeModel()
     val list = setOf(

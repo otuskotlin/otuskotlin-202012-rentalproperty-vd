@@ -1,7 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.SortModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
@@ -28,6 +30,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseCreate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseRead) = apply {
@@ -37,6 +40,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseRead) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseUpdate) = apply {
@@ -46,6 +50,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseUpdate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseDelete) = apply {
@@ -55,12 +60,17 @@ fun BeContext.setQuery(query: RequestAdvertHouseDelete) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertHouseList) = apply {
   advertHouseFilter = query.filterData?.let {
     AdvertFilterModel(
-      text = it.text ?: ""
+      text = it.text ?: "",
+      includeDescription = it.includeDescription ?: false,
+      sortBy = it.sortBy?.let { SortModel.valueOf(it.name) } ?: SortModel.NONE,
+      offset = it.offset ?: Int.MIN_VALUE,
+      count = it.count ?: Int.MIN_VALUE,
     )
   } ?: AdvertFilterModel.NONE
   stubCase = when (query.debug?.stubCase) {
@@ -68,6 +78,7 @@ fun BeContext.setQuery(query: RequestAdvertHouseList) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.respondAdvertHouseCreate() =
@@ -77,7 +88,10 @@ fun BeContext.respondAdvertHouseCreate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseAdvertHouseCreate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondAdvertHouseRead() =
@@ -87,7 +101,10 @@ fun BeContext.respondAdvertHouseRead() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseAdvertHouseRead.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondAdvertHouseUpdate() =
@@ -97,7 +114,10 @@ fun BeContext.respondAdvertHouseUpdate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseAdvertHouseUpdate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondAdvertHouseDelete() =
@@ -107,7 +127,10 @@ fun BeContext.respondAdvertHouseDelete() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseAdvertHouseDelete.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondAdvertHouseList() =
@@ -118,10 +141,13 @@ fun BeContext.respondAdvertHouseList() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseAdvertHouseList.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
-private fun AdvertHouseCreateDto.toModel() = AdvertHouseModel(
+internal fun AdvertHouseCreateDto.toModel() = AdvertHouseModel(
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   houseId = houseId?.let { HouseIdModel(it) } ?: HouseIdModel.NONE,
   name = name ?: "",

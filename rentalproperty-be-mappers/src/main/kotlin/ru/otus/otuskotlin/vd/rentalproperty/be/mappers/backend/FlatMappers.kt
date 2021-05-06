@@ -1,7 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.SortModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
@@ -16,6 +18,7 @@ import java.time.Instant
 internal fun FlatModel.toTransport() = FlatDto(
   id = id.id.takeIf { it.isNotBlank() },
   houseId = houseId.id.takeIf { it.isNotBlank() },
+  number = number.takeIf { it.isNotBlank() },
   area = area.takeIf { it != 0.0 },
   areaLiving = areaLiving.takeIf { it != 0.0 },
   areaKitchen = areaKitchen.takeIf { it != 0.0 },
@@ -24,7 +27,7 @@ internal fun FlatModel.toTransport() = FlatDto(
   ceilingHeight = ceilingHeight.takeIf { it != 0.0 },
   bedrooms = bedrooms.takeIf { it != 0 },
   beds = beds.takeIf { it != 0 },
-  bathroom = bathroom.takeIf { it != 0 },
+  bathrooms = bathrooms.takeIf { it != 0 },
   bathroomType = bathroomType.toTransport(),
   balcony = balcony.takeIf { it != 0 },
   loggia = loggia.takeIf { it != 0 },
@@ -39,6 +42,7 @@ internal fun FlatModel.toTransport() = FlatDto(
   noAnimals = noAnimals.takeIf { it },
   noChildren = noChildren.takeIf { it },
   noParties = noParties.takeIf { it },
+  description = description.takeIf { it.isNotBlank() },
   photos = photos.takeIf { it.isNotEmpty() }
     ?.filter { it != MediaFileModel.NONE }
     ?.map { it.toTransport() }?.toSet()
@@ -51,6 +55,7 @@ fun BeContext.setQuery(query: RequestFlatCreate) = setQuery(query) {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestFlatRead) = apply {
@@ -60,6 +65,7 @@ fun BeContext.setQuery(query: RequestFlatRead) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestFlatUpdate) = apply {
@@ -69,6 +75,7 @@ fun BeContext.setQuery(query: RequestFlatUpdate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestFlatDelete) = apply {
@@ -78,12 +85,17 @@ fun BeContext.setQuery(query: RequestFlatDelete) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestFlatList) = apply {
-  flatFilter = query.filterData?.let {
+  flatFilter = query.filter?.let {
     FlatFilterModel(
-      text = it.text ?: ""
+      text = it.text ?: "",
+      includeDescription = it.includeDescription ?: false,
+      sortBy = it.sortBy?.let { SortModel.valueOf(it.name) } ?: SortModel.NONE,
+      offset = it.offset ?: Int.MIN_VALUE,
+      count = it.count ?: Int.MIN_VALUE,
     )
   } ?: FlatFilterModel.NONE
   stubCase = when (query.debug?.stubCase) {
@@ -91,6 +103,7 @@ fun BeContext.setQuery(query: RequestFlatList) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.respondFlatCreate() =
@@ -100,7 +113,10 @@ fun BeContext.respondFlatCreate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseFlatCreate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondFlatRead() =
@@ -110,7 +126,10 @@ fun BeContext.respondFlatRead() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseFlatRead.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondFlatUpdate() =
@@ -120,7 +139,10 @@ fun BeContext.respondFlatUpdate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseFlatUpdate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondFlatDelete() =
@@ -130,7 +152,10 @@ fun BeContext.respondFlatDelete() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseFlatDelete.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondFlatList() =
@@ -141,12 +166,17 @@ fun BeContext.respondFlatList() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseFlatList.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
+    pageCount = pageCount,
   )
 
-private fun FlatCreateDto.toModel() = FlatModel(
+internal fun FlatCreateDto.toModel() = FlatModel(
   houseId = houseId?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
+  number = number ?: "",
   area = area ?: 0.0,
   areaLiving = areaLiving ?: 0.0,
   areaKitchen = areaKitchen ?: 0.0,
@@ -156,7 +186,7 @@ private fun FlatCreateDto.toModel() = FlatModel(
   residents = residents ?: 0,
   bedrooms = bedrooms ?: 0,
   beds = beds ?: 0,
-  bathroom = bathroom ?: 0,
+  bathrooms = bathrooms ?: 0,
   bathroomType = bathroomType?.toModel() ?: BathroomTypeModel.NONE,
   balcony = balcony ?: 0,
   loggia = loggia ?: 0,
@@ -179,6 +209,7 @@ private fun FlatUpdateDto.toModel() = FlatModel(
     ?: FlatIdModel.NONE,
   houseId = houseId?.let { HouseIdModel(it) }
     ?: HouseIdModel.NONE,
+  number = number ?: "",
   area = area ?: 0.0,
   areaLiving = areaLiving ?: 0.0,
   areaKitchen = areaKitchen ?: 0.0,
@@ -188,7 +219,7 @@ private fun FlatUpdateDto.toModel() = FlatModel(
   residents = residents ?: 0,
   bedrooms = bedrooms ?: 0,
   beds = beds ?: 0,
-  bathroom = bathroom ?: 0,
+  bathrooms = bathrooms ?: 0,
   bathroomType = bathroomType?.toModel() ?: BathroomTypeModel.NONE,
   balcony = balcony ?: 0,
   loggia = loggia ?: 0,

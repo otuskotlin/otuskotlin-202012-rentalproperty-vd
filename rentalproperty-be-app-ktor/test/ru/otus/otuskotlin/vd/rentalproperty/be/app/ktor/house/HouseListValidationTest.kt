@@ -8,7 +8,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.ResponseStatusDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.WorkModeDto
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseListFilterDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.HouseFilterDto
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.RequestHouseList
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.house.ResponseHouseList
 import kotlin.test.Test
@@ -23,8 +23,8 @@ class HouseListValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseList) {
         val body = RequestHouseList(
-          requestId = "321",
-          filterData = HouseListFilterDto(
+          requestId = "request-id",
+          filter = HouseFilterDto(
 
           ),
           debug = RequestHouseList.Debug(
@@ -47,7 +47,7 @@ class HouseListValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(2, res.houses?.firstOrNull()?.floors)
       }
     }

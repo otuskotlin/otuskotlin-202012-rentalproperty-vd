@@ -1,6 +1,7 @@
 plugins {
   kotlin("js") apply false
   kotlin("jvm") apply false
+  kotlin("kapt") apply false
   kotlin("multiplatform") apply false
 
   id("org.openapi.generator") apply false

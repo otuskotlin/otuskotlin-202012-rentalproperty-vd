@@ -14,6 +14,7 @@ data class ResponseHouseList(
   override val status: ResponseStatusDto? = null,
   override val debug: Debug? = null,
   val houses: List<HouseDto>? = null,
+  val pageCount: Int? = null,
 ) : IResponse, Message() {
 
   @Serializable

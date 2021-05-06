@@ -7,6 +7,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 @Serializable
 data class FlatCreateDto(
   val houseId: String? = null,
+  val number: String? = null,
   val area: Double? = null,
   val areaLiving: Double? = null,
   val areaKitchen: Double? = null,
@@ -15,13 +16,13 @@ data class FlatCreateDto(
   val ceilingHeight: Double? = null,
   val bedrooms: Int? = null,
   val beds: Int? = null,
-  val bathroom: Int? = null,
+  val bathrooms: Int? = null,
   val bathroomType: BathroomTypeDto? = null,
   val balcony: Int? = null,
   val loggia: Int? = null,
   val repairType: RepairTypeDto? = null,
   val viewFromWindow: ViewFromWindowDto? = null,
-  val conveniences: MutableSet<ConvenienceTypeDto>? = null,
+  val conveniences: MutableSet<ConveniencesDto>? = null,
   val appliances: MutableSet<AppliancesDto>? = null,
   val residents: Int? = null,
   val noSmoking: Boolean? = null,
@@ -42,16 +43,16 @@ data class FlatCreateDto(
       ceilingHeight = 2.5,
       bedrooms = 1,
       beds = 1,
-      bathroom = 1,
+      bathrooms = 1,
       bathroomType = BathroomTypeDto.STUB_COMBINED,
       balcony = 0,
       loggia = 0,
       repairType = RepairTypeDto.STUB_RENOVATION,
       viewFromWindow = ViewFromWindowDto.STUB_PARK,
       conveniences = mutableSetOf(
-        ConvenienceTypeDto.STUB_GAS,
-        ConvenienceTypeDto.STUB_FURNITURE_IN_KITCHEN,
-        ConvenienceTypeDto.STUB_PARKING,
+        ConveniencesDto.STUB_GAS,
+        ConveniencesDto.STUB_FURNITURE_IN_KITCHEN,
+        ConveniencesDto.STUB_PARKING,
       ),
       appliances = mutableSetOf(
         AppliancesDto.STUB_AIR_CONDITIONER,
@@ -65,6 +66,24 @@ data class FlatCreateDto(
       noParties = true,
       description = "Хрущёвка",
       photos = mutableSetOf(),
+    )
+    val STUB2 = FlatCreateDto(
+      houseId = "test-house-id",
+      number = "22",
+      area = 52.0,
+      rooms = 3,
+      floor = 2,
+      balcony = 1,
+      description = "Улучшенка",
+    )
+    val STUB3 = FlatCreateDto(
+      houseId = "test-house-id",
+      number = "33",
+      area = 73.0,
+      rooms = 4,
+      floor = 7,
+      balcony = 2,
+      description = "Распашонка",
     )
   }
 }

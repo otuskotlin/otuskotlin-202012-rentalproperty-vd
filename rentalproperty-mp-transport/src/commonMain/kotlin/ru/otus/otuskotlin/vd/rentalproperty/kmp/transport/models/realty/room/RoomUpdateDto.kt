@@ -1,7 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.realty.room
 
 import kotlinx.serialization.Serializable
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.ConvenienceTypeDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.ConveniencesDto
 
 @Serializable
 class RoomUpdateDto(
@@ -12,5 +12,5 @@ class RoomUpdateDto(
   val houseId: String? = null,
   val number: Int? = null,
   val ceilingHeight: Double? = null,
-  val conveniences: MutableSet<ConvenienceTypeDto>? = null,
+  val conveniences: MutableSet<ConveniencesDto>? = null,
 )

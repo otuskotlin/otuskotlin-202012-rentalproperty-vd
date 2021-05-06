@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class InfrastructureModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = InfrastructureModel()
     val list = setOf(
@@ -14,19 +14,19 @@ data class InfrastructureModel(
       "WATER"
     )
     val STUB_GAZ = InfrastructureModel(
-      DirectoryIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-1"),
       "GAZ"
     )
     val STUB_ELECTRICITY = InfrastructureModel(
-      DirectoryIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-2"),
       "ELECTRICITY"
     )
     val STUB_SEWERAGE = InfrastructureModel(
-      DirectoryIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-3"),
       "SEWERAGE"
     )
     val STUB_WATER = InfrastructureModel(
-      DirectoryIdModel("test-im-id"),
+      DirectoryItemIdModel("test-im-id-4"),
       "WATER"
     )
   }

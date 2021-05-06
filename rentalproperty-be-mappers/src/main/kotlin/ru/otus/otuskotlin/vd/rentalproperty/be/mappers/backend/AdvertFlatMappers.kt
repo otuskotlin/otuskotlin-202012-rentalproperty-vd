@@ -1,7 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.SortModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
@@ -30,6 +32,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatCreate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatRead) = apply {
@@ -39,6 +42,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatRead) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatUpdate) = apply {
@@ -48,6 +52,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatUpdate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatDelete) = apply {
@@ -57,12 +62,17 @@ fun BeContext.setQuery(query: RequestAdvertFlatDelete) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestAdvertFlatList) = apply {
   advertHouseFilter = query.filterData?.let {
     AdvertFilterModel(
-      text = it.text ?: ""
+      text = it.text ?: "",
+      includeDescription = it.includeDescription ?: false,
+      sortBy = it.sortBy?.let { SortModel.valueOf(it.name) } ?: SortModel.NONE,
+      offset = it.offset ?: Int.MIN_VALUE,
+      count = it.count ?: Int.MIN_VALUE,
     )
   } ?: AdvertFilterModel.NONE
   stubCase = when (query.debug?.stubCase) {
@@ -70,6 +80,7 @@ fun BeContext.setQuery(query: RequestAdvertFlatList) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.respondAdvertFlatCreate() = ResponseAdvertFlatCreate(
@@ -78,7 +89,10 @@ fun BeContext.respondAdvertFlatCreate() = ResponseAdvertFlatCreate(
   status = status.toTransport(),
   responseId = responseId,
   onRequest = onRequest,
-  endTime = Instant.now().toString()
+  endTime = Instant.now().toString(),
+  debug = ResponseAdvertFlatCreate.Debug(
+    mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+  )
 )
 
 fun BeContext.respondAdvertFlatRead() = ResponseAdvertFlatRead(
@@ -87,7 +101,10 @@ fun BeContext.respondAdvertFlatRead() = ResponseAdvertFlatRead(
   status = status.toTransport(),
   responseId = responseId,
   onRequest = onRequest,
-  endTime = Instant.now().toString()
+  endTime = Instant.now().toString(),
+  debug = ResponseAdvertFlatRead.Debug(
+    mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+  )
 )
 
 fun BeContext.respondAdvertFlatUpdate() = ResponseAdvertFlatUpdate(
@@ -96,7 +113,10 @@ fun BeContext.respondAdvertFlatUpdate() = ResponseAdvertFlatUpdate(
   status = status.toTransport(),
   responseId = responseId,
   onRequest = onRequest,
-  endTime = Instant.now().toString()
+  endTime = Instant.now().toString(),
+  debug = ResponseAdvertFlatUpdate.Debug(
+    mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+  )
 )
 
 fun BeContext.respondAdvertFlatDelete() = ResponseAdvertFlatDelete(
@@ -105,7 +125,10 @@ fun BeContext.respondAdvertFlatDelete() = ResponseAdvertFlatDelete(
   status = status.toTransport(),
   responseId = responseId,
   onRequest = onRequest,
-  endTime = Instant.now().toString()
+  endTime = Instant.now().toString(),
+  debug = ResponseAdvertFlatDelete.Debug(
+    mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+  )
 )
 
 fun BeContext.respondAdvertFlatList() = ResponseAdvertFlatList(
@@ -115,10 +138,13 @@ fun BeContext.respondAdvertFlatList() = ResponseAdvertFlatList(
   status = status.toTransport(),
   responseId = responseId,
   onRequest = onRequest,
-  endTime = Instant.now().toString()
+  endTime = Instant.now().toString(),
+  debug = ResponseAdvertFlatList.Debug(
+    mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+  )
 )
 
-private fun AdvertFlatCreateDto.toModel() = AdvertFlatModel(
+internal fun AdvertFlatCreateDto.toModel() = AdvertFlatModel(
   userId = userId?.let { UserIdModel(it) } ?: UserIdModel.NONE,
   flatId = flatId?.let { FlatIdModel(it) } ?: FlatIdModel.NONE,
   name = name ?: "",

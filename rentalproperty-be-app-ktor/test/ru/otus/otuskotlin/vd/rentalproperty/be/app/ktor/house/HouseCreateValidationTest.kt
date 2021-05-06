@@ -24,7 +24,7 @@ class HouseCreateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseCreate) {
         val body = RequestHouseCreate(
-          requestId = "321",
+          requestId = "request-id",
           createData = HouseCreateDto.STUB_SINGLE_HOUSE,
           debug = RequestHouseCreate.Debug(
             mode = WorkModeDto.TEST,
@@ -46,7 +46,7 @@ class HouseCreateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.SUCCESS, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertEquals(HouseTypeDto.STUB_SINGLE_HOUSE, res.house?.type)
         assertEquals(2, res.house?.floors)
       }
@@ -58,7 +58,7 @@ class HouseCreateValidationTest {
     withTestApplication({ module(testing = true) }) {
       handleRequest(HttpMethod.Post, RestEndpoints.houseCreate) {
         val body = RequestHouseCreate(
-          requestId = "321",
+          requestId = "request-id",
           createData = HouseCreateDto()
         )
 
@@ -75,7 +75,7 @@ class HouseCreateValidationTest {
           ?: fail("Incorrect response format")
 
         assertEquals(ResponseStatusDto.BAD_REQUEST, res.status)
-        assertEquals("321", res.onRequest)
+        assertEquals("request-id", res.onRequest)
         assertTrue {
           res.errors?.firstOrNull {
             it.message?.contains("title") == true

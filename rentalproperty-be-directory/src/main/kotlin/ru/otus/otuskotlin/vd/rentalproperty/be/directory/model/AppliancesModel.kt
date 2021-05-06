@@ -4,9 +4,9 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
  * Список бытовой техники и устройств в доме или квартире
  */
 data class AppliancesModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = AppliancesModel()
     val list = setOf(
@@ -22,15 +22,15 @@ data class AppliancesModel(
       "WASHING_MACHINE"
     )
     val STUB_AIR_CONDITIONER = AppliancesModel(
-      DirectoryIdModel("test-a-id"),
+      DirectoryItemIdModel("test-a-id-1"),
       "AIR_CONDITIONER"
     )
     val STUB_KITCHEN_STOVE = AppliancesModel(
-      DirectoryIdModel("test-a-id"),
+      DirectoryItemIdModel("test-a-id-2"),
       "KITCHEN_STOVE"
     )
     val STUB_INTERNET = AppliancesModel(
-      DirectoryIdModel("test-a-id"),
+      DirectoryItemIdModel("test-a-id-3"),
       "INTERNET"
     )
   }

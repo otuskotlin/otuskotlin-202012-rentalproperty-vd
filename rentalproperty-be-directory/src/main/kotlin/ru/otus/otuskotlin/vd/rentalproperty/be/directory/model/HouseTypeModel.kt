@@ -1,9 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.directory.model
 
 data class HouseTypeModel(
-  override val id: DirectoryIdModel = DirectoryIdModel.NONE,
+  override val id: DirectoryItemIdModel = DirectoryItemIdModel.NONE,
   override val name: String = "",
-) : DirectoryModel() {
+) : IDirectoryItemModel {
   companion object {
     val NONE = HouseTypeModel()
     val list = setOf(
@@ -14,11 +14,11 @@ data class HouseTypeModel(
       "TOWNHOUSE",
     )
     val STUB_SINGLE_HOUSE = HouseTypeModel(
-      DirectoryIdModel("test-ht-id"),
+      DirectoryItemIdModel("test-ht-id-1"),
       "SINGLE_HOUSE"
     )
     val STUB_MULTI_APARTMENT = HouseTypeModel(
-      DirectoryIdModel("test-ht-id"),
+      DirectoryItemIdModel("test-ht-id-2"),
       "MULTI_APARTMENT"
     )
   }
