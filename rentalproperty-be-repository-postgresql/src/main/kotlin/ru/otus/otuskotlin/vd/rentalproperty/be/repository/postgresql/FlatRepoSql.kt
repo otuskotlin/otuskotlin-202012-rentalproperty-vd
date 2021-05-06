@@ -87,40 +87,40 @@ class FlatRepoSql(
         }
       }
     }
-    transaction(db) {
-      flatNew.conveniences = getListDirectoryDto(model.conveniences)
-      flatNew.appliances = getListDirectoryDto(model.appliances)
-      flatNew.photos = getListMediaFileDto(model.photos)
+    return transaction(db) {
+      getListDirectoryDto(model.conveniences)
+        .takeIf { !it.empty() }
+        ?.let {
+          flatNew.conveniences = it
+        }
+      getListDirectoryDto(model.appliances)
+        .takeIf { !it.empty() }
+        ?.let {
+          flatNew.appliances = it
+        }
+      getListMediaFileDto(model.photos)
+        .takeIf { !it.empty() }
+        ?.let {
+          flatNew.photos = it
+        }
+      val flatModel = flatNew.toModel()
+      context.responseFlat = flatModel
+      println("flatModel: id '$flatModel.id', description '$flatModel.description'")
+      flatModel
     }
-    val flatModel = flatNew.toModel()
-    //val flatNewId = flatNew.id
-    //DirectoryDto[model.bathroomType.id]
-    //DirectoryRepoInSql.readById(model.bathroomType.id)
-    //      model.conveniences.forEach {
-    //        DirectoryDto.new {
-    //          model.conveniences
-    //        }
-    //      }
-    //FlatDto[flatNewId].toModel()
-    context.responseFlat = flatModel
-    return flatModel
   }
 
   private fun getDirectoryDto(item: IDirectoryItemModel): DirectoryDto? =
     item.takeIf { it.id != DirectoryItemIdModel.NONE }
-      ?.run {
-        DirectoryDto.findById(id.asUUID()) ?: throw RepoNotFoundException(id.id)
+      ?.let {
+        DirectoryDto.findById(it.id.asUUID()) ?: throw RepoNotFoundException(it.id.id)
       } //?: throw RepoWrongIdException(item.id.id)
 
   private fun getListDirectoryDto(items: Set<IDirectoryItemModel>): SizedIterable<DirectoryDto> {
-    val foundItems = DirectoryDto.find {
+    if (items.isEmpty()) return emptySized() //TODO or null
+    return DirectoryDto.find {
       (DirectoriesTable.id.inList(items.map { it.id.asUUID() }.toList()))
     }
-    //if (foundItems.empty())
-    //  throw RepoNotFoundException(items.map { it.id }.toList().toString())
-    //else
-    println("foundItems: $foundItems")
-    return foundItems
   }
 
   private fun getListMediaFileDto(items: Set<MediaFileModel>): SizedIterable<MediaFileDto> =

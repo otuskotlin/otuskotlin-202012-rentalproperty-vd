@@ -50,11 +50,11 @@ class FlatDto(id: EntityID<UUID>) : UUIDEntity(id) {
     bedrooms = bedrooms,
     beds = beds,
     bathrooms = bathrooms,
-    bathroomType = (bathroomType?.toModel()) as BathroomTypeModel,
+    bathroomType = (bathroomType?.toModel() ?: BathroomTypeModel.NONE) as BathroomTypeModel,
     balcony = balcony,
     loggia = loggia,
-    repairType = (repairType?.toModel()) as RepairTypeModel,
-    viewFromWindow = (viewFromWindow?.toModel()) as ViewFromWindowModel,
+    repairType = (repairType?.toModel() ?: RepairTypeModel.NONE) as RepairTypeModel,
+    viewFromWindow = (viewFromWindow?.toModel() ?: ViewFromWindowModel.NONE) as ViewFromWindowModel,
     conveniences = conveniences.limit(100)
       .map { (it.toModel()) as ConvenienceModel }.toMutableSet(),
     appliances = appliances.limit(100)

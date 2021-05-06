@@ -13,7 +13,7 @@ object FlatsTable : UUIDTable("flats") {
   val ceilingHeight = double("ceiling_height")
   val bedrooms = integer("bedrooms")
   val beds = integer("beds")
-  val bathrooms = integer("bathroom")
+  val bathrooms = integer("bathrooms")
 
   //one-to-many
   val bathroomType = reference("bathroom_type_id", DirectoriesTable).nullable()
