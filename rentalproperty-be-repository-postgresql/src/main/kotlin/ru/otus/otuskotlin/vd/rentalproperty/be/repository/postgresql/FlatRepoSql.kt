@@ -10,12 +10,12 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IFlatRepository
+import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.postgresql.schema.*
 import java.sql.Connection
-import java.util.*
 
-class FlatRepoInSql(
+class FlatRepoSql(
   url: String = "jdbc:postgresql://localhost:5432/rentalproperty",
   driver: String = "org.postgresql.Driver",
   user: String = "postgres",
@@ -75,54 +75,52 @@ class FlatRepoInSql(
 
   private suspend fun createWithId(context: BeContext, setId: Boolean = false): FlatModel {
     val model = context.requestFlat
-    return transaction(db) {
+    val flatNew = transaction(db) {
       if (printLogs) addLogger(StdOutSqlLogger)
-      val flatNew = FlatDto.new(
+      FlatDto.new(
         if (setId) model.id.asUUID() else null
       ) {
         of(model).apply {
-          bathroomType = getDirectoryDto(model.bathroomType.id.asUUID())
-          repairType = getDirectoryDto(model.repairType.id.asUUID())
-          viewFromWindow = getDirectoryDto(model.viewFromWindow.id.asUUID())
-          conveniences = getListDirectoryDto(model.conveniences)
-          appliances = getListDirectoryDto(model.appliances)
-          photos = getListMediaFileDto(model.photos)
+          bathroomType = getDirectoryDto(model.bathroomType)
+          repairType = getDirectoryDto(model.repairType)
+          viewFromWindow = getDirectoryDto(model.viewFromWindow)
         }
       }
-      flatNew.toModel()
-      //val flatNewId = flatNew.id
-      //DirectoryDto[model.bathroomType.id]
-      //DirectoryRepoInSql.readById(model.bathroomType.id)
-      //      model.conveniences.forEach {
-      //        DirectoryDto.new {
-      //          model.conveniences
-      //        }
-      //      }
-      //FlatDto[flatNewId].toModel()
     }
+    transaction(db) {
+      flatNew.conveniences = getListDirectoryDto(model.conveniences)
+      flatNew.appliances = getListDirectoryDto(model.appliances)
+      flatNew.photos = getListMediaFileDto(model.photos)
+    }
+    val flatModel = flatNew.toModel()
+    //val flatNewId = flatNew.id
+    //DirectoryDto[model.bathroomType.id]
+    //DirectoryRepoInSql.readById(model.bathroomType.id)
+    //      model.conveniences.forEach {
+    //        DirectoryDto.new {
+    //          model.conveniences
+    //        }
+    //      }
+    //FlatDto[flatNewId].toModel()
+    context.responseFlat = flatModel
+    return flatModel
   }
 
-  private fun getDirectoryDto(id: UUID): DirectoryDto {
-    if (id.equals(""))
-      throw RepoWrongIdException(id.toString())
-    else {
-      val item = DirectoryDto.findById(id)
-      if (item == null) {
-        throw RepoNotFoundException(id.toString())
-      } else {
-        return item
-      }
-    }
-  }
+  private fun getDirectoryDto(item: IDirectoryItemModel): DirectoryDto? =
+    item.takeIf { it.id != DirectoryItemIdModel.NONE }
+      ?.run {
+        DirectoryDto.findById(id.asUUID()) ?: throw RepoNotFoundException(id.id)
+      } //?: throw RepoWrongIdException(item.id.id)
 
   private fun getListDirectoryDto(items: Set<IDirectoryItemModel>): SizedIterable<DirectoryDto> {
     val foundItems = DirectoryDto.find {
       (DirectoriesTable.id.inList(items.map { it.id.asUUID() }.toList()))
     }
-    if (foundItems.empty())
-      throw RepoNotFoundException(items.map { it.id }.toList().toString())
-    else
-      return foundItems
+    //if (foundItems.empty())
+    //  throw RepoNotFoundException(items.map { it.id }.toList().toString())
+    //else
+    println("foundItems: $foundItems")
+    return foundItems
   }
 
   private fun getListMediaFileDto(items: Set<MediaFileModel>): SizedIterable<MediaFileDto> =
@@ -152,9 +150,9 @@ class FlatRepoInSql(
       flatToUpdate
         .apply {
           of(model).apply {
-            bathroomType = getDirectoryDto(model.bathroomType.id.asUUID())
-            repairType = getDirectoryDto(model.repairType.id.asUUID())
-            viewFromWindow = getDirectoryDto(model.viewFromWindow.id.asUUID())
+            bathroomType = getDirectoryDto(model.bathroomType)
+            repairType = getDirectoryDto(model.repairType)
+            viewFromWindow = getDirectoryDto(model.viewFromWindow)
             conveniences = getListDirectoryDto(model.conveniences)
             appliances = getListDirectoryDto(model.appliances)
             photos = getListMediaFileDto(model.photos)
