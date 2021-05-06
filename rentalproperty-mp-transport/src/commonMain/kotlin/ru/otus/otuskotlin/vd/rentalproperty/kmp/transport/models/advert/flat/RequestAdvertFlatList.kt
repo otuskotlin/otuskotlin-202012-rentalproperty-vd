@@ -14,7 +14,7 @@ data class RequestAdvertFlatList(
   override val onResponse: String? = null,
   override val startTime: String? = null,
   override val debug: Debug? = null,
-  val filterData: AdvertFlatListFilterDto? = null,
+  val filterData: AdvertFlatFilterDto? = null,
 ) : IRequest, Message() {
 
   @Serializable

@@ -32,9 +32,9 @@ openApiGenerate {
     }
     globalProperties.apply {
         put("models", "")
-        put("modelDocs", "false")
-        put("invoker", "false")
-        put("apis", "false")
+      put("modelDocs", "false")
+//        put("invoker", "false")
+//        put("apis", "false")
     }
     inputSpec.set("${rootProject.projectDir}/specs/rentalproperty-base-api.yaml")
 }

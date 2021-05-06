@@ -1,7 +1,9 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.SortModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.media.MediaFileModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
@@ -44,6 +46,7 @@ fun BeContext.setQuery(query: RequestHouseCreate) = setQuery(query) {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestHouseRead) = apply {
@@ -53,6 +56,7 @@ fun BeContext.setQuery(query: RequestHouseRead) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestHouseUpdate) = apply {
@@ -62,6 +66,7 @@ fun BeContext.setQuery(query: RequestHouseUpdate) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestHouseDelete) = apply {
@@ -71,12 +76,17 @@ fun BeContext.setQuery(query: RequestHouseDelete) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.setQuery(query: RequestHouseList) = apply {
   houseFilter = query.filter?.let {
     HouseFilterModel(
-      text = it.text ?: ""
+      text = it.text ?: "",
+      includeDescription = it.includeDescription ?: false,
+      sortBy = it.sortBy?.let { SortModel.valueOf(it.name) } ?: SortModel.NONE,
+      offset = it.offset ?: Int.MIN_VALUE,
+      count = it.count ?: Int.MIN_VALUE,
     )
   } ?: HouseFilterModel.NONE
   stubCase = when (query.debug?.stubCase) {
@@ -84,6 +94,7 @@ fun BeContext.setQuery(query: RequestHouseList) = apply {
     else -> StubCase.NONE
   }
   onRequest = query.requestId ?: ""
+  workMode = query.debug?.mode.toModel()
 }
 
 fun BeContext.respondHouseCreate() =
@@ -93,7 +104,10 @@ fun BeContext.respondHouseCreate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseHouseCreate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondHouseRead() =
@@ -103,7 +117,10 @@ fun BeContext.respondHouseRead() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseHouseRead.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondHouseUpdate() =
@@ -113,7 +130,10 @@ fun BeContext.respondHouseUpdate() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseHouseUpdate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondHouseDelete() =
@@ -123,7 +143,10 @@ fun BeContext.respondHouseDelete() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseHouseDelete.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 fun BeContext.respondHouseList() =
@@ -134,7 +157,10 @@ fun BeContext.respondHouseList() =
     status = status.toTransport(),
     responseId = responseId,
     onRequest = onRequest,
-    endTime = Instant.now().toString()
+    endTime = Instant.now().toString(),
+    debug = ResponseHouseList.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    )
   )
 
 internal fun HouseCreateDto.toModel() = HouseModel(
