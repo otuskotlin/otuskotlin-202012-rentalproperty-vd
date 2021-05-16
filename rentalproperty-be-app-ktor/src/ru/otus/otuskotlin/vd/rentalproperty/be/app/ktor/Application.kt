@@ -1,6 +1,10 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.application.*
+import io.ktor.auth.*
+import io.ktor.auth.jwt.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.content.*
@@ -9,8 +13,10 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.AuthConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.CassandraConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.exceptions.WrongConfigException
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IDirectoryRepository
@@ -38,12 +44,15 @@ fun Application.module(
   testFlatRepo: IFlatRepository? = null,
   testHouseRepo: IHouseRepository? = null,
 ) {
-  val cassandraConfig by lazy {
-    CassandraConfig(environment)
-  }
+  val cassandraConfig by lazy { CassandraConfig(environment) }
+  val authConfig by lazy { AuthConfig(environment) }
 
   val repoProdName by lazy {
-    environment.config.property("rentalproperty.repository.prod").getString().trim().toLowerCase()
+    environment.config.propertyOrNull("rentalproperty.repository.prod")
+      ?.getString()
+      ?.trim()
+      ?.toLowerCase()
+      ?: "inmemory"
   }
 
   val directoryRepoProd = when (repoProdName) {
@@ -54,7 +63,8 @@ fun Application.module(
       user = cassandraConfig.user,
       pass = cassandraConfig.pass,
     )
-    else -> IDirectoryRepository.NONE
+    "inmemory" -> DirectoryRepoInMemory()
+    else -> throw WrongConfigException("Demand repository is not set")
   }
 
   val flatRepoProd = when (repoProdName) {
@@ -65,7 +75,8 @@ fun Application.module(
       user = cassandraConfig.user,
       pass = cassandraConfig.pass,
     )
-    else -> IFlatRepository.NONE
+    "inmemory" -> FlatRepoInMemory()
+    else -> throw WrongConfigException("Demand repository is not set")
   }
 
   val houseRepoProd = when (repoProdName) {
@@ -76,7 +87,8 @@ fun Application.module(
       user = cassandraConfig.user,
       pass = cassandraConfig.pass,
     )
-    else -> IHouseRepository.NONE
+    "inmemory" -> HouseRepoInMemory()
+    else -> throw WrongConfigException("Demand repository is not set")
   }
 
   val directoryRepoTest = testDirectoryRepo ?: DirectoryRepoInMemory(ttl = 2.toDuration(DurationUnit.HOURS))
@@ -122,6 +134,35 @@ fun Application.module(
     )
   }
 
+  install(Authentication) {
+    jwt(authConfig.name) {
+      realm = authConfig.realm
+      verifier(
+        JWT
+          .require(Algorithm.HMAC256(authConfig.secret))
+          .withAudience(authConfig.audience)
+          .withIssuer(authConfig.domain)
+          .build()
+      )
+      validate { credential ->
+        println(
+          "AUDIENCE: ${credential.payload.audience} ${authConfig.audience} ${
+            credential.payload.audience.contains(
+              authConfig.audience
+            )
+          }"
+        )
+        println("ISSUER: ${credential.payload.issuer}")
+        println("SUBJECT: ${credential.payload.subject}")
+        if (credential.payload.audience.contains(authConfig.audience)) {
+          JWTPrincipal(credential.payload)
+        } else {
+          null
+        }
+      }
+    }
+  }
+
   // Подключаем Websocket
   websocketEndpoints(
     flatService = flatService,
@@ -155,7 +196,7 @@ fun Application.module(
     }
 
     directoryRouting(directoryService)
-    flatRouting(flatService)
+    flatRouting(flatService, authConfig)
     houseRouting(houseService)
     advertFlatRouting(advertFlatService)
     advertHouseRouting(advertHouseService)
