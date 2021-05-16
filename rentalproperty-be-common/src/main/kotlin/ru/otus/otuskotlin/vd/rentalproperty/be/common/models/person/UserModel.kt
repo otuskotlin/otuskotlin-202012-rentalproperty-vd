@@ -6,7 +6,8 @@ data class UserModel(
   var id: UserIdModel = UserIdModel.NONE,
   var email: Email = Email.NONE,
   var profile: ProfileModel = ProfileModel.NONE,
-  var roles: MutableSet<RoleModel> = mutableSetOf()
+  var roles: MutableSet<RoleModel> = mutableSetOf(),
+  var enable: Boolean = false,
 ) {
   companion object {
     val NONE = UserModel()
@@ -20,7 +21,8 @@ data class UserModel(
         dob = LocalDate.of(1980, 10, 5),
         phone = Phone.NONE,
       ),
-      roles = mutableSetOf(RoleModel.STUB_ADMIN_SUPER)
+      roles = mutableSetOf(RoleModel.STUB_ADMIN_SUPER),
+      enable = true,
     )
     val STUB_USER = UserModel(
       UserIdModel("test-user-id-2"),
@@ -32,7 +34,8 @@ data class UserModel(
         dob = LocalDate.of(1990, 8, 3),
         phone = Phone.NONE,
       ),
-      roles = mutableSetOf(RoleModel.STUB_USER)
+      roles = mutableSetOf(RoleModel.STUB_USER),
+      enable = true,
     )
   }
 }

@@ -36,6 +36,7 @@ fun JWTPrincipal.toModel(): PrincipalModel {
       ?.let { UserIdModel(it) }
       ?: UserIdModel.NONE,
     user = user,
-    authorities = authorities
+    authorities = authorities,
+    enabled = user.enable,
   )
 }
