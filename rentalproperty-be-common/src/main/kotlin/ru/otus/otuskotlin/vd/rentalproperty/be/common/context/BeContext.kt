@@ -7,6 +7,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilter
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.PrincipalModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
@@ -16,6 +17,8 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.IDirectoryItemMod
 import java.time.Instant
 
 data class BeContext(
+  var principal: PrincipalModel = PrincipalModel.NONE,
+
   var timeStarted: Instant = Instant.MIN,
   var responseId: String = "",
   var onRequest: String = "",
