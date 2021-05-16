@@ -2,13 +2,13 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.context
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.IError
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.StubCase
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertFlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertHouseModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.advert.AdvertIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.*
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.EmptyUserSession
-import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IUserSession
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryFilterModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.DirectoryItemModel
@@ -20,9 +20,13 @@ data class BeContext(
   var responseId: String = "",
   var onRequest: String = "",
   var status: BeContextStatus = BeContextStatus.NONE,
+
   var errors: MutableList<IError> = mutableListOf(),
   var frameworkErrors: MutableList<Throwable> = mutableListOf(),
+
   var stubCase: StubCase = StubCase.NONE,
+  var workMode: WorkMode = WorkMode.DEFAULT,
+  var pageCount: Int = Int.MIN_VALUE,
 
   val userSession: IUserSession<*> = EmptyUserSession,
 
@@ -60,4 +64,19 @@ data class BeContext(
   var directoryFilter: DirectoryFilterModel = DirectoryFilterModel.NONE,
   var responseDirectoryItem: IDirectoryItemModel = DirectoryItemModel.NONE,
   var responseDirectoryItems: MutableList<IDirectoryItemModel> = mutableListOf(),
+
+  //Repository Flat
+  var flatRepoTest: IFlatRepository = IFlatRepository.NONE,
+  var flatRepoProd: IFlatRepository = IFlatRepository.NONE,
+  var flatRepo: IFlatRepository = IFlatRepository.NONE,
+
+  //Repository House
+  var houseRepoTest: IHouseRepository = IHouseRepository.NONE,
+  var houseRepoProd: IHouseRepository = IHouseRepository.NONE,
+  var houseRepo: IHouseRepository = IHouseRepository.NONE,
+
+  //Repository Directory
+  var directoryRepoTest: IDirectoryRepository = IDirectoryRepository.NONE,
+  var directoryRepoProd: IDirectoryRepository = IDirectoryRepository.NONE,
+  var directoryRepo: IDirectoryRepository = IDirectoryRepository.NONE,
 )

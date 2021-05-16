@@ -1,6 +1,7 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.mappers.backend
 
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.WorkMode
 import ru.otus.otuskotlin.vd.rentalproperty.be.directory.model.*
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.directory.*
 import java.time.Instant
@@ -12,8 +13,12 @@ fun BeContext.respondDirectoryItemList() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
+    debug = ResponseDirectoryItemList.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
     directoryItems = responseDirectoryItems.takeIf { it.isNotEmpty() }?.filter { it != DirectoryItemModel.NONE }
       ?.map { it.toTransport() },
+    pageCount = pageCount,
   )
 
 fun BeContext.respondDirectoryItemCreate() =
@@ -23,6 +28,9 @@ fun BeContext.respondDirectoryItemCreate() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
+    debug = ResponseDirectoryItemCreate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
     directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
   )
 
@@ -33,6 +41,9 @@ fun BeContext.respondDirectoryItemRead() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
+    debug = ResponseDirectoryItemRead.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
     directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
   )
 
@@ -43,6 +54,9 @@ fun BeContext.respondDirectoryItemUpdate() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
+    debug = ResponseDirectoryItemUpdate.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
     directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
   )
 
@@ -53,6 +67,9 @@ fun BeContext.respondDirectoryItemDelete() =
     endTime = Instant.now().toString(),
     errors = errors.takeIf { it.isNotEmpty() }?.map { it.toTransport() },
     status = status.toTransport(),
+    debug = ResponseDirectoryItemDelete.Debug(
+      mode = workMode.takeIf { it != WorkMode.DEFAULT }?.toTransport()
+    ),
     directoryItem = responseDirectoryItem.takeIf { it != DirectoryItemModel.NONE }?.toTransport(),
   )
 
