@@ -2,11 +2,8 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person
 
 data class PrincipalModel(
   val id: UserIdModel = UserIdModel.NONE,
-  val username: String = "",
-  val fname: String = "",
-  val mname: String = "",
-  val lname: String = "",
-  val authorities: List<GrantedAuthority> = emptyList(),
+  val user: UserModel = UserModel.NONE,
+  val authorities: Set<GrantedAuthority> = emptySet(),
   val enabled: Boolean = false,
 ) {
   companion object {

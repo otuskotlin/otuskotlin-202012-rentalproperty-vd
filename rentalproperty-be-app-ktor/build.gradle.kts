@@ -25,6 +25,8 @@ dependencies {
 
   implementation(kotlin("stdlib-jdk8"))
 
+  implementation("io.ktor:ktor-auth:$ktorVersion")
+  implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
   implementation("io.ktor:ktor-serialization:$ktorVersion")
   implementation("io.ktor:ktor-server-core:$ktorVersion")
   implementation("io.ktor:ktor-server-host-common:$ktorVersion")

@@ -1,6 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper
 
 import io.ktor.application.*
+import io.ktor.auth.*
+import io.ktor.auth.jwt.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
@@ -11,6 +13,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.jsonConfig
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.toModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.PrincipalModel
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import java.time.Instant
@@ -28,6 +31,7 @@ suspend inline fun <reified T : IRequest, reified U : Message>
     try {
         val query = call.receive<Message>() as T
         ctx.status = BeContextStatus.RUNNING
+        ctx.principal = call.principal<JWTPrincipal>()?.toModel() ?: PrincipalModel.NONE
         val response = ctx.block(query)
         val respJson = jsonConfig.encodeToString(Message::class.serializer(), response)
         call.respondText(respJson, contentType = ContentType.parse("application/json"))
