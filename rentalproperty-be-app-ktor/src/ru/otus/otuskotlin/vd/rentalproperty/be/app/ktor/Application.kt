@@ -1,20 +1,16 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.application.*
-import io.ktor.auth.*
-import io.ktor.auth.jwt.*
-import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.serialization.*
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.producer.Producer
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.AuthConfig
-import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.CassandraConfig
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.AuthProperties
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.CassandraProperties
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.featureAuth
+import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config.featureRest
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.exceptions.WrongConfigException
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.*
@@ -44,8 +40,11 @@ fun Application.module(
   testFlatRepo: IFlatRepository? = null,
   testHouseRepo: IHouseRepository? = null,
 ) {
-  val cassandraConfig by lazy { CassandraConfig(environment) }
-  val authConfig by lazy { AuthConfig(environment) }
+  val authProperties by lazy { AuthProperties(environment) }
+  featureAuth(authProperties)
+  featureRest()
+
+  val cassandraProperties by lazy { CassandraProperties(environment) }
 
   val repoProdName by lazy {
     environment.config.propertyOrNull("rentalproperty.repository.prod")
@@ -57,11 +56,11 @@ fun Application.module(
 
   val directoryRepoProd = when (repoProdName) {
     "cassandra" -> DirectoryRepositoryCassandra(
-      keyspaceName = cassandraConfig.keyspace,
-      hosts = cassandraConfig.hosts,
-      port = cassandraConfig.port,
-      user = cassandraConfig.user,
-      pass = cassandraConfig.pass,
+      keyspaceName = cassandraProperties.keyspace,
+      hosts = cassandraProperties.hosts,
+      port = cassandraProperties.port,
+      user = cassandraProperties.user,
+      pass = cassandraProperties.pass,
     )
     "inmemory" -> DirectoryRepoInMemory()
     else -> throw WrongConfigException("Demand repository is not set")
@@ -69,11 +68,11 @@ fun Application.module(
 
   val flatRepoProd = when (repoProdName) {
     "cassandra" -> FlatRepositoryCassandra(
-      keyspaceName = cassandraConfig.keyspace,
-      hosts = cassandraConfig.hosts,
-      port = cassandraConfig.port,
-      user = cassandraConfig.user,
-      pass = cassandraConfig.pass,
+      keyspaceName = cassandraProperties.keyspace,
+      hosts = cassandraProperties.hosts,
+      port = cassandraProperties.port,
+      user = cassandraProperties.user,
+      pass = cassandraProperties.pass,
     )
     "inmemory" -> FlatRepoInMemory()
     else -> throw WrongConfigException("Demand repository is not set")
@@ -81,11 +80,11 @@ fun Application.module(
 
   val houseRepoProd = when (repoProdName) {
     "cassandra" -> HouseRepositoryCassandra(
-      keyspaceName = cassandraConfig.keyspace,
-      hosts = cassandraConfig.hosts,
-      port = cassandraConfig.port,
-      user = cassandraConfig.user,
-      pass = cassandraConfig.pass,
+      keyspaceName = cassandraProperties.keyspace,
+      hosts = cassandraProperties.hosts,
+      port = cassandraProperties.port,
+      user = cassandraProperties.user,
+      pass = cassandraProperties.pass,
     )
     "inmemory" -> HouseRepoInMemory()
     else -> throw WrongConfigException("Demand repository is not set")
@@ -115,53 +114,6 @@ fun Application.module(
   val houseService = HouseService(houseCrud)
   val advertFlatService = AdvertFlatService(advertFlatCrud)
   val advertHouseService = AdvertHouseService(advertHouseCrud)
-
-  install(CORS) {
-    method(HttpMethod.Options)
-    method(HttpMethod.Put)
-    method(HttpMethod.Delete)
-    method(HttpMethod.Patch)
-    header(HttpHeaders.Authorization)
-    header("MyCustomHeader")
-    allowCredentials = true
-    anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
-  }
-
-  install(ContentNegotiation) {
-    json(
-      contentType = ContentType.Application.Json,
-      json = jsonConfig,
-    )
-  }
-
-  install(Authentication) {
-    jwt(authConfig.name) {
-      realm = authConfig.realm
-      verifier(
-        JWT
-          .require(Algorithm.HMAC256(authConfig.secret))
-          .withAudience(authConfig.audience)
-          .withIssuer(authConfig.domain)
-          .build()
-      )
-      validate { credential ->
-        println(
-          "AUDIENCE: ${credential.payload.audience} ${authConfig.audience} ${
-            credential.payload.audience.contains(
-              authConfig.audience
-            )
-          }"
-        )
-        println("ISSUER: ${credential.payload.issuer}")
-        println("SUBJECT: ${credential.payload.subject}")
-        if (credential.payload.audience.contains(authConfig.audience)) {
-          JWTPrincipal(credential.payload)
-        } else {
-          null
-        }
-      }
-    }
-  }
 
   // Подключаем Websocket
   websocketEndpoints(
@@ -196,7 +148,7 @@ fun Application.module(
     }
 
     directoryRouting(directoryService)
-    flatRouting(flatService, authConfig)
+    flatRouting(flatService, authProperties)
     houseRouting(houseService)
     advertFlatRouting(advertFlatService)
     advertHouseRouting(advertHouseService)

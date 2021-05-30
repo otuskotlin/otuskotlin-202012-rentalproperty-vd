@@ -18,6 +18,7 @@ import java.time.Instant
 
 data class BeContext(
   var principal: PrincipalModel = PrincipalModel.NONE,
+  var useAuth: Boolean = true,
 
   var timeStarted: Instant = Instant.MIN,
   var responseId: String = "",
