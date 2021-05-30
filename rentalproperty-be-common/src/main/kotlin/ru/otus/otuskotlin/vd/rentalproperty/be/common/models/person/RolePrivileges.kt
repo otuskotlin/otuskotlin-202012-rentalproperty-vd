@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person
 
-enum class PrivilegeEnum {
+enum class RolePrivileges {
   USER_CREATE,
   USER_READ,
   USER_DELETE,
