@@ -3,7 +3,7 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.config
 import io.ktor.application.*
 import io.ktor.util.*
 
-data class CassandraConfig(
+data class CassandraProperties(
   val hosts: String = "localhost",
   val port: Int = 9042,
   val user: String = "cassandra",
