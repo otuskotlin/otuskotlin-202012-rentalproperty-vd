@@ -4,6 +4,7 @@
 # Project exclude paths
 build/
 /build/
+/.run/
 
 # Generated files
 bin/
