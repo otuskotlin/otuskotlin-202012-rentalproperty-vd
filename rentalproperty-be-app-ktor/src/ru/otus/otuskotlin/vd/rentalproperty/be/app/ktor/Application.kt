@@ -24,6 +24,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.repository.cassandra.house.HouseR
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.directory.DirectoryRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.FlatRepoInMemory
 import ru.otus.otuskotlin.vd.rentalproperty.be.repository.inmemory.realty.HouseRepoInMemory
+import java.util.*
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
@@ -50,8 +51,8 @@ fun Application.module(
     environment.config.propertyOrNull("rentalproperty.repository.prod")
       ?.getString()
       ?.trim()
-      ?.toLowerCase()
-      ?: "inmemory"
+      ?.lowercase(Locale.getDefault())
+      ?: "cassandra"
   }
 
   val directoryRepoProd = when (repoProdName) {
