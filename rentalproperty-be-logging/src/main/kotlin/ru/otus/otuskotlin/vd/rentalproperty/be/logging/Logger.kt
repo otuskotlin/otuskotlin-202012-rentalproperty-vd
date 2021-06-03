@@ -3,11 +3,11 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.logging
 import ch.qos.logback.classic.Logger
 import org.slf4j.LoggerFactory
 
-fun mpLogger(loggerId: String): MpLogContext = mpLogger(
+fun logger(loggerId: String): LogContext = logger(
   logger = LoggerFactory.getLogger(loggerId) as Logger
 )
 
-fun mpLogger(clazz: Class<out Any>): MpLogContext = mpLogger(
+fun logger(clazz: Class<out Any>): LogContext = logger(
   logger = LoggerFactory.getLogger(clazz) as Logger
 )
 
@@ -16,7 +16,7 @@ fun mpLogger(clazz: Class<out Any>): MpLogContext = mpLogger(
  *
  * @param logger интстанс логера Logback, полученный методом [[LoggerFactory.getLogger()]]
  */
-fun mpLogger(logger: Logger): MpLogContext = MpLogContext(
+fun logger(logger: Logger): LogContext = LogContext(
   logger = logger,
   loggerId = logger.name,
 )

@@ -14,7 +14,7 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.toModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.PrincipalModel
-import ru.otus.otuskotlin.vd.rentalproperty.be.logging.MpLogContext
+import ru.otus.otuskotlin.vd.rentalproperty.be.logging.LogContext
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.IRequest
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.common.Message
 import java.time.Instant
@@ -23,7 +23,7 @@ import java.util.*
 @OptIn(InternalSerializationApi::class)
 suspend inline fun <reified T : IRequest, reified U : Message> PipelineContext<Unit, ApplicationCall>.handleRoute(
   logId: String,
-  logger: MpLogContext,
+  logger: LogContext,
   crossinline block: suspend BeContext.(T?) -> U
 ) {
   val ctx = BeContext(

@@ -8,7 +8,7 @@ import org.slf4j.event.LoggingEvent
 import java.time.Instant
 
 
-data class MpLogContext(
+data class LogContext(
   /**
    * Объект логера Logback.
    */

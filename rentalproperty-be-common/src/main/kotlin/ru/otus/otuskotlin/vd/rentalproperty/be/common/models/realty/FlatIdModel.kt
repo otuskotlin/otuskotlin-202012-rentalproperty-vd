@@ -2,7 +2,6 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty
 
 import java.util.*
 
-
 inline class FlatIdModel(
   val id: String
 ) {

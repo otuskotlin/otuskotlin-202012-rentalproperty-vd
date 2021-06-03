@@ -3,11 +3,11 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller
 import io.ktor.routing.*
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.helper.handleRoute
 import ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.service.AdvertHouseService
-import ru.otus.otuskotlin.vd.rentalproperty.be.logging.mpLogger
+import ru.otus.otuskotlin.vd.rentalproperty.be.logging.logger
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.RestEndpoints
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.advert.house.*
 
-private val logger = mpLogger(Routing::flatRouting::class.java)
+private val logger = logger(Routing::flatRouting::class.java)
 
 fun Routing.advertHouseRouting(service: AdvertHouseService) {
   post(RestEndpoints.advertHouseCreate) {

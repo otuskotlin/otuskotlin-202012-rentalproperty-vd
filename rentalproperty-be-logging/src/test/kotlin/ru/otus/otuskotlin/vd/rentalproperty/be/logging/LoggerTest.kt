@@ -8,7 +8,7 @@ internal class LoggerTest {
   @Test
   fun loggerInit() {
     runBlocking {
-      val logger = mpLogger(this::class.java)
+      val logger = logger(this::class.java)
       logger.doWithLoggingSusp(logId = "test-logger") {
         println("Some action")
       }
