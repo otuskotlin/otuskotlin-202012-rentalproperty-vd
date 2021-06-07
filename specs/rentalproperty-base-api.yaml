@@ -9,16 +9,16 @@ info:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: Realty
+  - name: realty
     description: Работа с недвижимостью
-  - name: Advert
+  - name: advert
     description: Работа с объявлениями
 
 paths:
   /adverts:
     get:
       tags:
-        - Advert
+        - advert
       summary: Получить список объявлений
       responses:
         200:
@@ -64,6 +64,40 @@ components:
           title: Сформирован на request.id
           description: Идентификатор запроса, на который сформирован текущий ответ
 
+    Item:
+      allOf:
+        - $ref: '#/components/schemas/ItemUpdate'
+        - type: object
+          title: Разрешения на единицу информации
+          description: Базовая структура для основных сущностей
+          properties:
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/ItemPermission'
+
+    ItemCreate:
+      type: object
+      title: Создание объекта
+      description: Базовая структура для запроса создания
+      properties:
+        description:
+          type: string
+          title: Описание
+          example: Описание...
+
+    ItemUpdate:
+      allOf:
+        - $ref: '#/components/schemas/ItemCreate'
+        - type: object
+          description: Базовая структура для создания единицы информации
+          properties:
+            id:
+              type: string
+              title: Идентификатор
+              example: '12343-34534-67867'
+
     ItemPermission:
       type: string
       enum:
@@ -78,111 +112,3 @@ components:
         text:
           type: string
           title: Строковое представление фильтра
-
-    BathroomTypeDto:
-      type: string
-      description: Тип санузла
-      enum:
-        - COMBINED
-        - SEPARATED
-
-    ConvenienceDto:
-      type: string
-      description: Список удобств в квартире или в доме
-      enum:
-        - AIR_CONDITIONER
-        - CONCIERGE
-        - DISHWASHER
-        - FRIDGE
-        - INTERCOM
-        - INTERNET
-        - KINDERGARTEN
-        - KITCHEN_STOVE
-        - FURNITURE_IN_KITCHEN
-        - FURNITURE_IN_ROOM
-        - PARK
-        - PARKING
-        - PLAYGROUND
-        - REFRIGERATOR
-        - SCHOOL
-        - SHOPPING_CENTER
-        - SPORTS_GROUND
-        - TELEPHONE
-        - TV
-        - WASHING_MACHINE
-
-    HouseMaterialDto:
-      type: string
-      description: Список видов основного материала из которого сделан дом
-      enum:
-        - BLOCK
-        - BRICK
-        - BRICK_MONOLITHIC
-        - MONOLITHIC
-        - PANEL
-
-    HouseTypeDto:
-      type: string
-      description: Тип дома
-      enum:
-        - SINGLE_HOUSE
-        - PART_HOUSE
-        - TOWNHOUSE
-        - DUPLEX
-
-    InfrastructureDto:
-      type: string
-      description: Инфраструктура в доме или квартире
-      enum:
-        - GAZ
-        - HEATING
-        - ELECTRICITY
-        - SEWERAGE
-        - WATER
-
-    PlotStatusDto:
-      type: string
-      description: Возможные варианты статуса земельного участка
-      enum:
-        - IRP
-        - GARDEN
-        - FARM
-
-    RealtyTypeDto:
-      type: string
-      description: Список вариантов недвижимого имущества
-      enum:
-        - APARTMENT
-        - CAR_BOX
-        - COMMERCIAL
-        - GARAGE
-        - FLAT
-        - HOTEL
-        - HOSTEL
-        - HOUSE
-        - NEW_BUILDING
-        - OFFICE
-        - PARKING_SPACE
-        - PART_HOUSE
-        - PLOT
-        - ROOM
-
-    RepairTypeDto:
-      type: string
-      description: Виды ремонтов в квартире
-      enum:
-        - WITHOUT_REPAIR
-        - RENOVATION
-        - DESIGNER_RENOVATION
-        - REDECORATING
-
-    ViewFromWindowDto:
-      type: string
-      description: Возможные виды из окна квартиры
-      enum:
-        - FOREST
-        - PARK
-        - POND
-        - STREET
-        - YARD
-

@@ -1,0 +1,264 @@
+openapi: 3.0.3
+info:
+  title: Rentalproperty
+  description: ''
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: flat
+    description: Квартиры
+  - name: house
+    description: Дома
+
+paths:
+  /flat/list:
+    post:
+      tags:
+        - flat
+      summary: Получить список квартир
+      operationId: flatList
+      requestBody:
+        description: Запрос
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFlatList'
+        required: true
+      responses:
+        200:
+          description: Успех
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFlatList'
+
+  /flat/create:
+    post:
+      tags:
+        - flat
+      summary: Создание квартиры
+      operationId: flatCreate
+      requestBody:
+        description: Запрос
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFlatCreate'
+        required: true
+      responses:
+        200:
+          description: Положительный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFlatCreate'
+
+  /flat/read:
+    post:
+      tags:
+        - flat
+      summary: Получение информации о квартире
+      operationId: flatRead
+      requestBody:
+        description: Запрос
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFlatRead'
+        required: true
+      responses:
+        200:
+          description: Положительный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFlatRead'
+
+  /flat/update:
+    post:
+      tags:
+        - flat
+      summary: Обновление информации о квартире
+      operationId: flatUpdate
+      requestBody:
+        description: Запрос
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFlatUpdate'
+        required: true
+      responses:
+        200:
+          description: Положительный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFlatUpdate'
+
+  /flat/delete:
+    post:
+      tags:
+        - flat
+      summary: Удаление квартиры
+      operationId: flatDelete
+      requestBody:
+        description: Запрос
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFlatDelete'
+        required: true
+      responses:
+        200:
+          description: Положительный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFlatDelete'
+
+components:
+  schemas:
+
+    RequestFlatList:
+      title: Запрос списка квартир
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            filterData:
+              $ref: '#/components/schemas/FlatListFilter'
+
+    ResponseFlatList:
+      title: Ответ на запрос списка квартир
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ResponseBase'
+        - type: object
+          properties:
+            flats:
+              type: array
+              items:
+                $ref: '#/components/schemas/Flat'
+
+    FlatListFilter:
+      title: Фильтр для поиска квартир
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemFilter'
+
+    RequestFlatCreate:
+      title: Запрос создания квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            createData:
+              $ref: '#/components/schemas/FlatCreate'
+
+    ResponseFlatCreate:
+      title: Ответ на запрос создания квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ResponseBase'
+        - type: object
+          properties:
+            flat:
+              $ref: '#/components/schemas/Flat'
+
+    #    FlatCreate:
+    #      title: Запрос создания квартиры
+    #      allOf:
+    #        - $ref: './rentalproperty-base-api.yaml#/components/schemas/FlatCreate'
+
+
+    RequestFlatRead:
+      title: Запрос на чтение квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            read:
+              type: object
+              properties:
+                id:
+                  type: string
+
+    ResponseFlatRead:
+      title: Ответ на запрос информации о квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ResponseBase'
+        - type: object
+          properties:
+            flat:
+              $ref: '#/components/schemas/Flat'
+
+
+    RequestFlatUpdate:
+      title: Запрос изменения квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            updateData:
+              $ref: '#/components/schemas/FlatUpdate'
+
+    ResponseFlatUpdate:
+      title: Ответ на запрос изменения информации о квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ResponseBase'
+        - type: object
+          properties:
+            flat:
+              $ref: '#/components/schemas/Flat'
+
+    #    FlatUpdate:
+    #      title: Запрос обновления квартиры
+    #      allOf:
+    #        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemUpdate'
+
+    RequestFlatDelete:
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/RequestBase'
+        - type: object
+          properties:
+            delete:
+              type: object
+              properties:
+                id:
+                  type: string
+
+    ResponseFlatDelete:
+      title: Ответ на запрос удаления квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/BaseMessage'
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ResponseBase'
+        - type: object
+          properties:
+            flat:
+              $ref: '#/components/schemas/Flat'
+            deleted:
+              type: boolean
+              title: Потребность удалена - true, false
+
+    Flat:
+      title: Потребность
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/Item'
+        - type: object
+          description: Идентификатор дома
+          properties:
+            id:
+              type: string
+              title: Идентификатор
+              example: '12343-34534-67867'
+
