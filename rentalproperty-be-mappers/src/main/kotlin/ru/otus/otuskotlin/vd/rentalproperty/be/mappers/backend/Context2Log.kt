@@ -5,17 +5,17 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.FlatModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseIdModel
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.realty.HouseModel
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.logs.CommonLogModel
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.transport.models.logs.LogModel
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.logs.CommonLogDto
+import ru.otus.otuskotlin.vd.rentalproperty.kmp.logs.LogDto
 import java.time.Instant
 import java.util.*
 
-fun BeContext.toLog(logId: String) = CommonLogModel(
+fun BeContext.toLog(logId: String) = CommonLogDto(
     messageId = UUID.randomUUID().toString(),
     messageTime = Instant.now().toString(),
-    source = "ok-rentalproperty",
     logId = logId,
-    rentalproperty = LogModel(
+    source = "rentalproperty",
+    rentalproperty = LogDto(
         requestFlatId = requestFlatId.takeIf { it != FlatIdModel.NONE }?.asString(),
         requestHouseId = requestHouseId.takeIf { it != HouseIdModel.NONE }?.asString(),
         requestFlat = requestFlat.takeIf { it != FlatModel.NONE }?.toTransport(),
