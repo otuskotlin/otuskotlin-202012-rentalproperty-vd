@@ -11,7 +11,8 @@ servers:
 tags:
   - name: flat
     description: Квартиры
-  - name: house
+#  - name: house
+#    description: Дома
 paths:
   /flat/list:
     $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1list'
@@ -24,13 +25,13 @@ paths:
   /flat/delete:
     $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1delete'
 
-  /house/list:
-    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1list'
-  /house/create:
-    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1create'
-  /house/read:
-    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1read'
-  /house/update:
-    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1update'
-  /house/delete:
-    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1delete'
+#  /house/list:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1list'
+#  /house/create:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1create'
+#  /house/read:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1read'
+#  /house/update:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1update'
+#  /house/delete:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1delete'

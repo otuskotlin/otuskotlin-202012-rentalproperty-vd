@@ -11,9 +11,6 @@ servers:
 tags:
   - name: flat
     description: Квартиры
-  - name: house
-    description: Дома
-
 paths:
   /flat/list:
     post:
@@ -131,7 +128,7 @@ components:
         - type: object
           properties:
             filterData:
-              $ref: '#/components/schemas/FlatListFilter'
+              $ref: '#/components/schemas/FlatFilter'
 
     ResponseFlatList:
       title: Ответ на запрос списка квартир
@@ -145,7 +142,7 @@ components:
               items:
                 $ref: '#/components/schemas/Flat'
 
-    FlatListFilter:
+    FlatFilter:
       title: Фильтр для поиска квартир
       allOf:
         - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemFilter'
@@ -170,12 +167,6 @@ components:
             flat:
               $ref: '#/components/schemas/Flat'
 
-    #    FlatCreate:
-    #      title: Запрос создания квартиры
-    #      allOf:
-    #        - $ref: './rentalproperty-base-api.yaml#/components/schemas/FlatCreate'
-
-
     RequestFlatRead:
       title: Запрос на чтение квартиры
       allOf:
@@ -199,7 +190,6 @@ components:
             flat:
               $ref: '#/components/schemas/Flat'
 
-
     RequestFlatUpdate:
       title: Запрос изменения квартиры
       allOf:
@@ -219,11 +209,6 @@ components:
           properties:
             flat:
               $ref: '#/components/schemas/Flat'
-
-    #    FlatUpdate:
-    #      title: Запрос обновления квартиры
-    #      allOf:
-    #        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemUpdate'
 
     RequestFlatDelete:
       allOf:
@@ -251,14 +236,119 @@ components:
               title: Потребность удалена - true, false
 
     Flat:
-      title: Потребность
+      title: Запрос создания квартиры
       allOf:
         - $ref: './rentalproperty-base-api.yaml#/components/schemas/Item'
+        - $ref: '#/components/schemas/FlatUpdate'
+
+    FlatUpdate:
+      title: Запрос обновления квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemUpdate'
+        - $ref: '#/components/schemas/FlatCreate'
+
+    FlatCreate:
+      title: Создание квартиры
+      allOf:
+        - $ref: './rentalproperty-base-api.yaml#/components/schemas/ItemCreate'
         - type: object
-          description: Идентификатор дома
+          description: Параметры квартиры
           properties:
-            id:
+            houseId:
               type: string
-              title: Идентификатор
+              title: Идентификатор дома
               example: '12343-34534-67867'
+            number:
+              type: string
+              title: Номер квартиры
+              example: '52'
+            area:
+              type: number
+              title: Площадь квартиры
+              example: 44.4
+            areaLiving:
+              type: number
+              title: Жилая площадь
+              example: 44.4
+            areaKitchen:
+              type: number
+              title: Площадь кухни
+              example: 44.4
+            rooms:
+              type: integer
+              title: Количество комнат
+              example: 2
+            floor:
+              type: integer
+              title: Этаж
+              example: 3
+            ceilingHeight:
+              type: number
+              title: Высота потолка
+              example: 2.5
+            bedrooms:
+              type: integer
+              title: Количество спалных комнат
+              example: 1
+            beds:
+              type: integer
+              title: Количество кроватей
+              example: 1
+            bathrooms:
+              type: integer
+              title: Количество вынных комнат
+              example: 1
+            bathroomType:
+              $ref: './rentalproperty-directory-api.yaml#/components/schemas/BathroomType'
+            balcony:
+              type: integer
+              title: Количество балконов
+              example: 1
+            loggia:
+              type: integer
+              title: Количество лоджий
+              example: 1
+            repairType:
+              $ref: './rentalproperty-directory-api.yaml#/components/schemas/RepairType'
+            viewFromWindow:
+              $ref: './rentalproperty-directory-api.yaml#/components/schemas/ViewFromWindow'
+            conveniences:
+              type: object
+              title: Список удобств имеющихся у квартиры
+              additionalProperties:
+                $ref: './rentalproperty-directory-api.yaml#/components/schemas/Conveniences'
+            appliances:
+              type: object
+              title: Список бытовой техники имеющейся в квартире
+              additionalProperties:
+                $ref: './rentalproperty-directory-api.yaml#/components/schemas/Appliances'
+            residents:
+              type: integer
+              title: Допустимое количество гостей
+              example: 3
+            noSmoking:
+              type: boolean
+              title: Запрет на курение
+              example: true
+            noAnimals:
+              type: boolean
+              title: Запрет на животных
+              example: true
+            noChildren:
+              type: boolean
+              title: Запрет на наличие детей
+              example: true
+            noParties:
+              type: boolean
+              title: Запрет на вечеринки
+              example: true
+            photos:
+              type: object
+              title: Фотографии квартиры
+              additionalProperties:
+                $ref: './rentalproperty-base-api.yaml#/components/schemas/MediaFile'
+
+
+
+
 

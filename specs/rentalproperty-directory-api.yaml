@@ -11,7 +11,6 @@ servers:
 tags:
   - name: directory
     description: Получение данных из справочников
-
 paths:
   /directory:
     get:
@@ -26,14 +25,14 @@ paths:
 components:
   schemas:
 
-    BathroomTypeDto:
+    BathroomType:
       type: string
       description: Тип санузла
       enum:
         - COMBINED
         - SEPARATED
 
-    ConvenienceDto:
+    Convenience:
       type: string
       description: Список удобств в квартире или в доме
       enum:
@@ -58,7 +57,7 @@ components:
         - TV
         - WASHING_MACHINE
 
-    HouseMaterialDto:
+    HouseMaterial:
       type: string
       description: Список видов основного материала из которого сделан дом
       enum:
@@ -68,7 +67,7 @@ components:
         - MONOLITHIC
         - PANEL
 
-    HouseTypeDto:
+    HouseType:
       type: string
       description: Тип дома
       enum:
@@ -77,7 +76,7 @@ components:
         - TOWNHOUSE
         - DUPLEX
 
-    InfrastructureDto:
+    Infrastructure:
       type: string
       description: Инфраструктура в доме или квартире
       enum:
@@ -87,7 +86,7 @@ components:
         - SEWERAGE
         - WATER
 
-    PlotStatusDto:
+    PlotStatus:
       type: string
       description: Возможные варианты статуса земельного участка
       enum:
@@ -95,7 +94,7 @@ components:
         - GARDEN
         - FARM
 
-    RealtyTypeDto:
+    RealtyType:
       type: string
       description: Список вариантов недвижимого имущества
       enum:
@@ -114,7 +113,7 @@ components:
         - PLOT
         - ROOM
 
-    RepairTypeDto:
+    RepairType:
       type: string
       description: Виды ремонтов в квартире
       enum:
@@ -123,7 +122,7 @@ components:
         - DESIGNER_RENOVATION
         - REDECORATING
 
-    ViewFromWindowDto:
+    ViewFromWindow:
       type: string
       description: Возможные виды из окна квартиры
       enum:

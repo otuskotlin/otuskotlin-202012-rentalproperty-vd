@@ -3,9 +3,6 @@ plugins {
     id("org.openapi.generator")
 }
 
-group = rootProject.group
-version = rootProject.version
-
 dependencies {
     val ktorVersion: String by project
     val logbackVersion: String by project
@@ -24,23 +21,24 @@ dependencies {
 
 openApiGenerate {
     val basePackage = "${project.group}.be.transport.openapi"
-    packageName.set(basePackage)
-    generatorName.set("kotlin-server")
-    configOptions.apply {
+  packageName.set(basePackage)
+  generatorName.set("kotlin-server")
+  configOptions.apply {
 //        put("library", "jvm-okhttp4")
 //        put("requestDateConverter", "toString")
-    }
-    globalProperties.apply {
-        put("models", "")
-      put("modelDocs", "false")
+  }
+  globalProperties.apply {
+    put("models", "")
+    put("modelDocs", "false")
 //        put("invoker", "false")
 //        put("apis", "false")
-    }
-    inputSpec.set("${rootProject.projectDir}/specs/rentalproperty-base-api.yaml")
+  }
+  inputSpec.set("${rootProject.projectDir}/specs/rentalproperty-all.yaml")
+  inputSpec.set("${rootProject.projectDir}/specs/rentalproperty-directory-api.yaml")
 }
 
 sourceSets.main {
-    java.srcDirs("$buildDir/generate-resources/main/src/main/kotlin")
+  java.srcDirs("$buildDir/generate-resources/src/main/kotlin")
 }
 
 tasks {

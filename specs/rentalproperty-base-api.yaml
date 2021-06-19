@@ -112,3 +112,24 @@ components:
         text:
           type: string
           title: Строковое представление фильтра
+
+    MediaFile:
+      type: object
+      description: Параметры медиаданных/файла в хранилищи
+      properties:
+        id:
+          type: string
+          title: Идентификатор квартиры
+          example: '12343-34534-67867'
+        title:
+          type: string
+          title: Наименование медиаданных
+          example: 'Фотография кухни'
+        url:
+          type: string
+          title: Путь к файлу в хранилищи
+          example: '/s3/rentalproperty/'
+        filename:
+          type: string
+          title: Имя файла в хранилищи
+          example: 'kitchen'
