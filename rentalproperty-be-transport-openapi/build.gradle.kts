@@ -29,7 +29,7 @@ dependencies {
 openApiGenerate {
   val basePackage = "${project.group}.be.transport.openapi"
   packageName.set(basePackage)
-  generatorName.set("kotlin-client")
+  generatorName.set("kotlin-server")
   configOptions.apply {
 //        put("library", "jvm-okhttp4")
 //        put("requestDateConverter", "toString")
