@@ -264,48 +264,59 @@ components:
               example: '52'
             area:
               type: number
+              format: double
               title: Площадь квартиры
               example: 44.4
             areaLiving:
               type: number
+              format: double
               title: Жилая площадь
-              example: 44.4
+              example: 27.3
             areaKitchen:
               type: number
+              format: double
               title: Площадь кухни
-              example: 44.4
+              example: 6.2
             rooms:
               type: integer
+              format: int32
               title: Количество комнат
               example: 2
             floor:
               type: integer
+              format: int32
               title: Этаж
               example: 3
             ceilingHeight:
               type: number
+              format: double
               title: Высота потолка
               example: 2.5
             bedrooms:
               type: integer
-              title: Количество спалных комнат
+              format: int32
+              title: Количество спальных комнат
               example: 1
             beds:
               type: integer
+              format: int32
               title: Количество кроватей
               example: 1
             bathrooms:
               type: integer
-              title: Количество вынных комнат
+              format: int32
+              title: Количество ванных комнат
               example: 1
             bathroomType:
               $ref: './rentalproperty-directory-api.yaml#/components/schemas/BathroomType'
             balcony:
               type: integer
+              format: int32
               title: Количество балконов
               example: 1
             loggia:
               type: integer
+              format: int32
               title: Количество лоджий
               example: 1
             repairType:
@@ -324,6 +335,7 @@ components:
                 $ref: './rentalproperty-directory-api.yaml#/components/schemas/Appliances'
             residents:
               type: integer
+              format: int32
               title: Допустимое количество гостей
               example: 3
             noSmoking:
