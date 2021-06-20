@@ -8,6 +8,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      discovery.type: single-node
 
   kibana:
     image: kibana:7.10.1
@@ -54,7 +56,6 @@ services:
     #      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
     links:
       - elasticsearch
-
 
   logstash:
     image: logstash:7.10.1
