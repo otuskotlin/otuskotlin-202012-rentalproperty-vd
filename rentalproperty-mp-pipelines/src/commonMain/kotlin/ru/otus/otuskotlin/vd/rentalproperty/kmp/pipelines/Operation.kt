@@ -4,7 +4,8 @@ class Operation<T>
 private constructor(
   private val checkPrecondition: Predicate<T>,
   private val runOperation: Runnable<T>,
-  private val handleError: ErrorHandler<T>
+  private val handleError: ErrorHandler<T>,
+  private val checkValues: List<String>,
 ) : IOperation<T> {
   override suspend fun execute(context: T) {
     try {
@@ -19,6 +20,7 @@ private constructor(
     private var checkPrecondition: Predicate<T> = { true }
     private var runOperation: Runnable<T> = {}
     private var handleError: ErrorHandler<T> = { throw it }
+    private var checkValues: List<String> = emptyList()
 
     fun startIf(block: Predicate<T>) {
       checkPrecondition = block
@@ -32,7 +34,13 @@ private constructor(
       handleError = block
     }
 
+    fun setCheckValues(block: List<String>) {
+      checkValues = block
+    }
+
+    fun getCheckValues() = checkValues
+
     override fun build(): Operation<T> =
-      Operation(checkPrecondition, runOperation, handleError)
+      Operation(checkPrecondition, runOperation, handleError, checkValues)
   }
 }

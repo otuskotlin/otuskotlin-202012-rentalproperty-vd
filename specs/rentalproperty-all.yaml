@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: Rentalproperty
+  description: 'Аренда недвижимости'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: flat
+    description: Квартиры
+#  - name: house
+#    description: Дома
+paths:
+  /flat/list:
+    $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1list'
+  /flat/create:
+    $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1create'
+  /flat/read:
+    $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1read'
+  /flat/update:
+    $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1update'
+  /flat/delete:
+    $ref: './rentalproperty-flat-api.yaml#/paths/~1flat~1delete'
+
+#  /house/list:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1list'
+#  /house/create:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1create'
+#  /house/read:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1read'
+#  /house/update:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1update'
+#  /house/delete:
+#    $ref: './rentalproperty-house-api.yaml#/paths/~1house~1delete'

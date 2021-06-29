@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Rental property
+  description: 'Аренда недвижимости'
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: directory
+    description: Получение данных из справочников
+paths:
+  /directory:
+    get:
+      tags:
+        - directory
+      summary: Получение данных из справочников
+      responses:
+        200:
+          description: Успех
+          content: { }
+
+components:
+  schemas:
+
+    BathroomType:
+      type: string
+      description: Тип санузла
+      enum:
+        - COMBINED
+        - SEPARATED
+
+    Convenience:
+      type: string
+      description: Список удобств в квартире или в доме
+      enum:
+        - AIR_CONDITIONER
+        - CONCIERGE
+        - DISHWASHER
+        - FRIDGE
+        - INTERCOM
+        - INTERNET
+        - KINDERGARTEN
+        - KITCHEN_STOVE
+        - FURNITURE_IN_KITCHEN
+        - FURNITURE_IN_ROOM
+        - PARK
+        - PARKING
+        - PLAYGROUND
+        - REFRIGERATOR
+        - SCHOOL
+        - SHOPPING_CENTER
+        - SPORTS_GROUND
+        - TELEPHONE
+        - TV
+        - WASHING_MACHINE
+
+    HouseMaterial:
+      type: string
+      description: Список видов основного материала из которого сделан дом
+      enum:
+        - BLOCK
+        - BRICK
+        - BRICK_MONOLITHIC
+        - MONOLITHIC
+        - PANEL
+
+    HouseType:
+      type: string
+      description: Тип дома
+      enum:
+        - SINGLE_HOUSE
+        - PART_HOUSE
+        - TOWNHOUSE
+        - DUPLEX
+
+    Infrastructure:
+      type: string
+      description: Инфраструктура в доме или квартире
+      enum:
+        - GAZ
+        - HEATING
+        - ELECTRICITY
+        - SEWERAGE
+        - WATER
+
+    PlotStatus:
+      type: string
+      description: Возможные варианты статуса земельного участка
+      enum:
+        - IRP
+        - GARDEN
+        - FARM
+
+    RealtyType:
+      type: string
+      description: Список вариантов недвижимого имущества
+      enum:
+        - APARTMENT
+        - CAR_BOX
+        - COMMERCIAL
+        - GARAGE
+        - FLAT
+        - HOTEL
+        - HOSTEL
+        - HOUSE
+        - NEW_BUILDING
+        - OFFICE
+        - PARKING_SPACE
+        - PART_HOUSE
+        - PLOT
+        - ROOM
+
+    RepairType:
+      type: string
+      description: Виды ремонтов в квартире
+      enum:
+        - WITHOUT_REPAIR
+        - RENOVATION
+        - DESIGNER_RENOVATION
+        - REDECORATING
+
+    ViewFromWindow:
+      type: string
+      description: Возможные виды из окна квартиры
+      enum:
+        - FOREST
+        - PARK
+        - POND
+        - STREET
+        - YARD
+

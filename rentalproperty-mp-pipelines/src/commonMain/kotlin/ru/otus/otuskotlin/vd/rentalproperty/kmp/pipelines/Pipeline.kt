@@ -4,7 +4,7 @@ class Pipeline<T>
 private constructor(
   private val operations: Collection<IOperation<T>>,
   private val checkPrecondition: Predicate<T>,
-  private val handleError: ErrorHandler<T>
+  private val handleError: ErrorHandler<T>,
 ) : IOperation<T> {
   override suspend fun execute(context: T) {
     try {

@@ -3,9 +3,9 @@ package ru.otus.otuskotlin.vd.rentalproperty.be.app.ktor.controller
 import io.ktor.application.*
 import io.ktor.routing.*
 import org.apache.kafka.clients.consumer.Consumer
-import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.Producer
+import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -39,9 +39,9 @@ fun Application.kafkaEndpoints(
   val producer: Producer<String, String> = kafkaProducer ?: run {
     KafkaProducer(
       mapOf(
-        ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to brokers,
-        ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
-        ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
+        ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to brokers,
+        ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
+        ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
       )
     )
   }

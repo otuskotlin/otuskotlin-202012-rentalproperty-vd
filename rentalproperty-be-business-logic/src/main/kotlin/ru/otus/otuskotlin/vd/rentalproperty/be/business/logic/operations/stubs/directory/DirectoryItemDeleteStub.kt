@@ -9,7 +9,10 @@ import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.operation
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.pipeline
 
 object DirectoryItemDeleteStub : IOperation<BeContext> by pipeline({
-  startIf { stubCase != StubCase.NONE }
+  startIf {
+    status == BeContextStatus.RUNNING
+        && stubCase != StubCase.NONE
+  }
 
   operation {
     startIf { stubCase == StubCase.DIRECTORY_DELETE_SUCCESS }

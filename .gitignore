@@ -4,6 +4,7 @@
 # Project exclude paths
 build/
 /build/
+/.run/
 
 # Generated files
 bin/
@@ -28,7 +29,6 @@ out/
 
 # Log file
 *.log
-logs/
 
 # BlueJ files
 *.ctxt

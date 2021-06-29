@@ -12,10 +12,12 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.common.repositories.IHouseReposit
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
+import kotlin.time.toDuration
 
 class HouseRepoInMemory @OptIn(ExperimentalTime::class) constructor(
-  ttl: Duration,
+  ttl: Duration = 30.toDuration(DurationUnit.SECONDS),
   initObjects: Collection<HouseModel> = emptyList()
 ) : IHouseRepository {
   @OptIn(ExperimentalTime::class)

@@ -1,5 +1,8 @@
 package ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.pipelines.flat
 
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.helpers.validation
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.helpers.validationGrantedAuthority
+import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.AuthorizationPipeline
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.CompletePipeline
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.InitializePipeline
 import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.QuerySetWorkMode
@@ -7,11 +10,11 @@ import ru.otus.otuskotlin.vd.rentalproperty.be.business.logic.operations.stubs.f
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContext
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.context.BeContextStatus
 import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.Error
+import ru.otus.otuskotlin.vd.rentalproperty.be.common.models.person.RolePrivileges
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.common.validation.validators.ValidatorStringNonEmpty
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.IOperation
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.operation
 import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.pipeline
-import ru.otus.otuskotlin.vd.rentalproperty.kmp.pipelines.validation.validation
 
 object FlatRead : IOperation<BeContext> by pipeline({
   execute(InitializePipeline)
@@ -19,9 +22,28 @@ object FlatRead : IOperation<BeContext> by pipeline({
   // Установка параметров контекста в зависимости от режима работы в запросе
   execute(QuerySetWorkMode)
 
+  // Валидация учетных данных
+  execute(AuthorizationPipeline)
+  validationGrantedAuthority {
+    setCheckValues(listOf(RolePrivileges.CONTENT_READ.name))
+  }
+//  validationAuthorization {
+//    validate<List<String>> {
+//      on { principal.authorities.map { a -> a.value } }
+//      validator(
+//        ValidatorHasInList(
+//          values = listOf(RolePrivileges.CONTENT_READ.name),
+//          field = "authorities",
+//          message = "You don't have sufficient authority",
+//        )
+//      )
+//    }
+//  }
+
   // Обработка запроса стаба
   execute(FlatReadStub)
 
+  // Валидация параметров запроса
   validation {
     validate<String?> {
       on { requestFlatId.id }

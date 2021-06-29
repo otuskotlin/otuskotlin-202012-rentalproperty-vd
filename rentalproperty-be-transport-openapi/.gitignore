@@ -2,6 +2,7 @@
 .gradle
 
 # Project exclude paths
+/build
 build/
 
 # Generated files

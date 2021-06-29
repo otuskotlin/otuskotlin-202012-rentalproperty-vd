@@ -17,6 +17,7 @@ dependencies {
   implementation(project(":rentalproperty-be-business-logic"))
   implementation(project(":rentalproperty-be-common"))
   implementation(project(":rentalproperty-be-directory"))
+  implementation(project(":rentalproperty-be-logging"))
   implementation(project(":rentalproperty-be-mappers"))
   implementation(project(":rentalproperty-be-repository-inmemory"))
   implementation(project(":rentalproperty-be-repository-cassandra"))
@@ -25,6 +26,8 @@ dependencies {
 
   implementation(kotlin("stdlib-jdk8"))
 
+  implementation("io.ktor:ktor-auth:$ktorVersion")
+  implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
   implementation("io.ktor:ktor-serialization:$ktorVersion")
   implementation("io.ktor:ktor-server-core:$ktorVersion")
   implementation("io.ktor:ktor-server-host-common:$ktorVersion")
